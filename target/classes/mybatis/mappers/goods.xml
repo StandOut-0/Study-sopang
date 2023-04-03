@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.goods">
+
+	<!-- 상품정보 -->
+	<resultMap id="goodsResult" type="goodsVO">
+		<result property="goods_id" column="goods_id" /><!-- 상품번호 -->
+		<result property="goods_sort" column="goods_sort" /><!-- 카테고리 -->
+		<result property="goods_status" column="goods_status" /><!-- 상품분류 -->
+		<result property="goods_title" column="goods_title" /><!-- 상품제목 -->
+		<result property="goods_intro" column="goods_intro" /><!-- 상품소개 -->
+		<result property="goods_sales_price" column="goods_sales_price" /><!-- 상품판매가격 -->
+		<result property="goods_delivery_price" column="goods_delivery_price" /><!-- 배송비 -->
+		<result property="goods_delivery_date" column="goods_delivery_date" /><!-- 상품배송일 -->
+		
+		<!-- 상품이미지 정보 -->
+		<result property="goods_fileName" column="fileName" /><!-- 이미지파일명 -->
+	</resultMap>	
+
+	<!-- 상품이미지 정보 -->
+	<resultMap id="imageResult" type="ImageFileVO">
+	   <result property="goods_id" column="goods_id" /><!-- 상품번호 -->
+	   <result property="image_id" column="image_id" /><!-- 이미지번호 -->
+	   <result property="fileName" column="fileName" /><!-- 이미지파일명 -->
+	   <result property="reg_id" column="reg_id" /><!-- 등록자아이디 -->
+	   <result property="fileType" column="fileType" /><!-- 이미지파일종류 -->
+	</resultMap>
+	
+
+	
+   
+      <select id="selectGoodsList" parameterType="String" resultMap="goodsResult"   >
+        <![CDATA[
+         select t.*
+          from(
+			select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+        	where g.goods_id=d.goods_id 
+        	and d.filetype='main_image'
+        	and goods_status=#{goodsStatus}
+            order by g.goods_creDate desc)  t
+	             where   rowNum <16
+	    ]]>
+	</select>
+	
+	<select id="selectGoodsDetail" resultMap="goodsResult"   parameterType="String"  >
+	    <![CDATA[
+		     select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+	        where g.goods_id=d.goods_id
+	        and d.filetype='main_image'
+	        and g.goods_id=#{goods_id}
+	        order by g.goods_id
+    	]]>
+	</select>
+	<select id="selectGoodsDetailImage" resultMap="imageResult"   parameterType="String"  >
+	    <![CDATA[
+		    	select * from  t_goods_detail_image 
+		    	where  fileType!='main_image'
+				and goods_id=#{goods_id}
+    	]]>
+	</select>
+	
+   <select id="selectGoodsBySearchWord" resultMap="goodsResult"   parameterType="String"  >
+     <![CDATA[
+				select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+		    where g.goods_id=d.goods_id
+		    and d.filetype='main_image'
+		    and g.goods_title like '%'|| #{searchWord} || '%'
+		    order by g.goods_creDate desc
+		]]>
+	</select>	
+	
+	<select id="selectKeywordSearch" resultType="String"   parameterType="String"  >
+	    <![CDATA[
+        select goods_title from t_shopping_goods 
+        where         
+        goods_title like '%'|| #{keyword} || '%'
+        order by goods_creDate desc
+		]]>
+	</select>
+	
+
+</mapper>
