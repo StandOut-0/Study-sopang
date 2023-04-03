@@ -13,7 +13,6 @@ window.onload=function()
 {
   result();
 }
-
 function result(){
 	alert("아이디나  비밀번호가 틀립니다. 다시 로그인해주세요");
 }
@@ -22,23 +21,23 @@ function result(){
 </head>
 <body>
 	    
-
-        <input class="form-control form-control-lg rounded-0 mb-3" type="text" placeholder="아이디">
+<form action="${contextPath}/member/login.do" method="post">
+        <input class="form-control form-control-lg rounded-0 mb-3" name="member_id" type="text" placeholder="아이디">
           
-       <input class="form-control form-control-lg rounded-0 mb-0 is-valid d-none" type="text" placeholder="아이디">
+       <input class="form-control form-control-lg rounded-0 mb-0 is-valid d-none" name="member_id" type="text" placeholder="아이디">
      
-         <input class="form-control form-control-lg rounded-0 mb-3 is-invalid d-none" type="text" placeholder="아이디">
+         <input class="form-control form-control-lg rounded-0 mb-3 is-invalid d-none" name="member_id" type="text" placeholder="아이디">
 
 
-        <input class="form-control form-control-lg rounded-0 mb-3" type="text" placeholder="비밀번호">
+        <input class="form-control form-control-lg rounded-0 mb-3" name="member_pw" type="text" placeholder="비밀번호">
 
-        <div class="invalid-feedback text-start fs-07 mb-3">
+        <div class="invalid-feedback text-start fs-07 mb-3 d-none">
             모든 정보를 입력해주세요.
           </div> 
 
-        <button type="button" class="btn btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">로그인</button>
-        <a class="btn border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3"  href="#">회원가입</a>
-
+        <button type="submit" class="btn btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">로그인</button>
+        <a class="btn border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3"  href="${contextPath}/member/addMember.do">회원가입</a>
+</form>
 
 
 </body>
