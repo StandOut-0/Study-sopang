@@ -1,30 +1,44 @@
 package com.standout.sopang.main;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.standout.sopang.common.base.BaseController;
+import com.standout.sopang.goods.service.GoodsService;
+import com.standout.sopang.goods.vo.GoodsVO;
 
 
-@Controller
-public class MainController {
+@Controller("mainController")
+@EnableAspectJAutoProxy
+public class MainController extends BaseController{
 	
-	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+	@Autowired
+	private GoodsService goodsService;
 	
-	@RequestMapping(value = "/main/main.do", method = RequestMethod.GET)
-	public String main(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	@RequestMapping(value= "/main/main.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		HttpSession session;
+		ModelAndView mav=new ModelAndView();
 		String viewName=(String)request.getAttribute("viewName");
-		System.out.println(viewName);
-		return viewName;
+		mav.setViewName(viewName);
+		
+		session=request.getSession();
+		session.setAttribute("side_menu", "user");
+		Map<String, List<GoodsVO>> goodsMap=goodsService.listGoods();
+		mav.addObject("goodsMap", goodsMap);
+		System.out.println(goodsMap);
+		return mav;
 	}
 	
 }
