@@ -16,4 +16,7 @@ public interface GoodsDAO {
 	
 	//추천키워드
 	public List<String> selectKeywordSearch(String keyword) throws DataAccessException;
+	
+	//검색
+	public List<GoodsVO> selectGoodsBySearchWord(String searchWord) throws DataAccessException;
 }

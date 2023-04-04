@@ -8,36 +8,35 @@
 
 <div class="container">
 
+	<div class="row">
+		<div class="p-0 align-items-center gap-3 mt-5">
+			<!-- <p class="fs-6 mb-1">HOT! TREND</p>
+                <p class="fs-3 fw-bold">카테고리</p> -->
+		</div>
+	</div>
+
 	<div class="row mt-4">
-		<div
-			class="d-flex categoryGoodList align-items-start flex-wrap p-0" style="gap: 4.1rem!important;">
-			<c:choose>
-				<c:when test="${empty goodsList}">
-					해당 카테고리에 상품이 없습니다.
-				</c:when>
+		<div class="d-flex categoryGoodList align-items-start flex-wrap p-0"
+			style="gap: 4.1rem !important;">
 
-				<c:otherwise>
-					<c:forEach var="item" items="${goodsList}">
+			<c:forEach var="item" items="${goodsList}">
 
 
-						<div class="p-0">
-							<a
-								href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}"
-								class="text-decoration-none d-block"> <img
-								src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
-								style="width: 250px">
-								<p class="mt-4 mb-0 text-truncate fw-bold fs-6">${item.goods_title}</p>
-								<p>
-									<span class="text-danger fw-bold fs-4 me-1">${item.goods_sales_price}</span>원
-								</p>
-							</a>
-						</div>
+				<div class="p-0">
+					<a
+						href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}"
+						class="text-decoration-none d-block"> <img
+						src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
+						style="width: 250px">
+						<p class="mt-4 mb-0 text-truncate fw-bold fs-6">${item.goods_title}</p>
+						<p>
+							<span class="text-danger fw-bold fs-4 me-1">${item.goods_sales_price}</span>원
+						</p>
+					</a>
+				</div>
 
-					</c:forEach>
+			</c:forEach>
 
-				</c:otherwise>
-
-			</c:choose>
 		</div>
 	</div>
 
