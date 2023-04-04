@@ -43,5 +43,29 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		return mav;
 	}
 
+
+	@RequestMapping(value="/keywordSearch.do",method = RequestMethod.GET,produces = "application/text; charset=utf8")
+	public @ResponseBody String  keywordSearch(@RequestParam("keyword") String keyword,
+			                                  HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=utf-8");
+		response.setCharacterEncoding("utf-8");
+		//System.out.println(keyword);
+		if(keyword == null || keyword.equals(""))
+		   return null ;
+	
+		keyword = keyword.toUpperCase();
+	    List<String> keywordList =goodsService.keywordSearch(keyword);
+	    
+	 // 최종 완성될 JSONObject 선언(전체)
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("keyword", keywordList);
+		 		
+	    String jsonInfo = jsonObject.toString();
+	   // System.out.println(jsonInfo);
+	    return jsonInfo ;
+	}
+	
+	
+	
 	
 }

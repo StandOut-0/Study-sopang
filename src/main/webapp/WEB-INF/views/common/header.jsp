@@ -4,6 +4,79 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
+<script type="text/javascript">
+	var loopSearch = true;
+	function keywordSearch() {
+		var searchWordValue = document.getElementById('searchWord').value;
+		var value = document.frmSearch.searchWord.value;
+		
+		if (loopSearch == false) return;
+		if(searchWordValue.length > 0){
+			$.ajax({
+				type : "get",
+				async : true, //false인 경우 동기식으로 처리한다.
+				url : "${contextPath}/goods/keywordSearch.do",
+				data : {
+					keyword : value
+				},
+				success : function(data, textStatus) {
+					var jsonInfo = JSON.parse(data);
+					displayResult(jsonInfo);
+				},
+				error : function(data, textStatus) {
+					alert("에러가 발생했습니다." + data);
+				},
+				complete : function(data, textStatus) {
+					//alert("작업을완료 했습니다");
+				}
+			}); //end ajax	
+		}else{
+			hide('suggest');
+		}
+	}
+
+	function displayResult(jsonInfo) {
+		var count = jsonInfo.keyword.length;
+		var listView = document.getElementById("innerDivForSuggestList");
+		if (count > 0) {
+			var html = '';
+			for ( var i in jsonInfo.keyword) {
+				html += "<li><a class='dropdown-item small' href=\"javascript:select('"
+						+ jsonInfo.keyword[i]
+						+ "')\">"
+						+ jsonInfo.keyword[i]
+						+ "</a></li>";
+			}
+			listView.innerHTML = html;
+			show('suggest');
+		} else {
+			hide('suggest');
+		}
+	}
+
+	function select(selectedKeyword) {
+		document.frmSearch.searchWord.value = selectedKeyword;
+		loopSearch = false;
+		hide('suggest');
+	}
+
+	function show(elementId) {
+		var element = document.getElementById(elementId);
+		if (element) {
+			element.classList.remove('d-none');
+			element.classList.add('d-block');
+		}
+	}
+
+	function hide(elementId) {
+		var element = document.getElementById(elementId);
+		if (element) {
+			element.classList.remove('d-block');
+			element.classList.add('d-none');
+		}
+	}
+</script>
+
 <body>
 	<div class="sticky-sm-top header">
 		<div class="bg-light d-flex p-0 justify-content-end border-bottom">
@@ -35,11 +108,16 @@
 							<i class="fa-solid fa-bars d-block mt-1 mb-1"></i> <span
 								class="small">카테고리</span>
 						</button>
-						<ul class="dropdown-menu rounded-0 shadow border-0 px-2 py-3">
-							<li><a class="dropdown-item small" href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=생활용품">생활용품</a></li>
-							<li><a class="dropdown-item small" href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=디지털">디지털</a></li>
-							<li><a class="dropdown-item small" href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=도서">도서</a></li>
-							<li><a class="dropdown-item small" href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=건강기능식품">건강기능식품</a></li>
+						<ul class="dropdown-menu rounded-0 shadow border-0 px-2 py-3"
+							id="suggestList">
+							<li><a class="dropdown-item small"
+								href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=생활용품">생활용품</a></li>
+							<li><a class="dropdown-item small"
+								href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=디지털">디지털</a></li>
+							<li><a class="dropdown-item small"
+								href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=도서">도서</a></li>
+							<li><a class="dropdown-item small"
+								href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=건강기능식품">건강기능식품</a></li>
 						</ul>
 					</div>
 
@@ -56,19 +134,27 @@
 								<option value="">생활용품</option>
 								<option value="">디지털</option>
 								<option value="">건강기능식품</option>
-							</select> <input type="text small" class="form-control border-0"
-								placeholder="찾고 싶은 상품을 검색해보세요!"> <a href="#"
-								class="text-decoration-none samll d-flex align-items-center px-2">
-								<i class="fa-solid fa-magnifying-glass d-block color-main"></i>
-							</a>
-							<ul
-								class="keywordSearchList dropdown-menu rounded-0 shadow border-0 px-2 pb-3 show position-absolute top-100 d-none"
-								style="left: 120px; width: calc(100% - 120px);">
-								<li><a class="dropdown-item small" href="#">생활용품</a></li>
-								<li><a class="dropdown-item small" href="#">디지털</a></li>
-								<li><a class="dropdown-item small" href="#">도서</a></li>
-								<li><a class="dropdown-item small" href="#">건강기능식품</a></li>
-							</ul>
+							</select>
+							<form name="frmSearch"
+								action="${contextPath}/goods/searchGoods.do"
+								class="form-control mb-0 border-0 d-flex p-0">
+
+								<input type="text small" name="searchWord" id="searchWord"
+									class="form-control border-0" placeholder="찾고 싶은 상품을 검색해보세요!"
+									onKeyUp="keywordSearch()"> <input name="search"
+									type="submit" id="searchInputWithLabel" class="d-none">
+								<label for="searchInputWithLabel"
+									class="samll d-flex align-items-center px-2 pe-2"><i
+									class="fa-solid fa-magnifying-glass d-block color-main"></i></label> </a>
+							</form>
+							<!-- 추천키워드 -->
+							<div id="suggest" class="d-none">
+								<ul id="suggestList"
+									class="keywordSearchList dropdown-menu rounded-0 shadow border-0 px-2 pb-3 show position-absolute top-100"
+									style="left: 120px; width: calc(100% - 120px);">
+									<div id="innerDivForSuggestList"></div>
+								</ul>
+							</div>
 						</div>
 					</div>
 
@@ -81,8 +167,6 @@
 						<i class="fa-solid fa-cart-arrow-down d-block mb-2 color-main"></i>
 						<span class="my-coupang-title">장바구니</span>
 					</a>
-
-
 				</div>
 			</div>
 		</div>

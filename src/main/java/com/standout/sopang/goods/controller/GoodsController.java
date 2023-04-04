@@ -10,4 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 public interface GoodsController {
 	public ModelAndView menuGoods(@RequestParam("menuGoods") String menuGoods,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public @ResponseBody String keywordSearch(@RequestParam("keyword") String keyword,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
 }

@@ -14,4 +14,6 @@ public interface GoodsDAO {
 	//리스트페이지
 	public List<GoodsVO> selectGoodsByMenuGoods(String menuGoods) throws DataAccessException;
 	
+	//추천키워드
+	public List<String> selectKeywordSearch(String keyword) throws DataAccessException;
 }

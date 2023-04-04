@@ -73,5 +73,17 @@
 		]]>
 	</select>	
 	
+		<select id="selectKeywordSearch" resultType="String"   parameterType="String"  >
+	    <![CDATA[
+        select goods_title from t_shopping_goods 
+        where         
+        goods_title like '%'|| #{keyword} || '%'
+        order by goods_creDate desc
+		]]>
+	</select>
+	
+	
+	
+	
 
 </mapper>
