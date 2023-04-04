@@ -38,5 +38,12 @@ public class GoodsServiceImpl implements GoodsService{
 		
 		return goodsMap;
 	}
+
+
+	@Override
+	public List<GoodsVO> menuGoods(String menuGoods) throws Exception {
+		List goodsList=goodsDAO.selectGoodsByMenuGoods(menuGoods);
+		return goodsList;
+	}
 	
 }

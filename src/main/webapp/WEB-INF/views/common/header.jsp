@@ -36,10 +36,10 @@
 								class="small">카테고리</span>
 						</button>
 						<ul class="dropdown-menu rounded-0 shadow border-0 px-2 py-3">
-							<li><a class="dropdown-item small" href="#">생활용품</a></li>
-							<li><a class="dropdown-item small" href="#">디지털</a></li>
-							<li><a class="dropdown-item small" href="#">도서</a></li>
-							<li><a class="dropdown-item small" href="#">건강기능식품</a></li>
+							<li><a class="dropdown-item small" href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=생활용품">생활용품</a></li>
+							<li><a class="dropdown-item small" href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=디지털">디지털</a></li>
+							<li><a class="dropdown-item small" href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=도서">도서</a></li>
+							<li><a class="dropdown-item small" href="http://localhost:8080/sopang/goods/menuGoods.do?menuGoods=건강기능식품">건강기능식품</a></li>
 						</ul>
 					</div>
 

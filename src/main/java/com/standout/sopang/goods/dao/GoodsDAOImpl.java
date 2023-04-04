@@ -29,5 +29,13 @@ public class GoodsDAOImpl  implements GoodsDAO{
 		System.out.println(goodsList);
 		return goodsList;	
 	}
+
+	
+	@Override
+	public List<GoodsVO> selectGoodsByMenuGoods(String menuGoods) throws DataAccessException {
+		ArrayList goodsList=(ArrayList)sqlSession.selectList("mapper.goods.selectGoodsByMenuGoods",menuGoods);
+		System.out.println(goodsList);
+		 return goodsList;
+	}
 	
 }

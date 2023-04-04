@@ -36,7 +36,7 @@ function result(){
           </div> 
 
         <button type="submit" class="btn btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">로그인</button>
-        <a class="btn border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3"  href="${contextPath}/member/addMember.do">회원가입</a>
+        <a class="btn border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3"  href="${contextPath}/member/join.do">회원가입</a>
 </form>
 
 

@@ -16,6 +16,7 @@ public class MemberVO {
 	private String sopang_money;
 	private String joinDate;
 	private String del_yn;
+	
 	public String getMember_name() {
 		return member_name;
 	}

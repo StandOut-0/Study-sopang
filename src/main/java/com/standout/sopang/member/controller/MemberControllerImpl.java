@@ -61,17 +61,40 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	}
 
 	@Override
-	public ResponseEntity addMember(MemberVO member, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value="/join.do" ,method = RequestMethod.POST)
+	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO,
+			                HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("utf-8");
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+		    memberService.addMember(_memberVO);
+		    message  = "<script>";
+		    message +=" alert('회원 가입을 마쳤습니다.로그인창으로 이동합니다.');";
+		    message += " location.href='"+request.getContextPath()+"/member/login.do';";
+		    message += " </script>";
+		    
+		}catch(Exception e) {
+			message  = "<script>";
+		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+		    message += " location.href='"+request.getContextPath()+"/member/join.do';";
+		    message += " </script>";
+			e.printStackTrace();
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
 	}
 
 	@Override
-	public ResponseEntity overlapped(String id, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value="/overlapped.do" ,method = RequestMethod.POST)
+	public ResponseEntity overlapped(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception{
+		ResponseEntity resEntity = null;
+		String result = memberService.overlapped(id);
+		resEntity =new ResponseEntity(result, HttpStatus.OK);
+		return resEntity;
 	}
 
 }

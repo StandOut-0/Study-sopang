@@ -148,7 +148,7 @@
 					</div>
 
 					<div
-						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-content-between justify-content-between flex-wrap">
+						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap" style="gap: 1.8rem!important;">
 						<c:forEach var="item" items="${goodsMap.cate_digital}" end="5">
 	   					<c:set  var="goods_count" value="${goods_count+1 }" />
 	   					<div>
@@ -190,7 +190,7 @@
 
 
 					<div
-						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-content-between justify-content-between flex-wrap">
+						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap" style="gap: 1.8rem!important;">
 						<c:forEach var="item" items="${goodsMap.cate_book}" end="5">
 	   					<c:set  var="goods_count" value="${goods_count+1 }" />
 	   					<div>
@@ -232,7 +232,7 @@
 
 
 					<div
-						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-content-between justify-content-between flex-wrap">
+						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap" style="gap: 1.8rem!important;">
 						<c:forEach var="item" items="${goodsMap.cate_health}" end="5">
 	   					<c:set  var="goods_count" value="${goods_count+1 }" />
 	   					<div>
@@ -274,7 +274,7 @@
 
 
 					<div
-						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-content-between justify-content-between flex-wrap">
+						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap" style="gap: 1.8rem!important;">
 						<c:forEach var="item" items="${goodsMap.cate_daily}" end="5">
 	   					<c:set  var="goods_count" value="${goods_count+1 }" />
 	   					<div>

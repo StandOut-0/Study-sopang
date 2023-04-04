@@ -95,7 +95,8 @@ function fn_overlapped(){
 </script>
 </head>
 <body>
-	<input class="form-control form-control-lg rounded-0 mb-0" type="text" placeholder="아이디">
+	<form action="${contextPath}/member/join.do" method="post">	
+	<input class="form-control form-control-lg rounded-0 mb-0" name="member_id" type="text" placeholder="아이디">
           
        <input class="form-control form-control-lg rounded-0 mb-0 is-valid d-none" type="text" placeholder="아이디">
      
@@ -110,7 +111,7 @@ function fn_overlapped(){
           <div class="mb-3"></div>
 
 
-        <input class="form-control form-control-lg rounded-0 mb-3" type="text" placeholder="비밀번호">
+        <input class="form-control form-control-lg rounded-0 mb-3" name="member_pw"  type="text" placeholder="비밀번호">
 
 
 
@@ -129,15 +130,16 @@ function fn_overlapped(){
       <div class="mb-3"></div>
 
 
-        <input class="form-control form-control-lg rounded-0 mb-3" type="text" placeholder="이름">
-        <input class="form-control form-control-lg rounded-0 mb-3" type="text" placeholder="휴대폰번호">
+        <input class="form-control form-control-lg rounded-0 mb-3" name="member_name" type="text" placeholder="이름">
+        <input class="form-control form-control-lg rounded-0 mb-3" name="hp1" type="text" placeholder="휴대폰번호">
 
 
-        <div class="invalid-feedback text-start fs-07 mb-3">
+        <div class="invalid-feedback text-start fs-07 mb-3 d-none">
             모든 정보를 입력해주세요.
           </div> 
 
-        <button type="button" class="btn btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">회원가입</button>
-        <a class="btn border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3"  href="#">로그인</a>
+        <button type="submit" class="btn btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">회원가입</button>
+        <a class="btn border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3"  href="${contextPath}/member/login.do">로그인</a>
+        </form>
 </body>
 </html>
