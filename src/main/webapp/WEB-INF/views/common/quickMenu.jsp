@@ -37,8 +37,10 @@
 	cur_goods_num.innerHTML=array_index+1;
 }
 
-function goodsDetail(){
+/* function goodsDetail(){
+	
 	var cur_goods_num=document.getElementById("cur_goods_num");
+	alert(cur_goods_num);
 	arrIdx=cur_goods_num.innerHTML-1;
 	
 	var img_sticky=document.getElementById("img_sticky");
@@ -65,13 +67,13 @@ function goodsDetail(){
     formObj.submit();
 	
 	
-}
+} */
 </script>
 
 <div
 	class="d-flex flex-column position-absolute top-50 end-0 translate-middle z-2"
 	style="width: 130px;">
-	<a href="" class="btn btn-main rounded-0 py-2 d-block small">장바구니 <span>0</span></a>
+	<a href="${contextPath}/cart/myCartList.do" class="btn btn-main rounded-0 py-2 d-block small">장바구니 <span>0</span></a>
 	<p href="" class="btn btn-dark rounded-0 py-2 d-block small mb-0">최근본상품</span>
 	</p>
 	<div class="d-flex flex-column bg-white border border-top-0 p-2 pb-0">
@@ -86,9 +88,9 @@ function goodsDetail(){
 								<c:forEach var="item" items="${quickGoodsList }"
 									varStatus="itemNum">
 									
-									<a href="javascript:goodsDetail();"> <img
+									<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}" class="back_eee d-block mb-2"> <img
 										src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
-										class="mb-2" style="width: 112px; height: 112">
+										class="" style="width: 112px; height: 112">
 										<%-- <p>${item.goods_id}</p> --%>
 									</a>
 

@@ -96,5 +96,20 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		resEntity =new ResponseEntity(result, HttpStatus.OK);
 		return resEntity;
 	}
+	
+	
+	
+	@Override
+	@RequestMapping(value="/logout.do" ,method = RequestMethod.GET)
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session=request.getSession();
+		session.setAttribute("isLogOn", false);
+		session.removeAttribute("memberInfo");
+		System.out.println(session.getAttribute("isLogOn"));
+		System.out.println(session.getAttribute("memberInfo"));
+		mav.setViewName("redirect:/main/main.do");
+		return mav;
+	}
 
 }

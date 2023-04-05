@@ -76,17 +76,18 @@
 		</div>
 	</div>
 		<style>
-			.bestseller a:nth-child(1) img, .bestseller a:nth-child(2) img{width:575px;height:300px}
-			.bestseller a:nth-child(3) img, .bestseller a:nth-child(4) img,
-			.bestseller a:nth-child(5) img, .bestseller a:nth-child(6) img{width:279px;height:300px}
+			.bestseller a:nth-child(1) , .bestseller a:nth-child(2) {width:calc(50% - 9px);height:300px}
+			.bestseller a:nth-child(3) , .bestseller a:nth-child(4) ,
+			.bestseller a:nth-child(5) , .bestseller a:nth-child(6) {width:279px;height:300px}
+			.bestseller img{height:100%}
 		</style>
 	<div class="row border p-3">
 		<div class="d-flex p-0 align-items-center gap-3 flex-wrap bestseller">
 		<c:set  var="goods_count" value="0" />
 		<c:forEach var="item" items="${goodsMap.bestseller}">
 	   <c:set  var="goods_count" value="${goods_count+1 }" />
-			<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-			<img src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+			<a class="back_eee position-relative" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+			<img class="position-absolute top-50 start-50 translate-middle" src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 			</a>
 		</c:forEach>
 		</div>
@@ -153,7 +154,9 @@
 	   					<c:set  var="goods_count" value="${goods_count+1 }" />
 	   					<div>
 						<a class="text-decoration-none" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+						<div class="back_eee">
 							<img src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+							</div>
 							<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 							<p><span class="fw-bold">${item.goods_sales_price}</span>원</p>
 						</a>
@@ -195,7 +198,9 @@
 	   					<c:set  var="goods_count" value="${goods_count+1 }" />
 	   					<div>
 						<a class="text-decoration-none" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+								<div class="back_eee">
 							<img src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+							</div>
 							<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 							<p><span class="fw-bold">${item.goods_sales_price}</span>원</p>
 						</a>
@@ -237,7 +242,9 @@
 	   					<c:set  var="goods_count" value="${goods_count+1 }" />
 	   					<div>
 						<a class="text-decoration-none" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+								<div class="back_eee">
 							<img src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+							</div>
 							<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 							<p><span class="fw-bold">${item.goods_sales_price}</span>원</p>
 						</a>
@@ -279,7 +286,9 @@
 	   					<c:set  var="goods_count" value="${goods_count+1 }" />
 	   					<div>
 						<a class="text-decoration-none" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+								<div class="back_eee">
 							<img src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+							</div>
 							<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 							<p><span class="fw-bold">${item.goods_sales_price}</span>원</p>
 						</a>

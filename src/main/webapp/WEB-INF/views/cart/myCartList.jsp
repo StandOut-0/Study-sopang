@@ -1,0 +1,244 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="myCartList" value="${cartMap.myCartList}" />
+<c:set var="myGoodsList" value="${cartMap.myGoodsList}" />
+
+<c:set var="totalGoodsNum" value="0" />
+<!--주문 개수 -->
+<c:set var="totalDeliveryPrice" value="0" />
+<!-- 총 배송비 -->
+<c:set var="totalDiscountedPrice" value="0" />
+<!-- 총 할인금액 -->
+<script type="text/javascript">
+
+function delete_cart_goods(cart_id){
+	var cart_id=Number(cart_id);
+	var formObj=document.createElement("form");
+	var i_cart = document.createElement("input");
+	i_cart.name="cart_id";
+	i_cart.value=cart_id;
+	
+	formObj.appendChild(i_cart);
+    document.body.appendChild(formObj); 
+    formObj.method="post";
+    formObj.action="${contextPath}/cart/removeCartGoods.do";
+    formObj.submit();
+}
+
+</script>
+
+<div class="container">
+
+	<div class="row ms-5 ps-5">
+		<div class="mt-5 p-0 ps-5 align-items-center">
+			<div class="ps-4">
+				<p class="fs-5 fw-bold mb-3">장바구니</p>
+
+				<div class="border-top border-main border-2 mt-2">
+
+					<div class="shadow-sm p-4 pt-2 mt-3 rounded border border-light">
+
+						<c:choose>
+
+							<c:when test="${ empty myCartList }">
+								<p class="my-5 text-center">장바구니에 상품이 없습니다 !</p>
+							</c:when>
+
+							<c:otherwise>
+
+								<form name="frm_order_all_cart">
+
+									<c:forEach var="item" items="${myGoodsList}" varStatus="cnt">
+
+										<c:set var="cart_goods_qty"
+											value="${myCartList[cnt.count-1].cart_goods_qty}" />
+										<c:set var="cart_id"
+											value="${myCartList[cnt.count-1].cart_id}" />
+
+										<div
+											class="shadow-sm p-0 mt-3 rounded border border-light d-flex justify-content-between">
+											<div class="d-flex">
+												<div class="d-flex align-items-center p-3 bg-light">
+													<input type="checkbox" name="checked_goods" price="${item.goods_sales_price}"
+														value="${item.goods_id}" onClick="calcGoodsPrice(${item.goods_sales_price}, ${cart_goods_qty})">
+												</div>
+												<div class="d-flex align-items-center ps-4">
+													<a
+														href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }"
+														class="text-decoration-none d-block">
+
+														<div class="d-flex justify-content-between">
+															<div class="d-flex">
+																<img
+																	src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
+																	style="width: 64px; height: 64px">
+																<div class="ms-3">
+																	<p class="mb-1 mt-1 small">${item.goods_title}</p>
+																	<p class="mb-0 text-secondary">
+																		<span class="goods_sales_price">${item.goods_sales_price}</span> 원 <span>
+																			· </span><span>1</span>개
+																	</p>
+																</div>
+															</div>
+
+														</div>
+
+													</a>
+												</div>
+											</div>
+
+											<div class="p-4">
+												<div class="border-start ps-4">
+													<!-- <select id="cart_goods_qty" name="cart_goods_qty" 
+														class="form-select rounded-0 text-center" value="5">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="4">4</option>
+														<option value="5">5</option>
+														<option value="6">6</option>
+														<option value="7">7</option>
+													</select> -->
+													<button
+														class="btn btn-sm border-main rounded-0 small d-block mt-2"
+														style="width: 150px;">주문하기</button>
+													<a href="javascript:delete_cart_goods('${cart_id}');"
+														class="btn btn-sm border-main rounded-0 small d-block mt-2"
+														style="width: 150px;">삭제</a>
+												</div>
+											</div>
+
+
+										</div>
+
+									</c:forEach>
+
+								</form>
+					</div>
+				</div>
+
+
+				</c:otherwise>
+				</c:choose>
+
+
+			</div>
+
+		</div>
+
+		<div class="text-end mt-4 mb-2">
+			<label> <input title="모든 상품을 결제상품으로 설정" type="checkbox"
+				name="checked_goods" class="all-deal-select"
+				onclick='selectAll(this)'> <span class="small selectAllSpan">전체선택</span>
+			</label>
+		</div>
+
+		<p
+			class="bg-light border text-end p-4 text-secondary d-flex justify-content-end align-items-center">
+			<c:set var="totalGoodsPrice"
+				value="${totalGoodsPrice+item.goods_sales_price*cart_goods_qty }" />
+			<fmt:formatNumber value="${totalGoodsPrice}" type="number"
+				var="total_goods_price" />
+			<fmt:formatNumber
+				value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}"
+				type="number" var="total_price" />
+
+			<input id="h_totalGoodsPrice" type="hidden"
+				value="${totalGoodsPrice}" /> <input id="h_totalDeliveryPrice"
+				type="hidden" value="${totalDeliveryPrice}" /> <input
+				id="h_totalSalesPrice" type="hidden" value="${totalSalesPrice}" />
+			<input id="h_final_totalPrice" type="hidden"
+				value="${totalGoodsPrice+totalDeliveryPrice}" /> <span> <span>총
+					상품가격 
+					<span id="goodsPrice">${total_goods_price}</span>원
+					</span> <span>+</span> <span>총 배송비
+					${totalDeliveryPrice }원</span> <span>=</span> 총 주문금액
+			</span> <span class="text-black fw-bold fs-5 ms-3"><span id="totalPrice">${total_price}</span> 원</span>
+		</p>
+
+		<button type="button"
+			class="btn btn-lg btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">주문하기</button>
+
+	</div>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+<script>
+
+
+var total = 0;
+const checkboxes = document.getElementsByName('checked_goods');
+function selectAll(selectAll){
+	const goods_sales_price = document.querySelectorAll(".goods_sales_price");
+	checkboxes.forEach((checkbox) => {
+	    checkbox.checked = selectAll.checked;
+	  }); 
+	
+	if (selectAll.checked == true) {
+		for (const i of goods_sales_price) {
+			total += i.innerHTML*1;
+		};
+		var totalPrice=document.getElementById("totalPrice");
+		var goodsPrice=document.getElementById("goodsPrice");
+		totalPrice.innerHTML=total;
+		goodsPrice.innerHTML=total; 
+	}
+	else if(selectAll.checked == false){ 
+		for (const i of goods_sales_price) {
+			total -= i.innerHTML*1;
+		};
+		var totalPrice=document.getElementById("totalPrice");
+		var goodsPrice=document.getElementById("goodsPrice");
+		totalPrice.innerHTML=total;
+		goodsPrice.innerHTML=total;
+	}
+	
+}
+
+checkboxes.forEach((i) => i.addEventListener("click", function () {
+	if (this.checked == true) {
+		total += i.getAttribute("price")*1;
+		/* alert(total); */
+	}
+	else if(this.checked == false){
+		total -= i.getAttribute("price")*1;
+		/* alert(total); */
+	}
+	totalPrice.innerHTML=total;
+	goodsPrice.innerHTML=total; 
+}));
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

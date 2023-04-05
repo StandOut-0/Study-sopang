@@ -9,6 +9,7 @@
 <c:set var="imageList"  value="${goodsMap.imageList }"  />
 
 <script type="text/javascript">
+
 	function add_cart(goods_id) {
 		$.ajax({
 			type : "post",
@@ -16,11 +17,10 @@
 			url : "${contextPath}/cart/addGoodsInCart.do",
 			data : {
 				goods_id:goods_id
-				
 			},
 			success : function(data, textStatus) {
-				//alert(data);
-			//	$('#message').append(data);
+				alert(data);
+				//$('#message').append(data);
 				if(data.trim()=='add_success'){
 					imagePopup('open', '.layer01');	
 				}else if(data.trim()=='already_existed'){
@@ -97,6 +97,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 	}	
 </script>
 
+
 <div class="container">
 	    <div class="row">
             <div class="p-0 align-items-center gap-3 mt-5">
@@ -111,23 +112,23 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 
                 <div class="d-flex">
                     <div class="list-group me-3" id="list-tab" role="tablist">
-                        <a class="active mb-3" id="detailThumb1"
+                        <a class="active mb-3 back_eee" id="detailThumb1"
                             data-bs-toggle="list" href="#detailThumb01" role="tab"
                             aria-controls="detailThumb01">
                             <img src="${contextPath}/thumbnails.do?goods_id=${goods.goods_id}&fileName=${goods.goods_fileName}" style="width:50px"></a>
-                        <a class="mb-3" id="detailThumb2"
+                        <a class="mb-3 back_eee" id="detailThumb2"
                             data-bs-toggle="list" href="#detailThumb02" role="tab"
                             aria-controls="detailThumb02">
-                            <img src="https://via.placeholder.com/50x50/e1e1e1"></a>
+                            <img src="${contextPath}/resources/img/logo_square.png" style="width:50px"></a>
                     </div>
-                    <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-content back_eee" id="nav-tabContent">
                         <div class="tab-pane show active" id="detailThumb01" role="tabpanel"
                             aria-labelledby="detailThumb1">
                             <img src="${contextPath}/download.do?goods_id=${goods.goods_id}&fileName=${goods.goods_fileName}" style="width:410px">
                         </div>
-                        <div class="tab-pane" id="detailThumb02" role="tabpanel"
+                        <div class="tab-pane back_eee" id="detailThumb02" role="tabpanel"
                             aria-labelledby="detailThumb2">
-                            <img src="https://via.placeholder.com/410x412/e1e1e1">
+                            <img src="${contextPath}/resources/img/logo_square.png">
                         </div>
                     </div>
                 </div>
@@ -138,22 +139,28 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
                     <hr>
                     <p class="fs-6 mb-1"><span class="fs-4 text-danger fw-bold">${goods.goods_sales_price }</span>원</p>
 
+					
                     <div class="d-flex gap-2 mt-4">
-                        <select name="" id="" class="form-select rounded-0" style="width:100px">
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                            <option value="">4</option>
-                            <option value="">5</option>
-                            <option value="">6</option>
-                            <option value="">7</option>
-                        </select>
+                        <!-- select name="" id="goods_qty" onchange="changeFn()" class="form-select rounded-0" style="width:100px">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select> -->
+                    
                         <!-- list-group-item list-group-item-action btn mb-2 rounded-0 border-main samll -->
-                        <button type="button"
-                            class="btn btn-lg fw-bold border-main rounded-0 d-block flex-fill">장바구니담기</button>
+                        <a  href="javascript:add_cart('${goods.goods_id}')"
+                            class="btn btn-lg fw-bold border-main rounded-0 d-block flex-fill">장바구니담기</a>
                         <button type="button"
                             class="btn btn-lg fw-bold btn-main rounded-0 d-block flex-fill">바로구매</button>
                     </div>
+             
+                    
+                    
+                    
                 </div>
 
             </div>
@@ -179,8 +186,10 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
                         aria-labelledby="detailInfo1">
 
 					<c:forEach var="image" items="${imageList }">
-						<img class="mb-5" 
-							src="${contextPath}/download.do?goods_id=${goods.goods_id}&fileName=${image.fileName}" style="width:1200px;height:410">
+					<div class="mb-5" style="background:url(${contextPath}/resources/img/back1.jpg);background-size: cover;">
+						<img class="" 
+							src="${contextPath}/download.do?goods_id=${goods.goods_id}&fileName=${image.fileName}" style="width:1200px;">
+					</div>
 					</c:forEach>
 
                         

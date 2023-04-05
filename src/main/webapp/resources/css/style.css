@@ -6,7 +6,7 @@
     --mainColor: #5b9bd5;
     --mainColor_active: #4b88c2;
     --mainColorLight:#82bce2;
-
+    --back_eee: #eee;
     --txt07: 0.7rem;
     --txt08: 0.8rem;
 
@@ -24,6 +24,7 @@
     .bg-light{background: var(--light)!important; }
     .btn-main, .bg-main, .border-main.active{background:var(--mainColor)!important; color:white!important}
     .btn-main:hover, .btn-main:active, .btn-main:focus{background: var(--mainColor_active)!important;}
+    .back_eee{background:var(--back_eee)!important}
 
     /* width */
     body{min-width: 1240px;}

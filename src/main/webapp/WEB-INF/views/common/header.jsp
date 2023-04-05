@@ -80,19 +80,44 @@
 <body>
 	<div class="sticky-sm-top header">
 		<div class="bg-light d-flex p-0 justify-content-end border-bottom">
-			<div
-				class="container d-flex align-items-center justify-content-end p-1 pe-0">
-				<div class="d-flex gap-3 d-none">
-					<a href="#" class="text-decoration-none samll">로그인</a> <a href="#"
-						class="text-decoration-none samll">회원가입</a>
-				</div>
-
-
-				<div class="d-flex gap-2">
-					<span class="samll"><span class="fw-bold">관리자</span></span> <a
-						href="#"
-						class="text-decoration-none samll btn btn-outline-secondary btn-sm p-0 px-2 rounded-0 bg-white">로그아웃</a>
-				</div>
+			<div class="container d-flex align-items-center justify-content-end p-1 pe-0">
+			
+				<c:choose>
+					<c:when test="${isLogOn==true and not empty memberInfo}">
+					
+					<c:choose>
+					
+					<c:when test="${isLogOn==true and memberInfo.member_id =='1111'}">
+					<div class="d-flex align-items-center gap-2">
+							<a href="${contextPath}/admin/goods/adminGoodsMain.do""
+								class="text-decoration-none"><span class="samll fw-bold">${memberInfo.member_name}
+							</span> </a> <a href="${contextPath}/member/logout.do"
+								class="text-decoration-none samll btn btn-outline-secondary btn-sm p-0 px-2 rounded-0 bg-white">로그아웃</a>
+						</div>
+					</c:when>
+					<c:otherwise>
+					<div class="d-flex align-items-center gap-2">
+							<a href="${contextPath}/cart/myCartList.do"
+								class="text-decoration-none"><span class="samll fw-bold">${memberInfo.member_name}
+							</span> </a> <a href="${contextPath}/member/logout.do"
+								class="text-decoration-none samll btn btn-outline-secondary btn-sm p-0 px-2 rounded-0 bg-white">로그아웃</a>
+						</div>
+					</c:otherwise>
+					
+					</c:choose>
+					
+					</c:when>
+					
+					<c:otherwise>
+						<div class="d-flex gap-2">
+							<a href="${contextPath}/member/login.do"
+								class="text-decoration-none samll btn btn-outline-secondary btn-sm p-0 px-2 rounded-0 bg-white">로그인</a> 
+								<a
+								href="${contextPath}/member/join.do"
+								class="text-decoration-none samll btn btn-outline-secondary btn-sm p-0 px-2 rounded-0 bg-white">회원가입</a>
+						</div>
+					</c:otherwise>
+				</c:choose>
 
 			</div>
 		</div>
@@ -165,7 +190,7 @@
 						class="mySopang text-decoration-none samll d-flex flex-column px-2 text-center ps-3 mt-2">
 						<i class="fa-solid fa-user d-block mb-2 color-main "></i> <span
 						class="my-coupang-title">마이소팡</span>
-					</a> <a href="#"
+					</a> <a href="${contextPath}/cart/myCartList.do"
 						class="cart text-decoration-none samll d-flex flex-column px-2 text-center ps-3 mt-2">
 						<i class="fa-solid fa-cart-arrow-down d-block mb-2 color-main"></i>
 						<span class="my-coupang-title">장바구니</span>
