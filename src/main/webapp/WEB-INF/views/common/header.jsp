@@ -122,7 +122,10 @@
 					</div>
 
 					<div class="logo d-flex align-items-center px-4">
-						<img src="https://via.placeholder.com/174x40/e1e1e1">
+						<a href="${contextPath}/main/main.do"> <img
+							src="${contextPath}/resources/img/logo.png" width="150"
+							class="p-2">
+						</a>
 					</div>
 
 					<div class="search d-flex align-items-center flex-grow-1">

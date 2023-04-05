@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.standout.sopang.goods.dao.GoodsDAO;
 import com.standout.sopang.goods.vo.GoodsVO;
+import com.standout.sopang.goods.vo.ImageFileVO;
 
 @Service("goodsService")
 @Transactional(propagation=Propagation.REQUIRED)
@@ -56,6 +57,16 @@ public class GoodsServiceImpl implements GoodsService{
 	public List<GoodsVO> searchGoods(String searchWord) throws Exception{
 		List goodsList=goodsDAO.selectGoodsBySearchWord(searchWord);
 		return goodsList;
+	}
+	
+	public Map goodsDetail(String _goods_id) throws Exception {
+		Map goodsMap=new HashMap();
+		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(_goods_id);
+		goodsMap.put("goodsVO", goodsVO);
+		List<ImageFileVO> imageList =goodsDAO.selectGoodsDetailImage(_goods_id);
+		goodsMap.put("imageList", imageList);
+		System.out.println(goodsMap);
+		return goodsMap;
 	}
 	
 }

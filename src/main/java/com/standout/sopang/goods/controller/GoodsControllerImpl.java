@@ -1,6 +1,7 @@
 package com.standout.sopang.goods.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -76,5 +77,51 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 		
 	}
 	
+	
+	@RequestMapping(value="/goodsDetail.do" ,method = RequestMethod.GET)
+	public ModelAndView goodsDetail(@RequestParam("goods_id") String goods_id,
+			                       HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
+		HttpSession session=request.getSession();
+		Map goodsMap=goodsService.goodsDetail(goods_id);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("goodsMap", goodsMap);
+		GoodsVO goodsVO=(GoodsVO)goodsMap.get("goodsVO");
+		addGoodsInQuick(goods_id,goodsVO,session);
+		System.out.println(mav);
+		return mav;
+	}
+	
+	
+	private void addGoodsInQuick(String goods_id,GoodsVO goodsVO,HttpSession session){
+		boolean already_existed=false;
+		List<GoodsVO> quickGoodsList; //최근 본 상품 저장 ArrayList
+		quickGoodsList=(ArrayList<GoodsVO>)session.getAttribute("quickGoodsList");
+		
+		if(quickGoodsList!=null){
+			if(quickGoodsList.size() < 3){ //미리본 상품 리스트에 상품개수가 세개 이하인 경우
+				for(int i=0; i<quickGoodsList.size();i++){
+					String _goodsBean=String.valueOf(quickGoodsList.get(i).getGoods_id());
+					if(goods_id.equals(_goodsBean)){
+						already_existed=true;
+						break;
+					}
+				}
+				if(already_existed==false){
+					quickGoodsList.add(goodsVO);
+				}
+			}else {
+				quickGoodsList.remove(0);
+				quickGoodsList.add(goodsVO);
+			}
+			
+		}else{
+			quickGoodsList =new ArrayList<GoodsVO>();
+			quickGoodsList.add(goodsVO);
+			
+		}
+		session.setAttribute("quickGoodsList",quickGoodsList);
+		session.setAttribute("quickGoodsListNum", quickGoodsList.size());
+	}
 	
 }

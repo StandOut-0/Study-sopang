@@ -26,7 +26,7 @@
 					<a
 						href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}"
 						class="text-decoration-none d-block"> <img
-						src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
+						src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
 						style="width: 250px">
 						<p class="mt-4 mb-0 text-truncate fw-bold fs-6">${item.goods_title}</p>
 						<p>

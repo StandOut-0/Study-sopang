@@ -20,19 +20,30 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer">
 <link href="${contextPath}/resources/css/style.css" rel="stylesheet"
 	type="text/css" media="screen">
+	
+	
+	<link rel="shortcut icon" href="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://standout.tistory.com&size=16" />
+	
+	
+	
 <title><tiles:insertAttribute name="title" /></title>
 </head>
 <body>
 
 	<tiles:insertAttribute name="header" />
 	<tiles:insertAttribute name="body" />
-	
+
 	<div
 		class="footer border-top mt-5 py-5 text-center small text-secondary">
-		<img src="https://via.placeholder.com/117x34/e1e1e1" class="mb-3">
-		<p class="mb-0"><tiles:insertAttribute name="footer" /></p>
+		<a href="${contextPath}/main/main.do"> <img
+			src="${contextPath}/resources/img/logo.png" width="130" class="p-2"
+			style="filter: grayscale(1);">
+		</a>
+		<p class="mb-0">
+			<tiles:insertAttribute name="footer" />
+		</p>
 	</div>
-	
+
 	<tiles:insertAttribute name="quickMenu" />
 
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

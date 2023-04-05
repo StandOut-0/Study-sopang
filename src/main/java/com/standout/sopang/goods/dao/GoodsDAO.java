@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.standout.sopang.goods.vo.GoodsVO;
+import com.standout.sopang.goods.vo.ImageFileVO;
 
 public interface GoodsDAO {
 	//메인페이지
@@ -19,4 +20,8 @@ public interface GoodsDAO {
 	
 	//검색
 	public List<GoodsVO> selectGoodsBySearchWord(String searchWord) throws DataAccessException;
+	
+	//상품상세
+	public GoodsVO selectGoodsDetail(String goods_id) throws DataAccessException;
+	public List<ImageFileVO> selectGoodsDetailImage(String goods_id) throws DataAccessException;
 }

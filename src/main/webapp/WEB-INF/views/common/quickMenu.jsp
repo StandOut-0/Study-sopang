@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"
-    isELIgnored="false"
-    %>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>    
+	pageEncoding="utf-8" isELIgnored="false"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <script>
 	var array_index=0;
@@ -68,45 +66,38 @@ function goodsDetail(){
 	
 	
 }
-</script>  
- 
- <div class="d-flex flex-column position-absolute top-50 end-0 translate-middle z-2" width="100px"
-        style="width: 110px;">
-        <a href="" class="btn btn-main rounded-0 py-2 d-block small">장바구니</a>
-        <p href="" class="btn btn-dark rounded-0 py-2 d-block small mb-0">최근본상품</p>
-        <div class="d-flex flex-column bg-white border border-top-0 p-2">
-            <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="https://via.placeholder.com/91x90/e1e1e1" class="mb-2">
-                        <img src="https://via.placeholder.com/91x90/e1e1e1" class="mb-2">
-                        <img src="https://via.placeholder.com/91x90/e1e1e1" class="mb-2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://via.placeholder.com/92x90/e1e1e1" class="mb-2">
-                        <img src="https://via.placeholder.com/92x90/e1e1e1" class="mb-2">
-                        <img src="https://via.placeholder.com/92x90/e1e1e1" class="mb-2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="https://via.placeholder.com/93x90/e1e1e1" class="mb-2">
-                        <img src="https://via.placeholder.com/93x90/e1e1e1" class="mb-2">
-                        <img src="https://via.placeholder.com/93x90/e1e1e1" class="mb-2">
-                    </div>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <button class="samll btn btn-outline-secondary btn-sm p-1 rounded-0 bg-light"
-                        data-bs-target="#carouselExample" data-bs-slide="prev">
-                        <i class="fa-solid fa-chevron-left"></i>
-                    </button>
-                    <div class="num"></div>
-                    <button class="samll btn btn-outline-secondary btn-sm p-1 rounded-0 bg-light"
-                        data-bs-target="#carouselExample" data-bs-slide="next">
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
+</script>
 
-                </div>
-            </div>
-        </div>
-    </div>
+<div
+	class="d-flex flex-column position-absolute top-50 end-0 translate-middle z-2"
+	style="width: 130px;">
+	<a href="" class="btn btn-main rounded-0 py-2 d-block small">장바구니 <span>0</span></a>
+	<p href="" class="btn btn-dark rounded-0 py-2 d-block small mb-0">최근본상품</span>
+	</p>
+	<div class="d-flex flex-column bg-white border border-top-0 p-2 pb-0">
+		<c:choose>
+			
+				<c:when test="${ empty quickGoodsList }">
+					<p class="text-center fs-6 my-5 text-secondary">최근 본 상품이 없습니다.</p>
+				</c:when>
 
- 
+				<c:otherwise>
+					<form name="frm_sticky" class="mb-0">
+								<c:forEach var="item" items="${quickGoodsList }"
+									varStatus="itemNum">
+									
+									<a href="javascript:goodsDetail();"> <img
+										src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
+										class="mb-2" style="width: 112px; height: 112">
+										<%-- <p>${item.goods_id}</p> --%>
+									</a>
+
+								</c:forEach>
+							</form>
+				</c:otherwise>
+
+			</c:choose>
+	</div>
+</div>
+
+
