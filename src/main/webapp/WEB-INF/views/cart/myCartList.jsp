@@ -15,20 +15,6 @@
 <!-- 총 할인금액 -->
 <script type="text/javascript">
 
-function delete_cart_goods(cart_id){
-	var cart_id=Number(cart_id);
-	var formObj=document.createElement("form");
-	var i_cart = document.createElement("input");
-	i_cart.name="cart_id";
-	i_cart.value=cart_id;
-	
-	formObj.appendChild(i_cart);
-    document.body.appendChild(formObj); 
-    formObj.method="post";
-    formObj.action="${contextPath}/cart/removeCartGoods.do";
-    formObj.submit();
-}
-
 </script>
 
 <div class="container">
@@ -55,16 +41,16 @@ function delete_cart_goods(cart_id){
 									<c:forEach var="item" items="${myGoodsList}" varStatus="cnt">
 
 										<c:set var="cart_goods_qty"
-											value="${myCartList[cnt.count-1].cart_goods_qty}" />
+											value="${myCartList[cnt.count].cart_goods_qty}" />
 										<c:set var="cart_id"
-											value="${myCartList[cnt.count-1].cart_id}" />
+											value="${myCartList[cnt.count+1].cart_id}" />
 
 										<div
 											class="shadow-sm p-0 mt-3 rounded border border-light d-flex justify-content-between">
 											<div class="d-flex">
 												<div class="d-flex align-items-center p-3 bg-light">
-													<input type="checkbox" name="checked_goods" price="${item.goods_sales_price}"
-														value="${item.goods_id}" onClick="calcGoodsPrice(${item.goods_sales_price}, ${cart_goods_qty})">
+													<input type="checkbox" name="checked_goods"
+														price="${item.goods_sales_price}" value="${item.goods_id}">
 												</div>
 												<div class="d-flex align-items-center ps-4">
 													<a
@@ -79,8 +65,8 @@ function delete_cart_goods(cart_id){
 																<div class="ms-3">
 																	<p class="mb-1 mt-1 small">${item.goods_title}</p>
 																	<p class="mb-0 text-secondary">
-																		<span class="goods_sales_price">${item.goods_sales_price}</span> 원 <span>
-																			· </span><span>1</span>개
+																		<span class="goods_sales_price">${item.goods_sales_price}</span>
+																		원 <span> · </span><span>${cart_goods_qty}</span>개
 																	</p>
 																</div>
 															</div>
@@ -93,8 +79,9 @@ function delete_cart_goods(cart_id){
 
 											<div class="p-4">
 												<div class="border-start ps-4">
-													<!-- <select id="cart_goods_qty" name="cart_goods_qty" 
-														class="form-select rounded-0 text-center" value="5">
+													<select id="" selectedValue="1"
+														class="form-select rounded-0 text-center"
+														onclick="selectValue(this, this.value)">
 														<option value="1">1</option>
 														<option value="2">2</option>
 														<option value="3">3</option>
@@ -102,10 +89,12 @@ function delete_cart_goods(cart_id){
 														<option value="5">5</option>
 														<option value="6">6</option>
 														<option value="7">7</option>
-													</select> -->
-													<button
+													</select> <input type="text" id="cart_goods_qty"
+														name="cart_goods_qty" value="1">
+													<a
+													href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');"
 														class="btn btn-sm border-main rounded-0 small d-block mt-2"
-														style="width: 150px;">주문하기</button>
+														style="width: 150px;">주문하기</a>
 													<a href="javascript:delete_cart_goods('${cart_id}');"
 														class="btn btn-sm border-main rounded-0 small d-block mt-2"
 														style="width: 150px;">삭제</a>
@@ -153,15 +142,15 @@ function delete_cart_goods(cart_id){
 				id="h_totalSalesPrice" type="hidden" value="${totalSalesPrice}" />
 			<input id="h_final_totalPrice" type="hidden"
 				value="${totalGoodsPrice+totalDeliveryPrice}" /> <span> <span>총
-					상품가격 
-					<span id="goodsPrice">${total_goods_price}</span>원
-					</span> <span>+</span> <span>총 배송비
-					${totalDeliveryPrice }원</span> <span>=</span> 총 주문금액
-			</span> <span class="text-black fw-bold fs-5 ms-3"><span id="totalPrice">${total_price}</span> 원</span>
+					상품가격 <span id="goodsPrice">${total_goods_price}</span>원
+			</span> <span>+</span> <span>총 배송비 ${totalDeliveryPrice }원</span> <span>=</span>
+				총 주문금액
+			</span> <span class="text-black fw-bold fs-5 ms-3"><span
+				id="totalPrice">${total_price}</span> 원</span>
 		</p>
 
-		<button type="button"
-			class="btn btn-lg btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">주문하기</button>
+		<a href="javascript:fn_order_all_cart_goods()"
+			class="btn btn-lg btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">주문하기</a>
 
 	</div>
 </div>
@@ -175,6 +164,10 @@ function delete_cart_goods(cart_id){
 
 <script>
 
+function selectValue(selectBox, value){
+	var input = selectBox.nextElementSibling
+	input.setAttribute("value", value);
+}
 
 var total = 0;
 const checkboxes = document.getElementsByName('checked_goods');
@@ -217,6 +210,92 @@ checkboxes.forEach((i) => i.addEventListener("click", function () {
 	totalPrice.innerHTML=total;
 	goodsPrice.innerHTML=total; 
 }));
+
+function delete_cart_goods(cart_id){
+	var cart_id=Number(cart_id);
+	var formObj=document.createElement("form");
+	var i_cart = document.createElement("input");
+	i_cart.name="cart_id";
+	i_cart.value=cart_id;
+	
+	formObj.appendChild(i_cart);
+    document.body.appendChild(formObj); 
+    formObj.method="post";
+    formObj.action="${contextPath}/cart/removeCartGoods.do";
+    formObj.submit();
+}
+
+function fn_order_all_cart_goods(){
+//	alert("모두 주문하기");
+	var order_goods_qty;
+	var order_goods_id;
+	var objForm=document.frm_order_all_cart;
+	var cart_goods_qty=objForm.cart_goods_qty; 
+	var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
+	var checked_goods=objForm.checked_goods;
+	var length=checked_goods.length;
+	
+	if(length>1){
+		for(var i=0; i<length;i++){
+			if(checked_goods[i].checked==true){
+				
+				order_goods_id=checked_goods[i].value;
+				order_goods_qty=cart_goods_qty[i].value;
+				alert(i+"번째 input에 "+order_goods_id+"와"+order_goods_qty+"를 넣을게요");
+				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
+			
+				
+				/* alert(cart_goods_qty[i].value); */
+			}
+		}	
+	}else{
+		order_goods_id=checked_goods.value;
+		order_goods_qty=cart_goods_qty.value;
+		cart_goods_qty.value=order_goods_id+":"+order_goods_qty;
+		//alert(select_goods_qty.value);
+	}
+		
+ 	objForm.method="post";
+ 	objForm.action="${contextPath}/order/orderAllCartGoods.do";
+	objForm.submit();
+}
+
+
+function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
+	var total_price,final_total_price,_goods_qty;
+	var cart_goods_qty=document.getElementById("cart_goods_qty");
+	
+	_order_goods_qty=cart_goods_qty.value; //장바구니에 담긴 개수 만큼 주문한다.
+	var formObj=document.createElement("form");
+	var i_goods_id = document.createElement("input"); 
+    var i_goods_title = document.createElement("input");
+    var i_goods_sales_price=document.createElement("input");
+    var i_fileName=document.createElement("input");
+    var i_order_goods_qty=document.createElement("input");
+    
+    i_goods_id.name="goods_id";
+    i_goods_title.name="goods_title";
+    i_goods_sales_price.name="goods_sales_price";
+    i_fileName.name="goods_fileName";
+    i_order_goods_qty.name="order_goods_qty";
+    
+    i_goods_id.value=goods_id;
+    i_order_goods_qty.value=_order_goods_qty;
+    i_goods_title.value=goods_title;
+    i_goods_sales_price.value=goods_sales_price;
+    i_fileName.value=fileName;
+    
+    formObj.appendChild(i_goods_id);
+    formObj.appendChild(i_goods_title);
+    formObj.appendChild(i_goods_sales_price);
+    formObj.appendChild(i_fileName);
+    formObj.appendChild(i_order_goods_qty);
+
+    document.body.appendChild(formObj); 
+    formObj.method="post";
+    formObj.action="${contextPath}/order/orderEachGoods.do";
+    formObj.submit();
+}
 </script>
 
 

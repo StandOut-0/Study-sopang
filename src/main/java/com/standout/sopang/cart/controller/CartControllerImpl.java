@@ -49,8 +49,12 @@ public class CartControllerImpl extends BaseController implements CartController
 			String member_id=memberVO.getMember_id();
 			System.out.println("회원아이디가 잘 조회되는지 확인: "+member_id);
 			cartVO.setMember_id(member_id);
+			
 			Map<String ,List> cartMap=cartService.myCartList(cartVO);
+			
 			session.setAttribute("cartMap", cartMap);//장바구니 목록 화면에서 상품 주문 시 사용하기 위해서 장바구니 목록을 세션에 저장한다.
+
+			System.out.println("장바구니에서 cartMap을 세션에 저장합니다." + cartMap);
 			mav.addObject("cartMap", cartMap);
 		}
 		return mav;
@@ -58,12 +62,14 @@ public class CartControllerImpl extends BaseController implements CartController
 	
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id,
+								@RequestParam("cart_goods_qty") int cart_goods_qty,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		
-		System.out.println(goods_id);
+		 System.out.println(goods_id+"의 상품을, "+cart_goods_qty+"개 담았습니다.");
+		
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
-		System.out.println(memberVO);
+		/* System.out.println(memberVO); */
 		String member_id=memberVO.getMember_id();
 		
 		cartVO.setMember_id(member_id);
@@ -75,6 +81,9 @@ public class CartControllerImpl extends BaseController implements CartController
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
 		System.out.println("findCartGoods를 실행완료");
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
+		
+
+		cartVO.setCart_goods_qty(cart_goods_qty);
 		
 		if(isAreadyExisted==true){
 			return "already_existed";

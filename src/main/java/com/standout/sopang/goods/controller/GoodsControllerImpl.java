@@ -82,16 +82,20 @@ public class GoodsControllerImpl extends BaseController   implements GoodsContro
 	public ModelAndView goodsDetail(@RequestParam("goods_id") String goods_id,
 			                       HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
-		HttpSession session=request.getSession();
-		Map goodsMap=goodsService.goodsDetail(goods_id);
+		
+
 		ModelAndView mav = new ModelAndView(viewName);
+		
+		HttpSession session=request.getSession();
+		
+		Map goodsMap=goodsService.goodsDetail(goods_id);
 		mav.addObject("goodsMap", goodsMap);
+		
 		GoodsVO goodsVO=(GoodsVO)goodsMap.get("goodsVO");
 		addGoodsInQuick(goods_id,goodsVO,session);
 		System.out.println(mav);
 		return mav;
 	}
-	
 	
 	private void addGoodsInQuick(String goods_id,GoodsVO goodsVO,HttpSession session){
 		boolean already_existed=false;

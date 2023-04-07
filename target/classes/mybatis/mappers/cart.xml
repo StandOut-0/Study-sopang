@@ -43,9 +43,18 @@
 		]]>
 	</select>
 
+  <!-- 갯수를 가져오기위해서 ~~ - 회원id로 상품 id로 검색해 수량을 가져오는 sql은 테스트 완료하긴 했는데ㅜㅜ 이걸 어떠케 적용해여 
+         
+         select g.*,d.fileName,c.cart_goods_qty
+			from t_shopping_goods g, t_goods_detail_image d, t_shopping_cart c
+			where g.goods_id=d.goods_id 
+			and d.goods_id =c.goods_id
+			and d.filetype='main_image'
+			and c.member_id in member_id -->
+			
 	<select id="selectGoodsList" resultMap="goodsResult" parameterType="java.util.Map">
       <![CDATA[
-          select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
+		select g.*,d.fileName from t_shopping_goods g, t_goods_detail_image d
           where g.goods_id=d.goods_id
           and d.filetype='main_image'
            and g.goods_id in
@@ -69,10 +78,12 @@
 	    <![CDATA[
 		    	insert into t_shopping_cart(cart_id,
 		    	                           goods_id,
-		    	                           member_id)
+		    	                           member_id,
+		    	                           cart_goods_qty)
 		        				 values(#{cart_id},
     							        #{goods_id},
-    							        #{member_id})
+    							        #{member_id},
+    							        #{cart_goods_qty})
     	]]>
 	</insert>
 
