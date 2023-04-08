@@ -114,10 +114,10 @@
 																		주문취소
 																	</c:when>
 															<c:when test="${item.delivery_state=='returning_goods' }">
-																		반품
+																		반품중
 																	</c:when>
 															<c:when test="${item.delivery_state=='exchange_goods' }">
-																		교환
+																		교환중
 																	</c:when>
 														</c:choose>
 													</p>
@@ -152,35 +152,25 @@
 													<c:when test="${item.delivery_state=='cancel_order'}">
 													</c:when>
 													<c:otherwise>
-														<div class="border-start ps-4">
+														<div class="border-start ps-4 align-self-center">
 															<div>
 																<c:choose>
 																	<c:when
 																		test="${item.delivery_state=='delivery_prepared'}">
 																		<button
-																			class="btn btn-sm border-main rounded-0 small d-block mt-2"
-																			onClick="fn_cancel_order('${item.order_id}')"
+																			class="btn btn-sm border-main rounded-0 small d-block my-2"
+																			onClick="fn_edit_order('${item.order_id}','cancel')"
 																			style="width: 150px;">주문취소</button>
-																	</c:when>
-																	<c:when test="${item.delivery_state=='delivering' }">
-																		<button
-																			class="btn btn-sm border-main rounded-0 small d-block mt-3"
-																			onClick="fn_exchange_order('${item.order_id}')"
-																			style="width: 150px;">교환신청</button>
-																		<button
-																			class="btn btn-sm border-main rounded-0 small d-block mt-3"
-																			onClick="fn_return_order('${item.order_id}')"
-																			style="width: 150px;">반품신청</button>
 																	</c:when>
 																	<c:when
 																		test="${item.delivery_state=='finished_delivering' }">
 																		<button
-																			class="btn btn-sm border-main rounded-0 small d-block mt-3"
-																			onClick="fn_exchange_order('${item.order_id}')"
+																			class="btn btn-sm border-main rounded-0 small d-block my-2"
+																			onClick="fn_edit_order('${item.order_id}', 'exchange')"
 																			style="width: 150px;">교환신청</button>
 																		<button
-																			class="btn btn-sm border-main rounded-0 small d-block mt-3"
-																			onClick="fn_return_order('${item.order_id}')"
+																			class="btn btn-sm border-main rounded-0 small d-block my-2"
+																			onClick="fn_edit_order('${item.order_id}','return')"
 																			style="width: 150px;">반품신청</button>
 																	</c:when>
 																</c:choose>
@@ -230,26 +220,44 @@
 				formObj.submit();
 			}
 			
-			function fn_cancel_order(order_id){
-				var answer=confirm("주문을 취소하시겠습니까?");
-				if(answer==true){
-					var formObj=document.createElement("form");
-					var i_order_id = document.createElement("input"); 
-				    
-				    i_order_id.name="order_id";
+			function fn_edit_order(order_id, option){
+				var formObj=document.createElement("form");
+				var i_order_id = document.createElement("input"); 
+				 	i_order_id.name="order_id";
 				    i_order_id.value=order_id;
 					
 				    formObj.appendChild(i_order_id);
 				    document.body.appendChild(formObj); 
 				    formObj.method="post";
-				    formObj.action="${contextPath}/mypage/cancelMyOrder.do";
-				    formObj.submit();	
-				}
+				   
+				    if(option == "cancel"){
+				    	var answer=confirm("주문을 취소하시겠습니까?");
+						if(answer==true){
+							formObj.action="${contextPath}/mypage/cancelMyOrder.do";
+							formObj.submit();
+						}
+				    }else if(option == "return"){
+				    	var answer=confirm("반품신청 하시겠습니까?");
+						if(answer==true){
+				    	formObj.action="${contextPath}/mypage/returnMyOrder.do";
+				    	formObj.submit();
+						}
+				    }else if(option == "exchange"){
+				    	var answer=confirm("교환신청 하시겠습니까?");
+						if(answer==true){
+				    	formObj.action="${contextPath}/mypage/exchangeMyOrder.do";
+				    	formObj.submit();
+						}
+				    }
+				    	
+				
 			}
 			
 			if (window.location.href.includes("fixedSearchPeriod")) {
 				const badges = document.querySelectorAll(".badge");
-				for (b of badges) { b.classList.remove("active");}
+				for (b of badges){ 
+					b.classList.remove("active");
+				}
 				
 				if (window.location.href.includes("today")) {
 					badges[0].classList.add("active");

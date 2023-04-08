@@ -79,4 +79,26 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		return mav;
 	}
 	
+	@Override
+	@RequestMapping(value="/returnMyOrder.do" ,method = RequestMethod.POST)
+	public ModelAndView returnMyOrder(@RequestParam("order_id")  String order_id,
+			                         HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		ModelAndView mav = new ModelAndView();
+		myPageService.returnOrder(order_id);
+		mav.addObject("message", "returning_goods");
+		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
+		return mav;
+	}
+	
+	@Override
+	@RequestMapping(value="/exchangeMyOrder.do" ,method = RequestMethod.POST)
+	public ModelAndView exchangeMyOrder(@RequestParam("order_id")  String order_id,
+			                         HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		ModelAndView mav = new ModelAndView();
+		myPageService.exchangeOrder(order_id);
+		mav.addObject("message", "exchange_goods");
+		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
+		return mav;
+	}
+	
 }
