@@ -47,9 +47,9 @@
 				class="position-absolute top-100 start-0 bg-light px-3 py-4 d-flex flex-column border secondary-subtle"
 				style="width: 150px;">
 				<p class="fw-bold text-black mb-2">MY소팡</p>
-				<a href="#" class="text-decoration-none mb-2 small">주문목록</a> <a
-					href="#" class="text-decoration-none mb-2 small">장바구니</a> <a
-					href="#" class="text-decoration-none mb-0 small">내정보</a>
+				<a href="${contextPath}/mypage/listMyOrderHistory.do" class="text-decoration-none mb-2 small">주문목록</a> <a
+					href="${contextPath}/cart/myCartList.do" class="text-decoration-none mb-2 small">장바구니</a> <a
+					href="${contextPath}/mypage/myDetailInfo.do" class="text-decoration-none mb-0 small">내정보</a>
 			</div>
 		</div>
 

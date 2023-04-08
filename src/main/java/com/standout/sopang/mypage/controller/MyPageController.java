@@ -16,4 +16,13 @@ public interface MyPageController {
 	public ModelAndView cancelMyOrder(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView returnMyOrder(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	public ModelAndView exchangeMyOrder(@RequestParam("order_id")  String order_id,HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
+	public ModelAndView myDetailInfo(HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ResponseEntity modifyMyInfo(@RequestParam("member_pw")  String member_pw,
+			@RequestParam("hp1")  String hp1,
+			@RequestParam("zipcode")  String zipcode,
+			@RequestParam("member_address")  String member_address,
+			@RequestParam("subaddress")  String subaddress,
+					            HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	
 }

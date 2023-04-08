@@ -101,4 +101,51 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		return mav;
 	}
 	
+	@Override
+	@RequestMapping(value="/myDetailInfo.do" ,method = RequestMethod.GET)
+	public ModelAndView myDetailInfo(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		return mav;
+	}	
+	
+	@Override
+	@RequestMapping(value="/modifyMyInfo.do" ,method = RequestMethod.POST)
+	public ResponseEntity modifyMyInfo(
+			@RequestParam("member_pw")  String member_pw,
+			@RequestParam("hp1")  String hp1,
+			@RequestParam("zipcode")  String zipcode,
+			@RequestParam("member_address")  String member_address,
+			@RequestParam("subaddress")  String subaddress,
+			               HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		Map<String,String> memberMap=new HashMap<String,String>();
+		String val[]=null;
+		HttpSession session=request.getSession();
+		memberVO=(MemberVO)session.getAttribute("memberInfo");
+		String  member_id=memberVO.getMember_id();
+		
+		System.out.println("받아온 정보입니다."+member_pw+" "+ hp1+" "+ zipcode+" "+ member_address+" "+ subaddress);
+		memberMap.put("member_pw",member_pw);
+		memberMap.put("hp1",hp1);
+		memberMap.put("zipcode",zipcode);
+		memberMap.put("member_address",member_address);
+		memberMap.put("subaddress",subaddress);
+		
+		memberMap.put("member_id", member_id);
+		
+		//수정된 회원 정보를 다시 세션에 저장한다.
+		memberVO=(MemberVO)myPageService.modifyMyInfo(memberMap);
+		
+		session.removeAttribute("memberInfo");
+		session.setAttribute("memberInfo", memberVO);
+		
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		message  = "mod_success";
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+	}	
+	
+	
 }

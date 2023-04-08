@@ -22,22 +22,8 @@ public class MyPageServiceImpl  implements MyPageService{
 	@Autowired
 	private MyPageDAO myPageDAO;
 
-	public List<OrderVO> listMyOrderGoods(String member_id) throws Exception{
-		return myPageDAO.selectMyOrderGoodsList(member_id);
-	}
-	
-	public List findMyOrderInfo(String order_id) throws Exception{
-		return myPageDAO.selectMyOrderInfo(order_id);
-	}
-	
 	public List<OrderVO> listMyOrderHistory(Map dateMap) throws Exception{
 		return myPageDAO.selectMyOrderHistoryList(dateMap);
-	}
-	
-	public MemberVO  modifyMyInfo(Map memberMap) throws Exception{
-		 String member_id=(String)memberMap.get("member_id");
-		 myPageDAO.updateMyInfo(memberMap);
-		 return myPageDAO.selectMyDetailInfo(member_id);
 	}
 	
 	public void cancelOrder(String order_id) throws Exception{
@@ -50,7 +36,15 @@ public class MyPageServiceImpl  implements MyPageService{
 		myPageDAO.updateMyOrderExchange(order_id);
 	}
 	
+	
+	
 	public MemberVO myDetailInfo(String member_id) throws Exception{
 		return myPageDAO.selectMyDetailInfo(member_id);
+	}
+	
+	public MemberVO  modifyMyInfo(Map memberMap) throws Exception{
+		 String member_id=(String)memberMap.get("member_id");
+		 myPageDAO.updateMyInfo(memberMap);
+		 return myPageDAO.selectMyDetailInfo(member_id);
 	}
 }

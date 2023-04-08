@@ -196,7 +196,7 @@ checkboxes.forEach((i) => i.addEventListener("click", function () {
 
 				<div class="border-top border-main border-2 mt-2">
 
-					<div class="shadow-sm p-4 pt-2 mt-3 rounded border border-light">
+					<div class="shadow-sm mt-3 rounded border border-light">
 
 						<c:choose>
 
