@@ -72,7 +72,7 @@
 									class="btn btn-lg btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mt-4 mb-2">수정하기</a>
 								<button type="button"
 									class="btn btn-lg border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mt-0 mb-2 fs-6">취소하기</button>
-								<button type="button"
+								<button type="button" onClick="fn_delete_member('${member_info.member_id }','Y')"
 									class="btn btn-lg border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mt-0 mb-3 fs-6">탈퇴하기</button>
 
 							</form>
@@ -133,6 +133,43 @@
 					}
 				}); //end ajax
 				
+			}
+			
+
+			function fn_delete_member(member_id ,del_yn){
+				var frm_mod_member=document.frm_mod_member.value;
+				var member_id =document.frm_mod_member.member_id.value;
+			/* 	alert(member_id+", "+del_yn); */
+			    
+				var answer=confirm("탈되하시겠습니까?");
+				if(answer==true){
+					$.ajax({
+						type : "post",
+						async : false, //false인 경우 동기식으로 처리한다.
+						url : "${contextPath}/mypage/deleteMember.do",
+						data : {
+							member_id:member_id,
+							del_yn:del_yn
+						},
+						success : function(data, textStatus) {
+							if(data.trim()=='delete_success'){
+								alert("탈퇴되었습니다.");
+								location.href="${contextPath}/member/logout.do";
+							}else if(data.trim()=='failed'){
+								alert("다시 시도해 주세요.");	
+							}
+							
+						},
+						error : function(data, textStatus) {
+							alert("에러가 발생했습니다."+data);
+						},
+						complete : function(data, textStatus) {
+							//alert("작업을완료 했습니다");
+							
+						}
+					}); //end ajax
+				}
+		
 			}
 			
 		</script>

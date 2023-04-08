@@ -47,4 +47,9 @@ public class MyPageServiceImpl  implements MyPageService{
 		 myPageDAO.updateMyInfo(memberMap);
 		 return myPageDAO.selectMyDetailInfo(member_id);
 	}
+	
+	public void deleteMember(String member_id) throws Exception{
+		myPageDAO.deleteMember(member_id);
+	}
+	
 }

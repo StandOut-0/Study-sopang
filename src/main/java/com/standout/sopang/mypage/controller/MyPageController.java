@@ -25,4 +25,5 @@ public interface MyPageController {
 			@RequestParam("subaddress")  String subaddress,
 					            HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
+	public ResponseEntity deleteMember(@RequestParam("member_id")  String member_id,  HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }

@@ -94,4 +94,11 @@
 	</update>
 		
 		
+	<delete id="deleteMember"  parameterType="String"  >
+	    <![CDATA[
+			delete t_shopping_member
+			where member_id = #{member_id}
+    	]]>
+	</delete>	
+		
 </mapper>

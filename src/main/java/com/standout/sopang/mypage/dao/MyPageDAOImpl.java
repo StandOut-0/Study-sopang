@@ -45,4 +45,11 @@ public class MyPageDAOImpl implements MyPageDAO{
 		sqlSession.update("mapper.mypage.updateMyInfo",memberMap);
 	}
 	
+	public void deleteMember(String member_id) throws DataAccessException{
+		sqlSession.update("mapper.mypage.deleteMember",member_id);
+	}
+	
+	
+	
+	
 }

@@ -148,4 +148,19 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	}	
 	
 	
+	@Override
+	@RequestMapping(value="/deleteMember.do" ,method = RequestMethod.POST)
+	public ResponseEntity deleteMember(@RequestParam("member_id")  String member_id, HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		
+		myPageService.deleteMember(member_id);
+		
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		message  = "delete_success";
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+	}
+	
+	
 }
