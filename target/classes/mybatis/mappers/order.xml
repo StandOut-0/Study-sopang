@@ -16,7 +16,6 @@
 		<result property="goods_qty" column="goods_qty" />
 		<result property="delivery_state" column="delivery_state" />
 		
-		
 		<result property="member_id" column="member_id" />
 		<result property="orderer_hp" column="orderer_hp" />
 		
@@ -108,8 +107,9 @@
 	</select>
 	
 	<delete id="deleteGoodsFromCart" parameterType="orderVO">
-	  delete from t_shopping_cart
-	  where goods_id=#{goods_id}
+		  <![CDATA[
+			  delete from t_shopping_cart where goods_id= #{goods_id}
+		  ]]>
 	</delete>
 	
 </mapper>

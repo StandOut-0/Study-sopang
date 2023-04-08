@@ -27,8 +27,14 @@ public class CartServiceImpl  implements CartService{
 			return null;
 		}
 		List<GoodsVO> myGoodsList=cartDAO.selectGoodsList(myCartList);
-		cartMap.put("myCartList", myCartList);
-		cartMap.put("myGoodsList",myGoodsList);
+		try {
+			cartMap.put("myCartList", myCartList);
+			cartMap.put("myGoodsList",myGoodsList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 		return cartMap;
 	}
 	
@@ -43,6 +49,12 @@ public class CartServiceImpl  implements CartService{
 	
 	public void removeCartGoods(int cart_id) throws Exception{
 		cartDAO.deleteCartGoods(cart_id);
+	}
+	
+	public boolean modifyCartQty(CartVO cartVO) throws Exception{
+		boolean result=true;
+		cartDAO.updateCartGoodsQty(cartVO);
+		return result;
 	}
 
 	

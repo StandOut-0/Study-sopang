@@ -16,7 +16,7 @@ public class CartDAOImpl  implements  CartDAO{
 	private SqlSession sqlSession;
 	
 	public List<CartVO> selectCartList(CartVO cartVO) throws DataAccessException {
-		List<CartVO> cartList =(List)sqlSession.selectList("mapper.cart.selectCartList",cartVO);
+		List<CartVO> cartList =sqlSession.selectList("mapper.cart.selectCartList",cartVO);
 		return cartList;
 	}
 
@@ -49,6 +49,10 @@ public class CartDAOImpl  implements  CartDAO{
 	
 	public void deleteCartGoods(int cart_id) throws DataAccessException{
 		sqlSession.delete("mapper.cart.deleteCartGoods",cart_id);
+	}
+	
+	public void updateCartGoodsQty(CartVO cartVO) throws DataAccessException{
+		sqlSession.insert("mapper.cart.updateCartGoodsQty",cartVO);
 	}
 
 }

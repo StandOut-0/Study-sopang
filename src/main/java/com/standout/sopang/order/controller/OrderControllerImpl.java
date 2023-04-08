@@ -75,7 +75,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	@RequestMapping(value="/payToOrderGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap,
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		String viewName=(String)request.getAttribute("viewName");
+		//String viewName=(String)request.getAttribute("viewName");
+		String viewName="listMyOrderHistory";
 		ModelAndView mav = new ModelAndView(viewName);
 		
 		HttpSession session=request.getSession();
@@ -103,9 +104,13 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		
 		
 	    orderService.addNewOrder(myOrderList);
-		mav.addObject("myOrderInfo",receiverMap);//OrderVO로 주문결과 페이지에  주문자 정보를 표시한다.
-		mav.addObject("myOrderList", myOrderList);
-		return mav;
+	    
+	    System.out.println("리다이렉트 할겁니다.");
+	    return new ModelAndView("redirect:/mypage/listMyOrderHistory.do");
+	    
+//		mav.addObject("myOrderInfo",receiverMap);//OrderVO로 주문결과 페이지에  주문자 정보를 표시한다.
+//		mav.addObject("myOrderList", myOrderList);
+//		return mav;
 	}
 	
 

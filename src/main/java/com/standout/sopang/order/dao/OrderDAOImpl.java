@@ -21,6 +21,13 @@ public class OrderDAOImpl implements OrderDAO {
 		return orderGoodsList;
 	}
 	
+	
+	
+	public OrderVO findMyOrder(String order_id) throws DataAccessException{
+		OrderVO orderVO=(OrderVO)sqlSession.selectOne("mapper.order.selectMyOrder",order_id);		
+		return orderVO;
+	}
+	
 	public void insertNewOrder(List<OrderVO> myOrderList) throws DataAccessException{
 		int order_id=selectOrderID();
 		for(int i=0; i<myOrderList.size();i++){
@@ -31,19 +38,15 @@ public class OrderDAOImpl implements OrderDAO {
 		
 	}	
 	
-	public OrderVO findMyOrder(String order_id) throws DataAccessException{
-		OrderVO orderVO=(OrderVO)sqlSession.selectOne("mapper.order.selectMyOrder",order_id);		
-		return orderVO;
-	}
-	
-	public void removeGoodsFromCart(OrderVO orderVO)throws DataAccessException{
-		sqlSession.delete("mapper.order.deleteGoodsFromCart",orderVO);
-	}
+//	public void removeGoodsFromCart(OrderVO orderVO)throws DataAccessException{
+//		sqlSession.delete("mapper.order.deleteGoodsFromCart",orderVO);
+//	}
 	
 	public void removeGoodsFromCart(List<OrderVO> myOrderList)throws DataAccessException{
 		for(int i=0; i<myOrderList.size();i++){
 			OrderVO orderVO =(OrderVO)myOrderList.get(i);
-			sqlSession.delete("mapper.order.deleteGoodsFromCart",orderVO);		
+			sqlSession.delete("mapper.order.deleteGoodsFromCart",orderVO);	
+			System.out.println("삭제완료");
 		}
 	}	
 	private int selectOrderID() throws DataAccessException{

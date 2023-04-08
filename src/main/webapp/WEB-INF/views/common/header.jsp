@@ -186,7 +186,7 @@
 						</div>
 					</div>
 
-					<a href="#"
+					<a href="${contextPath}/mypage/listMyOrderHistory.do"
 						class="mySopang text-decoration-none samll d-flex flex-column px-2 text-center ps-3 mt-2">
 						<i class="fa-solid fa-user d-block mb-2 color-main "></i> <span
 						class="my-coupang-title">마이소팡</span>

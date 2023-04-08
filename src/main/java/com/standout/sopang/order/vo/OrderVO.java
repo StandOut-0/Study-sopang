@@ -23,6 +23,8 @@ public class OrderVO {
 	private String pay_orderer_hp_num; //휴대폰 결제 전화번호
 	private String card_pay_month;
 	
+	private String delivery_state; //현재 주문 상품 배송 상태
+	private String pay_order_time;
 	
 	
 	/*
@@ -33,8 +35,8 @@ public class OrderVO {
 	 * private String orderer_name;
 	 * 
 	 * private String delivery_message; private String delivery_method; private
-	 * String gift_wrapping; private String pay_order_time; private String
-	 * delivery_state; //현재 주문 상품 배송 상태
+	 * String gift_wrapping;  private String
+	 * 
 	 * 
 	 * private String final_total_price; private int goods_qty;
 	 */
@@ -42,6 +44,18 @@ public class OrderVO {
 	
 	
 	
+	public String getPay_order_time() {
+		return pay_order_time;
+	}
+	public void setPay_order_time(String pay_order_time) {
+		this.pay_order_time = pay_order_time;
+	}
+	public String getDelivery_state() {
+		return delivery_state;
+	}
+	public void setDelivery_state(String delivery_state) {
+		this.delivery_state = delivery_state;
+	}
 	public int getOrder_seq_num() {
 		return order_seq_num;
 	}

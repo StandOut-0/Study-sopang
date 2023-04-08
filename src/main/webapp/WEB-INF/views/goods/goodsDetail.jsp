@@ -53,7 +53,7 @@
 					
                     <div class="d-flex gap-2 mt-4">
 					<select id="" selectedValue="1"
-						class="form-select rounded-0 text-center"
+						class="form-select rounded-0 text-center d-none"
 						onclick="selectValue(this, this.value)">
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -66,7 +66,7 @@
 						name="goods_qty" value="1">
 
 					<!-- list-group-item list-group-item-action btn mb-2 rounded-0 border-main samll -->
-                        <a  href="javascript:add_cart('${goods.goods_id}',goods_qty)"
+                        <a  href="javascript:add_cart('${goods.goods_id}')"
                             class="btn btn-lg fw-bold border-main rounded-0 d-block flex-fill">장바구니담기</a>
                         <a href="javascript:fn_order_each_goods('${goods.goods_id }','${goods.goods_title }','${goods.goods_sales_price}','${goods.goods_fileName}');"
                             class="btn btn-lg fw-bold btn-main rounded-0 d-block flex-fill">바로구매</a>
@@ -131,15 +131,13 @@ function selectValue(selectBox, value){
 <script type="text/javascript">
 
 
-	function add_cart(goods_id, _cart_goods_qty) {
-		var cart_goods_qty=$("#goods_qty").val();
+	function add_cart(goods_id) {
 		$.ajax({
 			type : "post",
 			async : false, //false인 경우 동기식으로 처리한다.
 			url : "${contextPath}/cart/addGoodsInCart.do",
 			data : {
-				goods_id:goods_id,
-				cart_goods_qty:cart_goods_qty
+				goods_id:goods_id
 			},
 			success : function(data, textStatus) {
 				alert(data);
@@ -151,7 +149,7 @@ function selectValue(selectBox, value){
 				}
 			},
 			error : function(data, textStatus) {
-				alert("에러가 발생했습니다. 아이디: "+goods_id + " 수량: "+order_goods_qty);
+				alert("에러가 발생했습니다. 아이디: "+goods_id);
 			},
 			complete : function(data, textStatus) {
 				//alert("작업을완료 했습니다");

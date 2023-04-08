@@ -29,6 +29,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		//카트에서 주문 상품 제거한다.
 		orderDAO.removeGoodsFromCart(myOrderList);
+		System.out.println("장바구니에서 해당 상품을 삭제했습니다.");
 	}	
 	
 	public OrderVO findMyOrder(String order_id) throws Exception{

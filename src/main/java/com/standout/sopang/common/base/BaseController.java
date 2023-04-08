@@ -33,4 +33,41 @@ public abstract class BaseController  {
 		return mav;
 	}
 	
+	protected String calcSearchPeriod(String fixedSearchPeriod){
+		String beginDate=null;
+		String endDate=null;
+		String endYear=null;
+		String endMonth=null;
+		String endDay=null;
+		String beginYear=null;
+		String beginMonth=null;
+		String beginDay=null;
+		DecimalFormat df = new DecimalFormat("00");
+		Calendar cal=Calendar.getInstance();
+		
+		endYear   = Integer.toString(cal.get(Calendar.YEAR));
+		endMonth  = df.format(cal.get(Calendar.MONTH) + 1);
+		endDay   = df.format(cal.get(Calendar.DATE));
+		endDate = endYear +"-"+ endMonth +"-"+endDay;
+		
+		if(fixedSearchPeriod == null || fixedSearchPeriod.equals("today")) {
+			cal.add(Calendar.DAY_OF_YEAR,-0);
+		}else if(fixedSearchPeriod.equals("six_month")) {
+			cal.add(cal.MONTH, -6);
+		}else if(fixedSearchPeriod.equals("one_year")) {
+			cal.add(cal.YEAR,-1);
+		}else if(fixedSearchPeriod.equals("two_year")) {
+			cal.add(cal.YEAR,-2);
+		}else if(fixedSearchPeriod.equals("three_year")) {
+			cal.add(cal.YEAR,-3);
+		}
+		
+		beginYear   = Integer.toString(cal.get(Calendar.YEAR));
+		beginMonth  = df.format(cal.get(Calendar.MONTH) + 1);
+		beginDay   = df.format(cal.get(Calendar.DATE));
+		beginDate = beginYear +"-"+ beginMonth +"-"+beginDay;
+		
+		return beginDate+","+endDate;
+	}
+	
 }
