@@ -9,4 +9,5 @@ import com.standout.sopang.member.vo.MemberVO;
 
 public interface AdminMemberDAO {
 	public ArrayList<MemberVO> listMember(HashMap condMap) throws DataAccessException;
+
 }

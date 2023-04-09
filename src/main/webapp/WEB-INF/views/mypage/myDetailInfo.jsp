@@ -141,7 +141,7 @@
 				var member_id =document.frm_mod_member.member_id.value;
 			/* 	alert(member_id+", "+del_yn); */
 			    
-				var answer=confirm("탈되하시겠습니까?");
+				var answer=confirm("탈퇴하시겠습니까?");
 				if(answer==true){
 					$.ajax({
 						type : "post",

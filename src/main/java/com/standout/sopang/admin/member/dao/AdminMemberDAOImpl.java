@@ -21,4 +21,6 @@ public class AdminMemberDAOImpl  implements AdminMemberDAO{
 		return memberList;
 	}
 
+
+	
 }

@@ -3,6 +3,7 @@
 		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 			<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 				<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+				<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
 					<div class="container">
@@ -11,7 +12,7 @@
 								<div class="ps-4">
 
 									<p class="fs-5 fw-bold mb-2">회원관리</p>
-									<form name="frm_delivery_list">
+									<form name="frm_mod_member">
 
 										<input type="radio" name="simple" checked class="d-none" /> <select
 											name="curYear" class="d-none">
@@ -88,7 +89,7 @@
 														<td class="table-light p-2 align-middle fw-bold border-end text-center" style="width: 100px;">회원ID</td>
 														<td class="table-light ps-4 align-middle fw-bold text-center border-end">회원정보</td>
 														<td class="table-light ps-4 align-middle fw-bold text-center border-end">배송정보</td>
-														<td class="table-light ps-4 align-middle fw-bold text-center border-end">가입일</td>
+														<td class="table-light align-middle fw-bold text-center border-end">가입일</td>
 														<td class="table-light text-center px-4 align-middle" style="width: 114px;">-</td>
 													</tr>
 													<c:choose>
@@ -120,7 +121,7 @@
 																			</div>
 																			<div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">아이디</span>
-																				<input class="form-control rounded-0" type="text" placeholder="아이디" value="${item.member_id}">
+																				<input class="form-control rounded-0" type="text" name="member_id" placeholder="아이디" value="${item.member_id}">
 																			</div>
 																			<div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">비밀번호</span>
@@ -133,8 +134,15 @@
 																		</td>
 																		<td class="border-end align-middle">
 																			<div class="d-flex mb-1 align-items-center">
-																				<span style="width: 100px;" class="">우편번호</span>
-																				<input class="form-control rounded-0" type="text" placeholder="우편번호" value="${item.zipcode}">
+																				<span style="width: 97.5px;" class="">우편번호</span>
+																				<div class="input-group mb-0">
+																					<input type="text" class="form-control rounded-0" placeholder="우편번호" id="zipcode" name="zipcode" size=5
+														value="${item.zipcode}" aria-describedby="button-addon2">
+														<a class="btn border-main small rounded-0 samll"
+														href="javascript:execDaumPostcode()" id="button-addon2">우편번호검색</a>
+																				</div>
+																				
+																				
 																			</div><div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">주소</span>
 																				<input class="form-control rounded-0" type="text" placeholder="주소" value="${item.member_address}">
@@ -144,7 +152,8 @@
 																			</div>     
 																		</td>
 																		<td class="border-end align-middle text-center">
-																			${item.joinDate}<br>
+																			${item.joinDate}
+																			<c:out value="${arr[0]}" /><br>
 																			<c:choose>
 																			<c:when test="${item.del_yn=='N' }">
 																				<strong> 활동중</strong>
@@ -153,15 +162,11 @@
 																			</c:otherwise>
 																		</c:choose>
 																		
-																		<c:set var="join_date"
-																			value="${item.joinDate}" />
-																		<c:set var="arr"
-																			value="${fn:split(join_date,' ')}" />
 																		</td>
 																	
 																			<td class="align-middle">
-																				<button class="w-100 btn border-main small rounded-0 samll mb-2" type="button">수정</button><button class="w-100 btn border-main small rounded-0 samll mb-0" type="button">삭제</button>
-																				
+																				<button class="w-100 btn border-main small rounded-0 samll mb-2" type="button">수정</button>
+																				<button class="w-100 btn border-main small rounded-0 samll mb-0" type="button" onClick="fn_delete_member('${item.member_id }','Y')">삭제</button>
 																			</td>
 																	
 														</tr>
@@ -184,6 +189,43 @@
 
 
 					<script>
+					
+					function fn_delete_member(member_id ,del_yn){
+						var member_id=member_id;
+						var del_yn=del_yn;
+					alert(member_id+", "+del_yn); 
+					    
+						var answer=confirm("해당회원을 삭제하시겠습니까?");
+						if(answer==true){
+							$.ajax({
+								type : "post",
+								async : false, //false인 경우 동기식으로 처리한다.
+								url : "${contextPath}/mypage/deleteMember.do",
+								data : {
+									member_id:member_id,
+									del_yn:del_yn
+								},
+								success : function(data, textStatus) {
+									if(data.trim()=='delete_success'){
+										alert("삭제되었습니다.");
+										location.href="${contextPath}/admin/member/adminMemberMain.do";
+									}else if(data.trim()=='failed'){
+										alert("다시 시도해 주세요.");	
+									}
+									
+								},
+								error : function(data, textStatus) {
+									alert("에러가 발생했습니다."+data);
+								},
+								complete : function(data, textStatus) {
+									//alert("작업을완료 했습니다");
+									
+								}
+							}); //end ajax
+						}
+				
+					}
+					
 
 						let date = new Date();
 						let before_1year = date.getFullYear() - 1;

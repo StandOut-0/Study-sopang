@@ -36,5 +36,7 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public ArrayList<MemberVO> listMember(HashMap condMap) throws Exception{
 		return adminMemberDAO.listMember(condMap);
 	}
+	
+
 
 }

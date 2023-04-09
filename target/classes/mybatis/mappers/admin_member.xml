@@ -37,11 +37,12 @@
 	
 	<select id="listMember" resultMap="memberResult"   parameterType="java.util.HashMap"  >
 	    <![CDATA[
-		select a.*, rownum as rnum from(select * 
-		from t_shopping_member 
-		order by joindate asc) a
+		 select a.*, rownum as rnum from
+        (select member_name,member_id,member_pw, hp1, zipcode, member_address, subaddress, sopang_money, del_yn, to_char(joindate,'YYYY-MM-DD') as joindate 
+		from t_shopping_member order by joindate asc) a
 		]]>	        
 	</select>
+	
 	
 </mapper>
 

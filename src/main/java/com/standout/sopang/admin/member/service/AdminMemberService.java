@@ -11,5 +11,6 @@ import com.standout.sopang.member.vo.MemberVO;
 import com.standout.sopang.order.vo.OrderVO;
 
 public interface AdminMemberService {
-	public ArrayList<MemberVO> listMember(HashMap condMap) throws Exception;
+	public ArrayList<MemberVO> listMember(HashMap condMap) throws Exception;	
+
 }

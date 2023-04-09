@@ -172,7 +172,7 @@
 
 											</td>
 											<td class="border-end align-middle text-center">${item.goods_credate }
-												<c:out value="${arr[0]}" />
+										<%-- 		<c:out value="${arr[0]}" /> --%>
 											</td>
 											<td class="align-middle">
 
