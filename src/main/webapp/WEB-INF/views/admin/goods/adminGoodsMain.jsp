@@ -49,26 +49,29 @@
 							</c:choose>
 						</c:forEach>
 					</select>
-					
-					
-					  <div class="d-flex align-items-center gap-1 justify-content-between">
-					  <div>
-					   <a href="javascript:search_order_history('today')"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">오늘</a>
-					<a href="javascript:search_goods_list('six_month')"
-						name="six_month"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll">최근
-						6개월</a> <a href="javascript:search_goods_list('one_year')"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_1year">before_1year</a>
-					<a href="javascript:search_goods_list('two_year')"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_2year">before_2year</a>
-					<a href="javascript:search_goods_list('three_year')"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_3year">before_3year</a></div>
+
+
+					<div
+						class="d-flex align-items-center gap-1 justify-content-between">
 						<div>
-						<button type="button" class="btn btn-main rounded-0 fw-bold p-2 ms-3 flex-fill fs-08" style="
-    width: 300px;
-">추가하기</button></div>
-</div>
+							<a href="javascript:search_order_history('today')"
+								class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">오늘</a>
+							<a href="javascript:search_goods_list('six_month')"
+								name="six_month"
+								class="badge rounded-pill btn mb-2 rounded-0 border-main samll">최근
+								6개월</a> <a href="javascript:search_goods_list('one_year')"
+								class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_1year">before_1year</a>
+							<a href="javascript:search_goods_list('two_year')"
+								class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_2year">before_2year</a>
+							<a href="javascript:search_goods_list('three_year')"
+								class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_3year">before_3year</a>
+						</div>
+						<div>
+							<button type="button"
+								class="btn btn-main rounded-0 fw-bold p-2 ms-3 flex-fill fs-08"
+								style="width: 300px;">추가하기</button>
+						</div>
+					</div>
 
 
 					<div class="">
@@ -80,7 +83,7 @@
 							value="${endDay}" />일
 					</div>
 
-				</form>
+				
 
 				<div class="border-top border-main border-2 mt-2"></div>
 
@@ -95,7 +98,8 @@
 									class="table-light ps-4 align-middle fw-bold text-center border-end">상품정보</td>
 								<td
 									class="table-light ps-4 align-middle fw-bold text-center border-end">상품이미지</td>
-									<td class="table-light align-middle fw-bold text-center border-end"
+								<td
+									class="table-light align-middle fw-bold text-center border-end"
 									style="width: 114px;">등록일</td>
 								<td class="table-light text-center px-4 align-middle"
 									style="width: 114px;">-</td>
@@ -104,9 +108,11 @@
 							<c:choose>
 								<c:when test="${empty newGoodsList }">
 									<tr>
+									<td colspan="5">
 										<div class="shadow-sm p-4 mt-3 rounded border border-light">
 											<p class="my-5 text-center">조회된 상품이 없습니다.</p>
 										</div>
+										</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
@@ -125,45 +131,60 @@
 														<option value="디지털">디지털</option>
 														<option value="도서">도서</option>
 														<option value="건강기능식품">건강기능식품</option>
-													</select>
-													<input type="hidden" name="goods_sort"
-												id="goods_sort" value="${item.goods_sort }"> 
+													</select> <input type="hidden" name="goods_sort" id="goods_sort"
+														value="${item.goods_sort }">
 												</div>
- <div class="d-flex mb-1 align-items-center">
-                                                <span style="width: 100px;" class="">상품이름</span>
-                                                <input class="form-control rounded-0" type="text" placeholder="상품이름" value="${item.goods_title } ">
-                                            </div>
-                                             <div class="d-flex mb-0 align-items-center">
-                                                <span style="width: 100px;" class="">상품가격</span>
-                                                <input class="form-control rounded-0" type="text" placeholder="상품가격" value="${item.goods_sales_price }">
-                                            </div>
-												
+												<div class="d-flex mb-1 align-items-center">
+													<span style="width: 100px;" class="">상품이름</span> <input
+														class="form-control rounded-0" type="text"
+														placeholder="상품이름" value="${item.goods_title } ">
+												</div>
+												<div class="d-flex mb-0 align-items-center">
+													<span style="width: 100px;" class="">상품가격</span> <input
+														class="form-control rounded-0" type="text"
+														placeholder="상품가격" value="${item.goods_sales_price }">
+												</div>
+
 											</td>
 											<td class="border-end align-middle">
-<div class="d-flex mb-1 align-items-center">
-                                                <span style="width: 100px;" class="">상품이미지</span>
-                                                <div class="input-group">
-                                                    <input type="file" class="form-control rounded-0" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                                    <button class="btn border-main samll rounded-0" type="button" id="inputGroupFileAddon04">업로드</button>
-                                                  </div>
-                                            </div>
-                                            <div class="d-flex mb-0 align-items-center">
-                                                <span style="width: 100px;" class="">상세이미지</span>
-                                                <div class="input-group">
-                                                    <input type="file" class="form-control rounded-0" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                                                    <button class="btn border-main samll rounded-0" type="button" id="inputGroupFileAddon04">업로드</button>
-                                                  </div>
-                                            </div>
+												<div class="d-flex mb-1 align-items-center">
+													<span style="width: 100px;" class="">상품이미지</span>
+													<div class="input-group">
+														<input type="file" class="form-control rounded-0"
+															id="inputGroupFile04"
+															aria-describedby="inputGroupFileAddon04"
+															aria-label="Upload">
+														<button class="btn border-main samll rounded-0"
+															type="button" id="inputGroupFileAddon04">업로드</button>
+													</div>
+												</div>
+												<div class="d-flex mb-0 align-items-center">
+													<span style="width: 100px;" class="">상세이미지</span>
+													<div class="input-group">
+														<input type="file" class="form-control rounded-0"
+															id="inputGroupFile04"
+															aria-describedby="inputGroupFileAddon04"
+															aria-label="Upload">
+														<button class="btn border-main samll rounded-0"
+															type="button" id="inputGroupFileAddon04">업로드</button>
+													</div>
+												</div>
 
-</td>
-					<td class="border-end align-middle text-center">${item.goods_credate } <c:out value="${arr[0]}" /></td>						
-<td class="align-middle">
+											</td>
+											<td class="border-end align-middle text-center">${item.goods_credate }
+												<c:out value="${arr[0]}" />
+											</td>
+											<td class="align-middle">
 
-												
-                                            <button class="w-100 btn border-main small rounded-0 samll mb-2" type="button">수정</button>
-                                            <button class="w-100 btn border-main small rounded-0 samll mb-0" type="button">삭제</button>
-                                        </td>
-</td>
+
+												<button
+													class="w-100 btn border-main small rounded-0 samll mb-2"
+													type="button">수정</button>
+												<button
+													class="w-100 btn border-main small rounded-0 samll mb-0"
+													type="button">삭제</button>
+											</td>
+											</td>
 										</tr>
 									</c:forEach>
 								</c:otherwise>
@@ -189,7 +210,7 @@
 				}
 				});
 				</script>
-			
+				</form>
 			</div>
 		</div>
 	</div>

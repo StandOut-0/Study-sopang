@@ -49,7 +49,7 @@
 				<p class="fw-bold text-black mb-2">SO관리</p>
 				<a href="${contextPath}/mypage/listMyOrderHistory.do" class="text-decoration-none mb-2 small">상품관리</a> <a
 					href="${contextPath}/cart/myCartList.do" class="text-decoration-none mb-2 small">장바구니</a> <a
-					href="${contextPath}/mypage/myDetailInfo.do" class="text-decoration-none mb-0 small">내정보</a>
+					href="${contextPath}/admin/member/adminMemberMain.do" class="text-decoration-none mb-0 small">회원관리</a>
 			</div>
 		</div>
 
