@@ -250,6 +250,7 @@ checkboxes.forEach((i) => i.addEventListener("click", function () {
 											<div class="p-4">
 												<div class="border-start ps-4">
 
+														<!-- 왠지여기가 문제인것같은데 다음주에 봅시다. -->
 													<select id="" selectedValue="1"
 														class="form-select rounded-0 text-center"
 														onchange="selectValue(this, this.value,${item.goods_id },${cnt.count-1 })">
@@ -331,7 +332,7 @@ checkboxes.forEach((i) => i.addEventListener("click", function () {
 </div>
 
 
-
+<!-- 여기도 문제의 소지가 있음. 아니 새로고침할때니까 여기가 가능성이 큼 -->
 <script>
 var cart_goods_qty_inputs = document.getElementsByName("cart_goods_qty");
 cart_goods_qty_inputs.forEach((cart_goods_qty_inputs) => {

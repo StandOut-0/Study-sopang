@@ -40,8 +40,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session=request.getSession();
-		System.out.println(memberVO);
-		System.out.println(memberVO.getMember_id());
+		
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String  member_id=memberVO.getMember_id();
 		
