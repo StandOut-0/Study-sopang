@@ -60,7 +60,7 @@
     .search .form-select{width: var(--dropdown_s)!important; flex: inherit;font-size: var(--txt08)!important;}
     .header *:focus{border:none!important}
 
-    .btn.border-main{color: var(--mainColor);}
+    .btn.border-main{color: var(--mainColor); background:white}
     .btn.border-main:hover, .list-group-item.active{
         background: var(--mainColor);
         color: white!important;

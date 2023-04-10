@@ -20,7 +20,7 @@
 			<div
 				class="bg-main mypageBox fw-light d-flex flex-column align-items-center ps-4 pt-4 border-end border-primary-subtle"
 				style="width: 150px">
-				<p class="w-100 mb-2 small">배송중</p>
+				<p class="w-100 mb-2 small">등록상품</p>
 				<p class="w-100 mb-0">
 					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">0</span>개
 				</p>
@@ -28,7 +28,7 @@
 			<div
 				class="bg-mainColorLight mypageBox fw-light d-flex flex-column align-items-center ps-4 pt-4 border-end border-primary-subtle"
 				style="width: 150px">
-				<p class="w-100 mb-2 small">장바구니</p>
+				<p class="w-100 mb-2 small">주문건수</p>
 				<p class="w-100 mb-0">
 					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">0</span>개
 				</p>
@@ -37,7 +37,7 @@
 			<div
 				class="bg-mainColorLight mypageBox fw-light d-flex flex-fill flex-column align-items-center pe-4 pt-4 border-end border-primary-subtle text-end"
 				style="width: 150px">
-				<p class="w-100 mb-2 small">소팡머니</p>
+				<p class="w-100 mb-2 small">총매출</p>
 				<p class="w-100 mb-0">
 					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">777,777</span>원
 				</p>
@@ -47,8 +47,8 @@
 				class="position-absolute top-100 start-0 bg-light px-3 py-4 d-flex flex-column border secondary-subtle"
 				style="width: 150px;">
 				<p class="fw-bold text-black mb-2">SO관리</p>
-				<a href="${contextPath}/mypage/listMyOrderHistory.do" class="text-decoration-none mb-2 small">상품관리</a> <a
-					href="${contextPath}/cart/myCartList.do" class="text-decoration-none mb-2 small">장바구니</a> <a
+				<a href="${contextPath}/admin/goods/adminGoodsMain.do" class="text-decoration-none mb-2 small">상품관리</a> <a
+					href="${contextPath}/admin/order/adminOrderMain.do" class="text-decoration-none mb-2 small">주문관리</a> <a
 					href="${contextPath}/admin/member/adminMemberMain.do" class="text-decoration-none mb-0 small">회원관리</a>
 			</div>
 		</div>

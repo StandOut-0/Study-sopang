@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.admin.order">
+<resultMap id="orderResult" type="OrderVO">
+
+		<result property="order_seq_num" column="order_seq_num" />
+		<result property="order_id" column="order_id" />
+		<result property="goods_id" column="goods_id" />
+		<result property="goods_title" column="goods_title" />
+		<result property="goods_sales_price" column="goods_sales_price" />
+		<result property="goods_fileName" column="goods_fileName" />
+		<result property="goods_qty" column="goods_qty" />
+		<result property="delivery_state" column="delivery_state" />
+		
+		<result property="member_id" column="member_id" />
+		<result property="orderer_hp" column="orderer_hp" />
+		
+		<result property="receiver_name" column="receiver_name" />
+		<result property="receiver_hp1" column="receiver_hp1" />
+		<result property="delivery_address" column="delivery_address" />
+		
+		<result property="pay_method" column="pay_method" />
+		<result property="card_com_name" column="card_com_name" />
+		<result property="pay_orderer_hp_num" column="pay_orderer_hp_num" />
+		<result property="card_pay_month" column="card_pay_month" />
+		<result property="pay_order_time" column="pay_order_time" />
+		
+		<result property="final_total_price" column="final_total_price" />
+		<result property="goods_qty" column="goods_qty" />
+		
+		<result property="goods_fileName" column="goods_fileName" />
+	</resultMap>
+  <resultMap id="memberResult" type="memberVO">
+		<result property="member_name" column="member_name" />
+		<result property="member_id" column="member_id" />
+		<result property="member_pw" column="member_pw" />
+		<result property="hp1" column="hp1" />
+		<result property="zipcode" column="zipcode" />
+		<result property="member_address" column="member_address" />
+		<result property="subaddress" column="subaddress" />
+		<result property="sopang_money" column="sopang_money" />
+		<result property="joinDate" column="joinDate" />
+		<result property="del_yn" column="del_yn" />
+	</resultMap>
+	
+<select id="selectNewOrderList" resultMap="orderResult"   parameterType="java.util.HashMap"  >
+		select a.*, rownum as rnum from(
+        select 
+        to_char(pay_order_time,'YYYY-MM-DD') as pay_order_time, order_id, goods_title,order_goods_qty, 
+        delivery_state, member_id, receiver_hp1,receiver_name,delivery_address
+		from t_shopping_order 
+		order by pay_order_time asc) a		        
+	</select>
+</mapper>
+

@@ -109,7 +109,7 @@
 								<c:when test="${empty newGoodsList }">
 									<tr>
 									<td colspan="5">
-										<div class="shadow-sm p-4 mt-3 rounded border border-light">
+										<div class="p-4">
 											<p class="my-5 text-center">조회된 상품이 없습니다.</p>
 										</div>
 										</td>

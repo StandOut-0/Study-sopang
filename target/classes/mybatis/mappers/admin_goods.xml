@@ -75,8 +75,7 @@
 	    <![CDATA[
 		select a.*, rownum as rnum from(select * 
 		from t_shopping_goods 
-		order by goods_credate asc) a
-					        
+		order by goods_credate asc) a        
     	]]>
 	</select>
 	<!-- where rownum >=1 and rownum <=10 -->
