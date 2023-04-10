@@ -6,6 +6,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
+<c:set var="cartCount" value="${sessionScope.cartCount}" />
+<c:set var="deliveringCount" value="${sessionScope.deliveringCount}" />
+<c:set var="sopang_money" value="${sessionScope.sopang_money}" />
+
 <div class="container">
 
 	<div class="row">
@@ -22,7 +26,7 @@
 				style="width: 150px">
 				<p class="w-100 mb-2 small">배송중</p>
 				<p class="w-100 mb-0">
-					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">0</span>개
+					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">${deliveringCount }</span>개
 				</p>
 			</div>
 			<div
@@ -30,7 +34,7 @@
 				style="width: 150px">
 				<p class="w-100 mb-2 small">장바구니</p>
 				<p class="w-100 mb-0">
-					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">0</span>개
+					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">${cartCount }</span>개
 				</p>
 			</div>
 
@@ -39,7 +43,7 @@
 				style="width: 150px">
 				<p class="w-100 mb-2 small">소팡머니</p>
 				<p class="w-100 mb-0">
-					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">777,777</span>원
+					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">${sopang_money }</span>원
 				</p>
 			</div>
 

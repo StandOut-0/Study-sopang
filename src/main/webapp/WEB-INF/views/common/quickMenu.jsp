@@ -3,6 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="cartCount" value="${sessionScope.cartCount}" />
 
 <script>
 	var array_index=0;
@@ -36,44 +37,12 @@
 	img_sticky.src=SERVER_URL+"?goods_id="+goods_id+"&fileName="+fileName;
 	cur_goods_num.innerHTML=array_index+1;
 }
-
-/* function goodsDetail(){
-	
-	var cur_goods_num=document.getElementById("cur_goods_num");
-	alert(cur_goods_num);
-	arrIdx=cur_goods_num.innerHTML-1;
-	
-	var img_sticky=document.getElementById("img_sticky");
-	var h_goods_id=document.frm_sticky.h_goods_id;
-	var len=h_goods_id.length;
-	
-	if(len>1){
-		goods_id=h_goods_id[arrIdx].value;
-	}else{
-		goods_id=h_goods_id.value;
-	}
-	
-	
-	var formObj=document.createElement("form");
-	var i_goods_id = document.createElement("input"); 
-    
-	i_goods_id.name="goods_id";
-	i_goods_id.value=goods_id;
-	
-    formObj.appendChild(i_goods_id);
-    document.body.appendChild(formObj); 
-    formObj.method="get";
-    formObj.action="${contextPath}/goods/goodsDetail.do?goods_id="+goods_id;
-    formObj.submit();
-	
-	
-} */
 </script>
 
 <div
 	class="d-flex flex-column position-absolute top-50 end-0 translate-middle z-2"
 	style="width: 130px;">
-	<a href="${contextPath}/cart/myCartList.do" class="btn btn-main rounded-0 py-2 d-block small">장바구니 <span>0</span></a>
+	<a href="${contextPath}/cart/myCartList.do" class="btn btn-main rounded-0 py-2 d-block small">장바구니 <span>${cartCount }</span></a>
 	<p href="" class="btn btn-dark rounded-0 py-2 d-block small mb-0">최근본상품</span>
 	</p>
 	<div class="d-flex flex-column bg-white border border-top-0 p-2 pb-0">
