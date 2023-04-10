@@ -2,6 +2,7 @@ package com.standout.sopang.admin.member.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,5 +13,6 @@ import com.standout.sopang.order.vo.OrderVO;
 
 public interface AdminMemberService {
 	public ArrayList<MemberVO> listMember(HashMap condMap) throws Exception;	
+	public void  modifyMyInfo(HashMap memberMap) throws Exception;
 
 }

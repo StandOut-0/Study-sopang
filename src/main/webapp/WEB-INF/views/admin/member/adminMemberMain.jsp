@@ -83,7 +83,7 @@
 										<div class="border-top border-main border-2 mt-2"></div>
 
 										<div class="table-responsive mt-4">
-											<table class="table border-top mb-0 small fw-light border-bottom">
+											<table class="table border-top mb-0 small fw-light border-bottom member_table">
 												<tbody>
 													<tr>
 														<td class="table-light p-2 align-middle fw-bold border-end text-center" style="width: 100px;">회원ID</td>
@@ -117,26 +117,26 @@
 																		<td class="border-end align-middle">
 																			<div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">이름</span>
-																				<input class="form-control rounded-0" type="text" placeholder="이름" value="${item.member_name}">
+																				<input class="form-control rounded-0 member_name" type="text" placeholder="이름" value="${item.member_name}">
 																			</div>
 																			<div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">아이디</span>
-																				<input class="form-control rounded-0" type="text" name="member_id" placeholder="아이디" value="${item.member_id}">
+																				<input class="form-control rounded-0 member_id" type="text" name="member_id" placeholder="아이디" value="${item.member_id}" disabled>
 																			</div>
 																			<div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">비밀번호</span>
-																				<input class="form-control rounded-0" type="text" placeholder="비밀번호" value="${item.member_pw}">
+																				<input class="form-control rounded-0 member_pw" type="text" name="member_pw" placeholder="비밀번호" value="${item.member_pw}">
 																			</div>
 																			<div class="d-flex mb-0 align-items-center">
 																				<span style="width: 100px;" class="">휴대전화</span>
-																				<input class="form-control rounded-0" type="text" placeholder="010-0000-0000" value="${item.hp1}">
+																				<input class="form-control rounded-0 hp1" type="text" name="hp1" placeholder="010-0000-0000" value="${item.hp1}">
 																			</div>
 																		</td>
 																		<td class="border-end align-middle">
 																			<div class="d-flex mb-1 align-items-center">
 																				<span style="width: 97.5px;" class="">우편번호</span>
 																				<div class="input-group mb-0">
-																					<input type="text" class="form-control rounded-0" placeholder="우편번호" id="zipcode" name="zipcode" size=5
+																					<input type="text" class="form-control rounded-0 zipcode" placeholder="우편번호" id="zipcode" name="zipcode" size=5
 														value="${item.zipcode}" aria-describedby="button-addon2">
 														<a class="btn border-main small rounded-0 samll"
 														href="javascript:execDaumPostcode()" id="button-addon2">우편번호검색</a>
@@ -145,10 +145,10 @@
 																				
 																			</div><div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">주소</span>
-																				<input class="form-control rounded-0" type="text" placeholder="주소" value="${item.member_address}">
+																				<input class="form-control rounded-0 member_address" type="text" placeholder="주소"  name="member_address"  value="${item.member_address}">
 																			</div><div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">상세주소</span>
-																				<input class="form-control rounded-0" type="text" placeholder="상세주소" value="${item.subaddress}">
+																				<input class="form-control rounded-0 subaddress" type="text" placeholder="상세주소"  name="subaddress" value="${item.subaddress}">
 																			</div>     
 																		</td>
 																		<td class="border-end align-middle text-center">
@@ -165,7 +165,8 @@
 																		</td>
 																	
 																			<td class="align-middle">
-																				<button class="w-100 btn border-main small rounded-0 samll mb-2" type="button">수정</button>
+																			<c:set var="index" value="${status.index}"/>
+																				<button class="w-100 btn border-main small rounded-0 samll mb-2" type="button" onClick="fn_modify_member_info(${item_num.count})">수정</button>
 																				<button class="w-100 btn border-main small rounded-0 samll mb-0" type="button" onClick="fn_delete_member('${item.member_id }','Y')">삭제</button>
 																			</td>
 																	
@@ -189,6 +190,62 @@
 
 
 					<script>
+					
+					
+					
+					
+					function fn_modify_member_info(item){
+						var member_trs = document.querySelectorAll(".member_table tr");
+						var target = member_trs[item];
+						
+						var member_name= target.getElementsByClassName("member_name")[0].value;
+						var member_id= target.getElementsByClassName("member_id")[0].value;
+						var member_pw= target.getElementsByClassName("member_pw")[0].value;
+						var hp1= target.getElementsByClassName("hp1")[0].value;
+						var zipcode= target.getElementsByClassName("zipcode")[0].value;
+						var member_address= target.getElementsByClassName("member_address")[0].value;
+						var subaddress= target.getElementsByClassName("subaddress")[0].value;
+						
+						
+				 	console.log(member_name+" "+member_id+" "+member_pw + " "+hp1 + " "+zipcode + " "+member_address + " "+subaddress);
+						
+						$.ajax({
+							type : "post",
+							async : false, //false인 경우 동기식으로 처리한다.
+							url : "${contextPath}/admin/member/modifyMyInfo.do",
+							data : {
+								member_name:member_name,
+								member_id:member_id,
+								member_pw:member_pw,
+								hp1:hp1,
+								zipcode:zipcode,
+								member_address:member_address,
+								subaddress:subaddress
+							},
+							success : function(data, textStatus) {
+								if(data.trim()=='mod_success'){
+									alert("회원 정보를 수정했습니다.");
+								}else if(data.trim()=='failed'){
+									alert("다시 시도해 주세요.");	
+								}
+								
+							},
+							error : function(data, textStatus) {
+								alert("에러가 발생했습니다."+data);
+							},
+							complete : function(data, textStatus) {
+								//alert("작업을완료 했습니다");
+								
+							}
+						}); //end ajax 
+						
+					}
+					
+					
+					
+					
+					
+					
 					
 					function fn_delete_member(member_id ,del_yn){
 						var member_id=member_id;

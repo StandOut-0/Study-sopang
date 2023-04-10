@@ -236,7 +236,8 @@ checkboxes.forEach((i) => i.addEventListener("click", function () {
 																	<p class="mb-1 mt-1 small">${item.goods_title}</p>
 																	<p class="mb-0 text-secondary">
 																		<span class="goods_sales_price">${item.goods_sales_price}</span>
-																		원 <span> · </span><span>${cart_goods_qty}</span>개
+																		원 <span> · </span><span>${cart_goods_qty}</span>개  
+																		<%-- 카트번호: ${cart_id} --%>
 																	</p>
 																</div>
 															</div>
@@ -261,7 +262,7 @@ checkboxes.forEach((i) => i.addEventListener("click", function () {
 														<option value="5">5</option>
 														<option value="6">6</option>
 														<option value="7">7</option>
-													</select> <input type="text" id="cart_goods_qty"
+													</select> <input type="hidden" id="cart_goods_qty"
 														name="cart_goods_qty" value="${cart_goods_qty}"> <a
 														href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');"
 														class="btn btn-sm border-main rounded-0 small d-block mt-2"
@@ -287,12 +288,7 @@ checkboxes.forEach((i) => i.addEventListener("click", function () {
 				</c:choose>
 
 	
-
-			</div>
-
-		</div>
-
-		<div class="text-end mt-4 mb-2">
+<div class="text-end mt-4 mb-2">
 			<label> <input title="모든 상품을 결제상품으로 설정" type="checkbox"
 				name="checked_goods" class="all-deal-select"
 				onclick='selectAll(this)'> <span class="small selectAllSpan">전체선택</span>
@@ -326,14 +322,19 @@ checkboxes.forEach((i) => i.addEventListener("click", function () {
 			class="btn btn-lg btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">주문하기</a>
 
 	</div>
+			</div>
+
+		</div>
+
+		
 </div>
 </div>
 
 </div>
 
 
-<!-- 여기도 문제의 소지가 있음. 아니 새로고침할때니까 여기가 가능성이 큼 -->
 <script>
+/* 단순히 input의 value를 select에 select해서 사용자에게 보여주는 역할을 함. */
 var cart_goods_qty_inputs = document.getElementsByName("cart_goods_qty");
 cart_goods_qty_inputs.forEach((cart_goods_qty_inputs) => {
 let inputValue = cart_goods_qty_inputs.value;

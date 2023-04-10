@@ -5,32 +5,14 @@
 
 <mapper namespace="mapper.admin.member">
 <resultMap id="memberResult" type="MemberVO">
+		<result property="member_name" column="member_name" />
 		<result property="member_id" column="member_id" />
 		<result property="member_pw" column="member_pw" />
-		<result property="member_name" column="member_name" />
-		<result property="member_gender" column="member_gender" />
-		
-		<result property="member_birth_y" column="member_birth_y" />
-		<result property="member_birth_m" column="member_birth_m" />
-		<result property="member_birth_d" column="member_birth_d" />
-		
-		<result property="member_birth_gn" column="member_birth_gn" />
-		<result property="tel1" column="tel1" />
-		<result property="tel2" column="tel2" />
-		<result property="tel3" column="tel3" />
-		
 		<result property="hp1" column="hp1" />
-		<result property="hp2" column="hp2" />
-		<result property="hp3" column="hp3" />
-		<result property="smssts_yn" column="smssts_yn" />
-		<result property="email1" column="email1" />
-		<result property="email2" column="email2" />
-		<result property="emailsts_yn" column="emailsts_yn" />
-		
 		<result property="zipcode" column="zipcode" />
-		<result property="roadAddress" column="roadAddress" />
-		<result property="jibunAddress" column="jibunAddress" />
-		<result property="namujiAddress" column="namujiAddress" />
+		<result property="member_address" column="member_address" />
+		<result property="subaddress" column="subaddress" />
+		<result property="sopang_money" column="sopang_money" />
 		<result property="joinDate" column="joinDate" />
 		<result property="del_yn" column="del_yn" />
 	</resultMap>
@@ -43,6 +25,18 @@
 		]]>	        
 	</select>
 	
+	<update id="updateMyInfo" parameterType="java.util.HashMap">
+	    update t_shopping_member
+	    set
+	    member_name=#{member_name},
+	    member_pw=#{member_pw},
+	    hp1=#{hp1},
+		zipcode=#{zipcode},  
+		member_address=#{member_address},
+		subaddress=#{subaddress}
+		where 
+		member_id=#{member_id}
+	</update>
 	
 </mapper>
 

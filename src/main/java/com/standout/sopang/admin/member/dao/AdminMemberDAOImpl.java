@@ -2,6 +2,7 @@ package com.standout.sopang.admin.member.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class AdminMemberDAOImpl  implements AdminMemberDAO{
 	}
 
 
-	
+	public void updateMyInfo(HashMap memberMap) throws DataAccessException{
+		
+		System.out.println("SQL을 실행하곤 왜 멈출까요?");
+		sqlSession.update("mapper.admin.member.updateMyInfo", memberMap);
+		System.out.println("SQL 실행완료");
+	}
 }

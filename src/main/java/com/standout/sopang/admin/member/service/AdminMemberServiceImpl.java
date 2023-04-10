@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,5 +39,7 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	}
 	
 
-
+	public void  modifyMyInfo(HashMap memberMap) throws Exception{
+		 adminMemberDAO.updateMyInfo(memberMap);
+	}
 }
