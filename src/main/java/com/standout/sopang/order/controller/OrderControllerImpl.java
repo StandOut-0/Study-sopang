@@ -113,5 +113,41 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 //		return mav;
 	}
 	
+	@RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
+	public ModelAndView orderAllCartGoods( @RequestParam("cart_goods_qty")  String[] cart_goods_qty,
+			                 HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		Map cartMap=(Map)session.getAttribute("cartMap");
+		List myOrderList=new ArrayList<OrderVO>();
+		
+		List<GoodsVO> myGoodsList=(List<GoodsVO>)cartMap.get("myGoodsList");
+		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
+		
+		for(int i=0; i<cart_goods_qty.length;i++){
+			String[] cart_goods=cart_goods_qty[i].split(":");
+			for(int j = 0; j< myGoodsList.size();j++) {
+				GoodsVO goodsVO = myGoodsList.get(j);
+				int goods_id = goodsVO.getGoods_id();
+				if(goods_id==Integer.parseInt(cart_goods[0])) {
+					OrderVO _orderVO=new OrderVO();
+					String goods_title=goodsVO.getGoods_title();
+					int goods_sales_price=goodsVO.getGoods_sales_price();
+					String goods_fileName=goodsVO.getGoods_fileName();
+					_orderVO.setGoods_id(goods_id);
+					_orderVO.setGoods_title(goods_title);
+					_orderVO.setGoods_sales_price(goods_sales_price);
+					_orderVO.setGoods_fileName(goods_fileName);
+					_orderVO.setOrder_goods_qty(Integer.parseInt(cart_goods[1]));
+					myOrderList.add(_orderVO);
+					break;
+				}
+			}
+		}
+		session.setAttribute("myOrderList", myOrderList);
+		session.setAttribute("orderer", memberVO);
+		return mav;
+	}	
 
 }

@@ -96,8 +96,8 @@
 
 											<div
 												class="shadow-sm p-4 mt-3 rounded border border-light d-flex justify-content-between">
-												<div>
-													<p class="text-secondary fw-bold mb-3">
+												<div class="d-flex flex-column gap-4">
+													<p class="text-secondary fw-bold mb-0">
 														<c:choose>
 															<c:when
 																test="${item.delivery_state=='delivery_prepared' }">
@@ -137,9 +137,10 @@
 																			href="${contextPath}/goods/goodsDetail.do?goods_id=${item2.goods_id }">${item2.goods_title}</a>
 																	</p>
 																	<p class="mb-0 text-secondary">
-																		<span>${item.goods_sales_price*item.order_goods_qty}</span>
-																		원 <span> · </span><span>${item.order_goods_qty
-																					}</span>개
+																		<span>${item2.order_goods_qty
+																					}</span>개 <span> · </span>
+																		<span>${item2.goods_sales_price*item2.order_goods_qty}</span>
+																		원
 																	</p>
 																</div>
 															</div>
@@ -152,7 +153,7 @@
 													<c:when test="${item.delivery_state=='cancel_order'}">
 													</c:when>
 													<c:otherwise>
-														<div class="border-start ps-4 align-self-center">
+														<div class="border-start ps-4 align-self-center align-self-stretch d-flex align-items-center">
 															<div>
 																<c:choose>
 																	<c:when

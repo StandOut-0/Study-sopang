@@ -205,26 +205,6 @@ function fn_process_pay_order(){
     i_delivery_address.name="delivery_address";
     i_delivery_address.value=delivery_address;
     formObj.appendChild(i_delivery_address);
-   
-   /*  var i_pay_method=document.createElement("input");
-    i_pay_method.name="pay_method";
-    i_pay_method.value=pay_method;
-    formObj.appendChild(i_pay_method);
-    
-    var i_card_com_name=document.createElement("input");
-    i_card_com_name.name="card_com_name";
-    i_card_com_name.value=card_com_name;
-    formObj.appendChild(i_card_com_name);
-    
-    var i_card_pay_month=document.createElement("input");
-    i_card_pay_month.name="card_pay_month";
-    i_card_pay_month.value=card_pay_month;
-    formObj.appendChild(i_card_pay_month);
-    
-    var i_pay_orderer_hp_num=document.createElement("input");
-    i_pay_orderer_hp_num.name="pay_orderer_hp_num";
-    i_pay_orderer_hp_num.value=pay_orderer_hp_num;
-    formObj.appendChild(i_pay_orderer_hp_num); */
 
     document.body.appendChild(formObj); 
     formObj.method="post";

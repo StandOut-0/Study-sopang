@@ -140,7 +140,7 @@ function selectValue(selectBox, value){
 				goods_id:goods_id
 			},
 			success : function(data, textStatus) {
-				alert(data);
+				/* alert(data); */
 				//$('#message').append(data);
 				if(data.trim()=='add_success'){
 					alert("장바구니에 추가되엇습니다.");
