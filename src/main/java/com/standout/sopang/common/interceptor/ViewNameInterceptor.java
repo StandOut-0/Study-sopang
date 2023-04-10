@@ -41,13 +41,25 @@ public class ViewNameInterceptor extends HandlerInterceptorAdapter {
 			sopang_money=(Long)sqlSession.selectOne("mapper.sopang.counts.sopang_money",member_id);
 			session.setAttribute("sopang_money", sopang_money);
 			
+			System.out.println(member_id);
+			if(member_id.equals("1111") == true) {
+				int goodsLen = 0;
+				goodsLen=sqlSession.selectOne("mapper.sopang.counts.goodsLen");
+				session.setAttribute("goodsLen", goodsLen);
+				
+				int ordersLen = 0;
+				ordersLen=sqlSession.selectOne("mapper.sopang.counts.ordersLen");
+				session.setAttribute("ordersLen", ordersLen);
+				
+				Long totalSales = 0L;
+				totalSales=(Long)sqlSession.selectOne("mapper.sopang.counts.totalSales");
+				session.setAttribute("totalSales", totalSales);
+				
+				
+			}
 			
-		}catch(NullPointerException n) {
-			System.out.println("null이기에 예외처리가 납니다.");
-		} catch(NumberFormatException f) {
-			System.out.println("Long으로 변환 할 수 없어 예외처리가 납니다.");
-		} 
-		catch (Exception e) {
+			
+		}catch (Exception e) {
 			System.out.println("로그인하지않았거나 예상하기 어려운 예외가 발생했습니다.");
 		}
 		

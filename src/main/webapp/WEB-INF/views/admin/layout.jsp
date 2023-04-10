@@ -6,6 +6,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
+<c:set var="goodsLen" value="${sessionScope.goodsLen}" />
+<c:set var="ordersLen" value="${sessionScope.ordersLen}" />
+<c:set var="totalSales" value="${sessionScope.totalSales}" />
+
 <div class="container">
 
 	<div class="row">
@@ -22,7 +26,7 @@
 				style="width: 150px">
 				<p class="w-100 mb-2 small">등록상품</p>
 				<p class="w-100 mb-0">
-					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">0</span>개
+					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">${goodsLen }</span>개
 				</p>
 			</div>
 			<div
@@ -30,16 +34,16 @@
 				style="width: 150px">
 				<p class="w-100 mb-2 small">주문건수</p>
 				<p class="w-100 mb-0">
-					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">0</span>개
+					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">${ordersLen }</span>개
 				</p>
 			</div>
 
 			<div
 				class="bg-mainColorLight mypageBox fw-light d-flex flex-fill flex-column align-items-center pe-4 pt-4 border-end border-primary-subtle text-end"
 				style="width: 150px">
-				<p class="w-100 mb-2 small">총매출</p>
+				<p class="w-100 mb-2 small">총 매출</p>
 				<p class="w-100 mb-0">
-					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">777,777</span>원
+					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">${totalSales }</span>원
 				</p>
 			</div>
 

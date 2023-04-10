@@ -28,6 +28,25 @@
 	    ]]>
 	</select>
 	
+	<select id="goodsLen" resultType="int">
+        <![CDATA[
+         select count(*) from t_shopping_goods
+	    ]]>
+	</select>
+	
+	<select id="ordersLen" resultType="int">
+        <![CDATA[
+         select count(*) from t_shopping_order where delivery_state <>'cancel_order'
+	    ]]>
+	</select>
+	
+	 <select id="totalSales" resultType="java.lang.Long">
+        <![CDATA[
+        select sum(goods_sales_price*order_goods_qty) 
+        as total_price 
+        from t_shopping_order where delivery_state <>'cancel_order'
+	    ]]>
+	</select>
 	
 	
 </mapper>
