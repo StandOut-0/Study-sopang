@@ -34,6 +34,18 @@
   padding: 30px;
 }
 
+.filesToFackFilesInput span{
+    background: #f8f9fa;
+    font-size: 13px;
+    width: 117px;
+    border: 1px solid #ddd;
+    border-right: 0;
+    line-height: 31px;
+    text-align: center;}
+
+
+	.warn *::placeholder{color: red;} 
+
 @media (min-width: 250px){
 
     /* txt color */

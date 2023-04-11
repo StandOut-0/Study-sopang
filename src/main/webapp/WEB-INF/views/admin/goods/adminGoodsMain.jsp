@@ -108,7 +108,7 @@
 
 
 							<form action="${contextPath}/admin/goods/addNewGoods.do" method="post" enctype="multipart/form-data">
-							<tr class="d-none newGoods bg-primary-subtle ">
+							<tr class=" newGoods bg-primary-subtle ">
 								<td
 									class="p-2 align-middle fw-bold border-end text-center samll"
 									style="width: 45px;"> - </td>
@@ -136,30 +136,36 @@
 											value="">
 									</div>
 
-								</td>
+								</td> 
 								<td class="border-end align-middle">
 									<div class="d-flex mb-1 align-items-center">
 										<span style="width: 100px;" class="">상품이미지</span>
 										<div class="input-group">
-											<input type="file" class="form-control rounded-0"
-												name='main_image' id='f_main_image'
-												>
-										</div>
+											<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
+													<input class="file_real d-none" id="f_main_image" type="file" style="opacity:.5">
+													<span>파일선택</span>
+											<input name='main_image' class="file_fake form-control rounded-0" type="text" placeholder="main.png로 변경후 업로드해주세요." readonly tabindex="-1">
+											</label>
+										</div> 
 									</div>
 									<div class="d-flex mb-1 align-items-center">
 										<span style="width: 100px;" class="">상세이미지</span>
 										<div class="input-group">
-											<input type="file" class="form-control rounded-0"
-												 name='detail_image1'
-												>
+											<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
+													<input class="file_real d-none" id="f_main_image" type="file" style="opacity:.5">
+													<span>파일선택</span>
+											<input name='detail_image1' class="file_fake form-control rounded-0" type="text" placeholder="detail1.png로 변경후 업로드해주세요." readonly tabindex="-1">
+											</label>
 										</div>
 									</div>
 									<div class="d-flex mb-0 align-items-center">
 										<span style="width: 100px;" class=""></span>
 										<div class="input-group">
-											<input type="file" class="form-control rounded-0"
-												 name='detail_image2'
-												>
+											<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
+													<input class="file_real d-none" id="f_main_image" type="file" style="opacity:.5">
+													<span>파일선택</span>
+											<input name='detail_image2' class="file_fake form-control rounded-0" type="text" placeholder="detail2.png로 변경후 업로드해주세요." readonly tabindex="-1">
+											</label>
 										</div>
 									</div>
 
@@ -176,23 +182,7 @@
 								</td>
 							</tr>
 							</form>
-
-<script>
-function fn_add_new_goods(obj){
-	const fileName = document.querySelector("#f_main_image").value;
-	/* alert(fileName); */
-	 if(fileName != null && fileName != undefined){
-		 obj.submit();
-	 }else{
-		 alert("메인 이미지는 반드시 첨부해야 합니다.");
-		 return;
-	 }
-	 
-}
-</script>
-
-
-							<form method="post">
+					
 
 								<c:choose>
 									<c:when test="${empty newGoodsList }">
@@ -206,10 +196,13 @@ function fn_add_new_goods(obj){
 									</c:when>
 									<c:otherwise>
 										<c:forEach var="item" items="${newGoodsList }">
+										<form method="post" enctype="multipart/form-data">
 											<tr>
 												<td
 													class="table-light p-2 align-middle fw-bold border-end text-center samll"
-													style="width: 45px;">${item.goods_id }</td>
+													style="width: 45px;">${item.goods_id }
+													<input type="hidden" value="${item.goods_id }" name="goods_id">
+													</td>
 												<td class="border-end align-middle">
 
 													<div class="d-flex mb-1 align-items-center">
@@ -226,12 +219,12 @@ function fn_add_new_goods(obj){
 													<div class="d-flex mb-1 align-items-center">
 														<span style="width: 100px;" class="">상품이름</span> <input
 															class="form-control rounded-0" type="text"
-															placeholder="상품이름" value="${item.goods_title } ">
+															placeholder="상품이름" value="${item.goods_title } " name="goods_title">
 													</div>
 													<div class="d-flex mb-0 align-items-center">
 														<span style="width: 100px;" class="">상품가격</span> <input
 															class="form-control rounded-0" type="text"
-															placeholder="상품가격" value="${item.goods_sales_price }">
+															placeholder="상품가격" value="${item.goods_sales_price }" name="goods_sales_price">
 													</div>
 
 												</td>
@@ -239,30 +232,37 @@ function fn_add_new_goods(obj){
 													<div class="d-flex mb-1 align-items-center">
 														<span style="width: 100px;" class="">상품이미지</span>
 														<div class="input-group">
-															<input type="file" class="form-control rounded-0"
-																id="inputGroupFile04"
-																aria-describedby="inputGroupFileAddon04"
-																aria-label="Upload">
+															<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
+													<input class="file_real d-none"  type="file" style="opacity:.5">
+													<span>파일선택</span>
+													<input name='main_image' class="file_fake form-control rounded-0" type="text" placeholder="main.png" readonly tabindex="-1">
+											</label>
+												
+											
+
+															
 														</div>
 													</div>
 													<div class="d-flex mb-1 align-items-center">
 														<span style="width: 100px;" class="">상세이미지</span>
 														<div class="input-group">
-															<input type="file" class="form-control rounded-0"
-																id="inputGroupFile04"
-																aria-describedby="inputGroupFileAddon04"
-																aria-label="Upload">
+															<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
+													<input class="file_real d-none"  type="file" style="opacity:.5">
+													<span>파일선택</span>
+													<input name='detail_image1' class="file_fake form-control rounded-0" type="text" placeholder="detail1.png" readonly tabindex="-1">
+											</label>
+												
 															
 														</div>
 													</div>
 													<div class="d-flex mb-0 align-items-center">
-														<span style="width: 100px;" class="">상세이미지</span>
+														<span style="width: 100px;" class=""></span>
 														<div class="input-group">
-															<input type="file" class="form-control rounded-0"
-																id="inputGroupFile04"
-																aria-describedby="inputGroupFileAddon04"
-																aria-label="Upload">
-															
+															<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
+													<input class="file_real d-none"  type="file" style="opacity:.5">
+													<span>파일선택</span>
+													<input name='detail_image2' class="file_fake form-control rounded-0" type="text" placeholder="detail2.png" readonly tabindex="-1">
+											</label>
 														</div>
 													</div>
 												</td>
@@ -273,27 +273,64 @@ function fn_add_new_goods(obj){
 
 													<button
 														class="w-100 btn border-main small rounded-0 samll mb-2"
-														type="button">수정</button>
+														type="submit" formaction="${contextPath}/admin/goods/modifyGoods.do">수정</button>
 													<button href="https://www.naver.com"
 														class="w-100 btn border-main small rounded-0 samll mb-0" 
 														onClick="deleteGoods(${item.goods_id})" type="button">삭제</button>
-														<%-- href="${contextPath}/admin/goods/deleteGoods.do?goods_id=${item.goods_id}" --%>
 												</td>
 												</td>
 											</tr>
+											</form>
 										</c:forEach>
 									</c:otherwise>
 								</c:choose>
 						</tbody>
 					</table>
 				</div>
-				</form>
+				
 			</div>
 		</div>
 	</div>
 </div>
 
+
 <script>
+
+
+function filesToFackFilesInput(label){
+	let file_real = label.children[0];
+	let file_fake = label.children[2];
+	console.log(file_fake.innerHTML);
+	file_real.addEventListener("change", function () {
+	let files = this.files[0].name;
+		
+		if(
+			(file_fake.name == "main_image") && (files == "main.png")||
+		    (file_fake.name == "detail_image1") && (files == "detail1.png")||
+			(file_fake.name == "detail_image2") && (files == "detail2.png")){
+			console.log("올바르게 입력했습니다.");
+			file_fake.value = files;
+		}else{
+			console.log("파일명이 올바르지않습니다.");
+			file_fake.value = null;
+			label.classList.add("warn");
+		}
+});
+}
+</script>
+
+<script>
+
+function fn_add_new_goods(obj){
+	const fileName = document.querySelector("#f_main_image").value;
+	 if(fileName != null && fileName != undefined){
+		 obj.submit();
+	 }else{
+		 alert("메인 이미지는 반드시 첨부해야 합니다.");
+		 return;
+	 }
+}
+
 
 function getContextPath() {
 	var hostIndex = location.href.indexOf( location.host ) + location.host.length;
