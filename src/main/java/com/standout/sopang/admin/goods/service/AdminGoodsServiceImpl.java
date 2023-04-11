@@ -46,5 +46,11 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 	public void addNewGoodsImage(List imageFileList) throws Exception{
 		adminGoodsDAO.insertGoodsImageFile(imageFileList);
 	}
+
+	@Override
+	public void deleteGoods(String goods_id) throws Exception {
+		adminGoodsDAO.deleteGoods(goods_id);
+		
+	}
 	
 }

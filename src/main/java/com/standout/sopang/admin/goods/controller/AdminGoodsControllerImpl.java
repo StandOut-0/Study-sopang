@@ -86,8 +86,6 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		
 	}
 	
-	
-	
 	@RequestMapping(value="/addNewGoods.do" ,method={RequestMethod.POST})
 	public ResponseEntity addNewGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
@@ -153,56 +151,17 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 	}
 	
 	
-	@Override
-	@RequestMapping(value="/addNewGoodsImage.do" ,method={RequestMethod.POST})
-	public void addNewGoodsImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
-			throws Exception {
-		System.out.println("addNewGoodsImage");
-		multipartRequest.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		String imageFileName=null;
+	
+	@RequestMapping(value="/deleteGoods.do" ,method = RequestMethod.GET)
+	public ModelAndView deleteGoods(@RequestParam("goods_id") String goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		Map goodsMap = new HashMap();
-		Enumeration enu=multipartRequest.getParameterNames();
-		while(enu.hasMoreElements()){
-			String name=(String)enu.nextElement();
-			String value=multipartRequest.getParameter(name);
-			goodsMap.put(name,value);
-		}
+		System.out.println(goods_id);
+		adminGoodsService.deleteGoods(goods_id);
 		
-		HttpSession session = multipartRequest.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String reg_id = memberVO.getMember_id();
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/admin/goods/adminGoodsMain.do");
 		
-		List<ImageFileVO> imageFileList=null;
-		int goods_id=0;
-		try {
-			imageFileList =upload(multipartRequest);
-			if(imageFileList!= null && imageFileList.size()!=0) {
-				for(ImageFileVO imageFileVO : imageFileList) {
-					goods_id = Integer.parseInt((String)goodsMap.get("goods_id"));
-					imageFileVO.setGoods_id(goods_id);
-					imageFileVO.setReg_id(reg_id);
-				}
-				
-			    adminGoodsService.addNewGoodsImage(imageFileList);
-				for(ImageFileVO  imageFileVO:imageFileList) {
-					imageFileName = imageFileVO.getFileName();
-					File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
-					File destDir = new File(CURR_IMAGE_REPO_PATH+"\\"+goods_id);
-					FileUtils.moveFileToDirectory(srcFile, destDir,true);
-				}
-			}
-		}catch(Exception e) {
-			if(imageFileList!=null && imageFileList.size()!=0) {
-				for(ImageFileVO  imageFileVO:imageFileList) {
-					imageFileName = imageFileVO.getFileName();
-					File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
-					srcFile.delete();
-				}
-			}
-			e.printStackTrace();
-		}
+		return mav;
 	}
 	
 }

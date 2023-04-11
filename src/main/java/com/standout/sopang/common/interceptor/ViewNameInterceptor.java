@@ -60,7 +60,7 @@ public class ViewNameInterceptor extends HandlerInterceptorAdapter {
 			
 			
 		}catch (Exception e) {
-			System.out.println("로그인하지않았거나 예상하기 어려운 예외가 발생했습니다.");
+//			System.out.println("로그인하지않았거나 예상하기 어려운 예외가 발생했습니다.");
 		}
 		
 		try {

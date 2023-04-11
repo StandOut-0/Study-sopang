@@ -180,7 +180,7 @@
 <script>
 function fn_add_new_goods(obj){
 	const fileName = document.querySelector("#f_main_image").value;
-	alert(fileName);
+	/* alert(fileName); */
 	 if(fileName != null && fileName != undefined){
 		 obj.submit();
 	 }else{
@@ -274,9 +274,10 @@ function fn_add_new_goods(obj){
 													<button
 														class="w-100 btn border-main small rounded-0 samll mb-2"
 														type="button">수정</button>
-													<button
-														class="w-100 btn border-main small rounded-0 samll mb-0"
-														type="button">삭제</button>
+													<button href="https://www.naver.com"
+														class="w-100 btn border-main small rounded-0 samll mb-0" 
+														onClick="deleteGoods(${item.goods_id})" type="button">삭제</button>
+														<%-- href="${contextPath}/admin/goods/deleteGoods.do?goods_id=${item.goods_id}" --%>
 												</td>
 												</td>
 											</tr>
@@ -293,6 +294,21 @@ function fn_add_new_goods(obj){
 </div>
 
 <script>
+
+function getContextPath() {
+	var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+	return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+};
+	
+function deleteGoods(goods_id){
+	var url = getContextPath();
+	url += "/admin/goods/deleteGoods.do?goods_id="+goods_id;
+	 if (!confirm("삭제하시겠습니까?")) {
+	    } else {
+	    	location.href=url;
+	    }
+}
+
 function showNewGoods(){
 	const newGoods = document.querySelector(".newGoods");
 	newGoods.classList.remove("d-none");
@@ -311,6 +327,7 @@ for (let i=0; i<selectBox_len; i++){
 		selectBox.options[i].selected = true;
 	}
 }
+
 });
 
 				let date = new Date();

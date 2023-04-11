@@ -16,4 +16,6 @@ public interface AdminGoodsService {
 	
 	public int  addNewGoods(Map newGoodsMap) throws Exception;
 	public void addNewGoodsImage(List imageFileList) throws Exception;
+	
+	public void deleteGoods(String goods_id) throws Exception;
 }

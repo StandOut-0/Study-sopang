@@ -149,6 +149,22 @@
 											   		#{reg_id} )
 		]]>
 	</insert>
+	
+	
+	
+	
+	<delete id="deleteGoods" parameterType="String">
+	    <![CDATA[
+	    delete from t_shopping_goods where goods_id = #{goods_id}    
+    	]]>
+	</delete>
+	
+	<delete id="deleteimages" parameterType="String">
+	    <![CDATA[   
+		delete from t_goods_detail_image where goods_id = #{goods_id}
+    	]]>
+	</delete>
+	
 
 </mapper>
 
