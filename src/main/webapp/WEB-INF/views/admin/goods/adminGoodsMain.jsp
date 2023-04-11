@@ -108,7 +108,7 @@
 
 
 							<form action="${contextPath}/admin/goods/addNewGoods.do" method="post" enctype="multipart/form-data">
-							<tr class=" newGoods bg-primary-subtle ">
+							<tr class="d-none newGoods bg-primary-subtle ">
 								<td
 									class="p-2 align-middle fw-bold border-end text-center samll"
 									style="width: 45px;"> - </td>
@@ -142,9 +142,9 @@
 										<span style="width: 100px;" class="">상품이미지</span>
 										<div class="input-group">
 											<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
-													<input class="file_real d-none" id="f_main_image" type="file" style="opacity:.5">
+													<input name='main_image' class="file_real d-none" id="f_main_image" type="file" style="opacity:.5">
 													<span>파일선택</span>
-											<input name='main_image' class="file_fake form-control rounded-0" type="text" placeholder="main.png로 변경후 업로드해주세요." readonly tabindex="-1">
+											<input name='main_image_fake' class="file_fake form-control rounded-0" type="text" placeholder="main.png로 변경후 업로드해주세요." readonly tabindex="-1">
 											</label>
 										</div> 
 									</div>
@@ -152,9 +152,9 @@
 										<span style="width: 100px;" class="">상세이미지</span>
 										<div class="input-group">
 											<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
-													<input class="file_real d-none" id="f_main_image" type="file" style="opacity:.5">
+													<input name='detail_image1' class="file_real d-none" id="f_main_image" type="file" style="opacity:.5">
 													<span>파일선택</span>
-											<input name='detail_image1' class="file_fake form-control rounded-0" type="text" placeholder="detail1.png로 변경후 업로드해주세요." readonly tabindex="-1">
+											<input name='detail_image1_fake' class="file_fake form-control rounded-0" type="text" placeholder="detail1.png로 변경후 업로드해주세요." readonly tabindex="-1">
 											</label>
 										</div>
 									</div>
@@ -162,9 +162,9 @@
 										<span style="width: 100px;" class=""></span>
 										<div class="input-group">
 											<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
-													<input class="file_real d-none" id="f_main_image" type="file" style="opacity:.5">
+													<input  name='detail_image2' class="file_real d-none" id="f_main_image" type="file" style="opacity:.5">
 													<span>파일선택</span>
-											<input name='detail_image2' class="file_fake form-control rounded-0" type="text" placeholder="detail2.png로 변경후 업로드해주세요." readonly tabindex="-1">
+											<input name='detail_image2_fake' class="file_fake form-control rounded-0" type="text" placeholder="detail2.png로 변경후 업로드해주세요." readonly tabindex="-1">
 											</label>
 										</div>
 									</div>
@@ -233,9 +233,9 @@
 														<span style="width: 100px;" class="">상품이미지</span>
 														<div class="input-group">
 															<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
-													<input class="file_real d-none"  type="file" style="opacity:.5">
+													<input name='main_image' class="file_real d-none"  type="file" style="opacity:.5">
 													<span>파일선택</span>
-													<input name='main_image' class="file_fake form-control rounded-0" type="text" placeholder="main.png" readonly tabindex="-1">
+													<input name='main_image_fake' class="file_fake form-control rounded-0" type="text" value="main.png" placeholder="main.png로 변경후 업로드해주세요."  readonly tabindex="-1">
 											</label>
 												
 											
@@ -247,9 +247,9 @@
 														<span style="width: 100px;" class="">상세이미지</span>
 														<div class="input-group">
 															<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
-													<input class="file_real d-none"  type="file" style="opacity:.5">
+													<input  name='detail_image1' class="file_real d-none"  type="file" style="opacity:.5">
 													<span>파일선택</span>
-													<input name='detail_image1' class="file_fake form-control rounded-0" type="text" placeholder="detail1.png" readonly tabindex="-1">
+													<input name='detail_image1_fake' class="file_fake form-control rounded-0" type="text" value="detail1.png" placeholder="detail1.png로 변경후 업로드해주세요." readonly tabindex="-1">
 											</label>
 												
 															
@@ -259,9 +259,9 @@
 														<span style="width: 100px;" class=""></span>
 														<div class="input-group">
 															<label onClick="filesToFackFilesInput(this)" class="d-flex w-100 filesToFackFilesInput">
-													<input class="file_real d-none"  type="file" style="opacity:.5">
+													<input name='detail_image2' class="file_real d-none"  type="file" style="opacity:.5">
 													<span>파일선택</span>
-													<input name='detail_image2' class="file_fake form-control rounded-0" type="text" placeholder="detail2.png" readonly tabindex="-1">
+													<input name='detail_image2_fake' class="file_fake form-control rounded-0" type="text" value="detail2.png" placeholder="detail2.png로 변경후 업로드해주세요." readonly tabindex="-1">
 											</label>
 														</div>
 													</div>
@@ -305,13 +305,12 @@ function filesToFackFilesInput(label){
 	let files = this.files[0].name;
 		
 		if(
-			(file_fake.name == "main_image") && (files == "main.png")||
-		    (file_fake.name == "detail_image1") && (files == "detail1.png")||
-			(file_fake.name == "detail_image2") && (files == "detail2.png")){
+			(file_fake.name == "main_image_fake") && (files == "main.png")||
+		    (file_fake.name == "detail_image1_fake") && (files == "detail1.png")||
+			(file_fake.name == "detail_image2_fake") && (files == "detail2.png")){
 			console.log("올바르게 입력했습니다.");
 			file_fake.value = files;
 		}else{
-			console.log("파일명이 올바르지않습니다.");
 			file_fake.value = null;
 			label.classList.add("warn");
 		}
