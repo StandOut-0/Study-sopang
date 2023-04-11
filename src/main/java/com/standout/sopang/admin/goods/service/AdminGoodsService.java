@@ -14,4 +14,6 @@ import com.standout.sopang.order.vo.OrderVO;
 public interface AdminGoodsService {
 	public List<GoodsVO> listNewGoods(Map condMap) throws Exception;
 	
+	public int  addNewGoods(Map newGoodsMap) throws Exception;
+	public void addNewGoodsImage(List imageFileList) throws Exception;
 }
