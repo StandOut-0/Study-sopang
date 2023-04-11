@@ -13,6 +13,27 @@
     --dropdown_s: 120px;
 }
 
+/* quickmenu */
+.quickMenu{
+  position: absolute;
+  top: 250px;
+  right:20px;
+  transition:all .2s;
+  z-index:1500;
+}
+
+.fixedQuick{
+  position: absolute;
+  left: 50%;
+  top: 200px;
+  text-align: center;
+  margin-left: 300px;
+  color: #fff;
+  background: #ffcc00;
+  width: 200px;
+  padding: 30px;
+}
+
 @media (min-width: 250px){
 
     /* txt color */
@@ -27,7 +48,7 @@
     .back_eee{background:var(--back_eee)!important}
 
     /* width */
-    body{min-width: 1240px;}
+    body, html{min-width: 1240px;}
 
     /* setting */
     .box-sixing-content{box-sizing: content-box;}

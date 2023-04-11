@@ -39,8 +39,23 @@
 }
 </script>
 
+
+<script>
+document.addEventListener('scroll', function() {
+  var sct = window.scrollY || document.documentElement.scrollTop;
+  const quick = document.querySelector(".quickMenu");
+	  if (sct > 100){
+		  quick.style.transform="translateY(" + (sct) + "px)";
+	  }else if(sct <= 100){
+		  quick.style.transform="translateY(0px)";
+	  }
+});
+
+
+</script>
+
 <div
-	class="d-flex flex-column position-absolute top-50 end-0 translate-middle z-2"
+	class="d-flex flex-column quickMenu"
 	style="width: 130px;">
 	<a href="${contextPath}/cart/myCartList.do" class="btn btn-main rounded-0 py-2 d-block small">장바구니 <span>${cartCount }</span></a>
 	<p href="" class="btn btn-dark rounded-0 py-2 d-block small mb-0">최근본상품</span>

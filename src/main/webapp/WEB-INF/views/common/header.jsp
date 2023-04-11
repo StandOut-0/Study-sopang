@@ -77,7 +77,7 @@
 	}
 </script>
 
-<body>
+<body class="position-relative">
 	<div class="sticky-sm-top header">
 		<div class="bg-light d-flex p-0 justify-content-end border-bottom">
 			<div class="container d-flex align-items-center justify-content-end p-1 pe-0">
