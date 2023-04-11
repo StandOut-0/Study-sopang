@@ -158,6 +158,22 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		System.out.println(goods_id);
 		adminGoodsService.deleteGoods(goods_id);
 		
+		File folder  = new File(CURR_IMAGE_REPO_PATH+"\\"+goods_id);
+		try{
+			while(folder.exists()) {
+				File[] folder_list = folder.listFiles();
+				for (int j = 0; j < folder_list.length; j++) {
+					folder_list[j].delete();		
+				}
+				if(folder_list.length == 0 && folder.isDirectory()){ 
+					folder.delete();
+				}
+			}
+			System.out.println("삭제되었습니다.");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/admin/goods/adminGoodsMain.do");
 		
