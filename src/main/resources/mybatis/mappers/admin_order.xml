@@ -52,7 +52,8 @@
         to_char(pay_order_time,'YYYY-MM-DD') as pay_order_time, order_id, goods_title,order_goods_qty, 
         delivery_state, member_id, receiver_hp1,receiver_name,delivery_address
 		from t_shopping_order 
-		order by pay_order_time asc) a		        
+		where  to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
+		order by pay_order_time desc) a		        
 	</select>
 </mapper>
 

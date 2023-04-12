@@ -30,96 +30,19 @@ function init(){
 </c:when>
 </c:choose>
 <script>
-function search_order_history(search_period){	
-	temp=calcPeriod(search_period);
-	var date=temp.split(",");
-	beginDate=date[0];
-	endDate=date[1];
-	
-    
-	var formObj=document.createElement("form");
-	var i_command = document.createElement("input");
-	var i_beginDate = document.createElement("input"); 
-	var i_endDate = document.createElement("input");
-    
-	i_beginDate.name="beginDate";
-	i_beginDate.value=beginDate;
-	i_endDate.name="endDate";
-	i_endDate.value=endDate;
-	
-    formObj.appendChild(i_beginDate);
-    formObj.appendChild(i_endDate);
-    document.body.appendChild(formObj); 
-    formObj.method="get";
-    formObj.action="${contextPath}/admin/order/adminOrderMain.do";
-    formObj.submit();
+
+function search_order_history(fixedSearchPeriod) {
+	var formObj = document.createElement("form");
+	var i_fixedSearch_period = document.createElement("input");
+	i_fixedSearch_period.name = "fixedSearchPeriod";
+	i_fixedSearch_period.value = fixedSearchPeriod;
+	formObj.appendChild(i_fixedSearch_period);
+	document.body.appendChild(formObj);
+	formObj.method = "get";
+	formObj.action = "${contextPath}/admin/order/adminOrderMain.do";
+	formObj.submit();
 }
 
-
-function  calcPeriod(search_period){
-	var dt = new Date();
-	var beginYear,endYear;
-	var beginMonth,endMonth;
-	var beginDay,endDay;
-	var beginDate,endDate;
-	
-	endYear = dt.getFullYear();
-	endMonth = dt.getMonth()+1;
-	endDay = dt.getDate();
-	if(search_period=='today'){
-		beginYear=endYear;
-		beginMonth=endMonth;
-		beginDay=endDay;
-	}else if(search_period=='one_week'){
-		beginYear=dt.getFullYear();
-		beginMonth=dt.getMonth()+1;
-		dt.setDate(endDay-7);
-		beginDay=dt.getDate();
-		
-	}else if(search_period=='two_week'){
-		beginYear = dt.getFullYear();
-		beginMonth = dt.getMonth()+1;
-		dt.setDate(endDay-14);
-		beginDay=dt.getDate();
-	}else if(search_period=='one_month'){
-		beginYear = dt.getFullYear();
-		dt.setMonth(endMonth-1);
-		beginMonth = dt.getMonth();
-		beginDay = dt.getDate();
-	}else if(search_period=='two_month'){
-		beginYear = dt.getFullYear();
-		dt.setMonth(endMonth-2);
-		beginMonth = dt.getMonth();
-		beginDay = dt.getDate();
-	}else if(search_period=='three_month'){
-		beginYear = dt.getFullYear();
-		dt.setMonth(endMonth-3);
-		beginMonth = dt.getMonth();
-		beginDay = dt.getDate();
-	}else if(search_period=='four_month'){
-		beginYear = dt.getFullYear();
-		dt.setMonth(endMonth-4);
-		beginMonth = dt.getMonth();
-		beginDay = dt.getDate();
-	}
-	
-	if(beginMonth <10){
-		beginMonth='0'+beginMonth;
-		if(beginDay<10){
-			beginDay='0'+beginDay;
-		}
-	}
-	if(endMonth <10){
-		endMonth='0'+endMonth;
-		if(endDay<10){
-			endDay='0'+endDay;
-		}
-	}
-	endDate=endYear+'-'+endMonth +'-'+endDay;
-	beginDate=beginYear+'-'+beginMonth +'-'+beginDay;
-	//alert(beginDate+","+endDate);
-	return beginDate+","+endDate;
-}
 
 function fn_modify_order_state(order_id,select_id){
 	var s_delivery_state=document.getElementById(select_id);
@@ -154,113 +77,7 @@ function fn_modify_order_state(order_id,select_id){
 	}); //end ajax		
 }
 
-function fn_enable_detail_search(r_search){
-	var frm_delivery_list=document.frm_delivery_list;
-	t_beginYear=frm_delivery_list.beginYear;
-	t_beginMonth=frm_delivery_list.beginMonth;
-	t_beginDay=frm_delivery_list.beginDay;
-	t_endYear=frm_delivery_list.endYear;
-	t_endMonth=frm_delivery_list.endMonth;
-	t_endDay=frm_delivery_list.endDay;
-	s_search_type=frm_delivery_list.s_search_type;
-	t_search_word=frm_delivery_list.t_search_word;
-	btn_search=frm_delivery_list.btn_search;
-	
-	if(r_search.value=='detail_search'){
-		//alert(r_search.value);
-		t_beginYear.disabled=false;
-		t_beginMonth.disabled=false;
-		t_beginDay.disabled=false;
-		t_endYear.disabled=false;
-		t_endMonth.disabled=false;
-		t_endDay.disabled=false;
-		
-		s_search_type.disabled=false;
-		t_search_word.disabled=false;
-		btn_search.disabled=false;
-	}else{
-		t_beginYear.disabled=true;
-		t_beginMonth.disabled=true;
-		t_beginDay.disabled=true;
-		t_endYear.disabled=true;
-		t_endMonth.disabled=true;
-		t_endDay.disabled=true;
-		
-		s_search_type.disabled=true;
-		t_search_word.disabled=true;
-		btn_search.disabled=true;
-	}
-		
-}
 
-function fn_detail_order(order_id){
-	//alert(order_id);
-	var frm_delivery_list=document.frm_delivery_list;
-	
-
-	var formObj=document.createElement("form");
-	var i_order_id = document.createElement("input");
-	
-	i_order_id.name="order_id";
-	i_order_id.value=order_id;
-	
-    formObj.appendChild(i_order_id);
-    document.body.appendChild(formObj); 
-    formObj.method="post";
-    formObj.action="${contextPath}/admin/order/orderDetail.do";
-    formObj.submit();
-	
-}
-
-//상세조회 버튼 클릭 시 수행
-function fn_detail_search(){
-	var frm_delivery_list=document.frm_delivery_list;
-	
-	beginYear=frm_delivery_list.beginYear.value;
-	beginMonth=frm_delivery_list.beginMonth.value;
-	beginDay=frm_delivery_list.beginDay.value;
-	endYear=frm_delivery_list.endYear.value;
-	endMonth=frm_delivery_list.endMonth.value;
-	endDay=frm_delivery_list.endDay.value;
-	search_type=frm_delivery_list.s_search_type.value;
-	search_word=frm_delivery_list.t_search_word.value;
-
-	var formObj=document.createElement("form");
-	var i_command = document.createElement("input");
-	var i_beginDate = document.createElement("input"); 
-	var i_endDate = document.createElement("input");
-	var i_search_type = document.createElement("input");
-	var i_search_word = document.createElement("input");
-    
-	//alert("beginYear:"+beginYear);
-	//alert("endDay:"+endDay);
-	//alert("search_type:"+search_type);
-	//alert("search_word:"+search_word);
-	
-    i_command.name="command";
-    i_beginDate.name="beginDate";
-    i_endDate.name="endDate";
-    i_search_type.name="search_type";
-    i_search_word.name="search_word";
-    
-    i_command.value="list_detail_order_goods";
-	i_beginDate.value=beginYear+"-"+beginMonth+"-"+beginDay;
-    i_endDate.value=endYear+"-"+endMonth+"-"+endDay;
-    i_search_type.value=search_type;
-    i_search_word.value=search_word;
-	
-    formObj.appendChild(i_command);
-    formObj.appendChild(i_beginDate);
-    formObj.appendChild(i_endDate);
-    formObj.appendChild(i_search_type);
-    formObj.appendChild(i_search_word);
-    document.body.appendChild(formObj); 
-    formObj.method="post";
-    formObj.action="${contextPath}/admin/order/detailOrder.do";
-    formObj.submit();
-    //alert("submit");
-	
-}
 </script>
 
 <div class="container">
@@ -311,21 +128,23 @@ function fn_detail_search(){
 					<div
 						class="d-flex align-items-center gap-1 justify-content-between">
 						<div>
-							<a href="javascript:search_order_history('today')"
-								class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">오늘</a>
-							<a href="javascript:search_goods_list('six_month')"
-								name="six_month"
-								class="badge rounded-pill btn mb-2 rounded-0 border-main samll">최근
-								6개월</a> <a href="javascript:search_goods_list('one_year')"
-								class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_1year">before_1year</a>
-							<a href="javascript:search_goods_list('two_year')"
-								class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_2year">before_2year</a>
-							<a href="javascript:search_goods_list('three_year')"
-								class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_3year">before_3year</a>
+						 <a href="javascript:search_order_history('today')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">오늘</a>
+					<a href="javascript:search_order_history('one_month')"
+						name="one_month"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll">최근 1개월</a> 
+					<a href="javascript:search_order_history('two_month')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll two_month">최근 2개월</a>
+					<a href="javascript:search_order_history('three_month')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll three_month">최근 3개월 </a>
+					<a href="javascript:search_order_history('six_month')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll six_month">최근 6개월</a>
+						
+						
 						</div>
 					</div>
 
-					<div class="">
+					<div class="d-none">
 						<input type="text" size="4" value="${beginYear}" />년 <input
 							type="text" size="4" value="${beginMonth}" />월 <input
 							type="text" size="4" value="${beginDay}" />일 &nbsp; ~ <input
@@ -357,12 +176,12 @@ function fn_detail_search(){
 
 										<c:when test="${empty newOrderList}">
 											<tr>
-												<td colspan="5">
-													<div class="shadow-sm p-4 mt-3 rounded border border-light">
-														<p class="my-5 text-center">조회된 상품이 없습니다.</p>
-													</div>
-												</td>
-											</tr>
+											<td colspan="5">
+												<div class="p-4">
+													<p class="my-5 text-center">조회된 상품이 없습니다.</p>
+												</div>
+											</td>
+										</tr>
 										</c:when>
 
 										<c:otherwise>
@@ -537,5 +356,24 @@ function fn_detail_search(){
 		</div>
 	</div>
 </div>
+<script>
+if (window.location.href.includes("fixedSearchPeriod")) {
+	const badges = document.querySelectorAll(".badge");
+	for (b of badges){ 
+		b.classList.remove("active");
+	}
+	
+	if (window.location.href.includes("today")) {
+		badges[0].classList.add("active");
+	} else if (window.location.href.includes("one_month")) {
+		badges[1].classList.add("active");
+	}else if (window.location.href.includes("two_month")) {
+		badges[2].classList.add("active");
+	}else if (window.location.href.includes("three_month")) {
+		badges[3].classList.add("active");
+	}else if (window.location.href.includes("six_month")) {
+		badges[4].classList.add("active");
+	}
 
+}</script>
 
