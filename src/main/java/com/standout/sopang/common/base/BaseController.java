@@ -56,14 +56,14 @@ public abstract class BaseController  {
 		
 		if(fixedSearchPeriod == null || fixedSearchPeriod.equals("today")) {
 			cal.add(Calendar.DAY_OF_YEAR,-0);
+		}else if(fixedSearchPeriod.equals("one_month")) {
+			cal.add(cal.MONTH, -1);
+		}else if(fixedSearchPeriod.equals("two_month")) {
+			cal.add(cal.MONTH,-2);
+		}else if(fixedSearchPeriod.equals("three_month")) {
+			cal.add(cal.MONTH,-3);
 		}else if(fixedSearchPeriod.equals("six_month")) {
-			cal.add(cal.MONTH, -6);
-		}else if(fixedSearchPeriod.equals("one_year")) {
-			cal.add(cal.YEAR,-1);
-		}else if(fixedSearchPeriod.equals("two_year")) {
-			cal.add(cal.YEAR,-2);
-		}else if(fixedSearchPeriod.equals("three_year")) {
-			cal.add(cal.YEAR,-3);
+			cal.add(cal.MONTH,-6);
 		}
 		
 		beginYear   = Integer.toString(cal.get(Calendar.YEAR));

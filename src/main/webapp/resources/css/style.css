@@ -95,7 +95,6 @@
 
     .btn.border-main{color: var(--mainColor); background:white}
     .btn.border-main:hover, .list-group-item.active{
-	    color: white!important;
 	    border-color: #8dc9ff;
 	    box-shadow: 7px 7px 7px #00000018!important;
     }

@@ -46,20 +46,20 @@
 								</c:when>
 								<c:otherwise>
 									<option value="${i }">${i }</option>
-								</c:otherwise>
+								</c:otherwise> 
 							</c:choose>
 						</c:forEach>
 					</select> <a href="javascript:search_order_history('today')"
 						class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">오늘</a>
+					<a href="javascript:search_order_history('one_month')"
+						name="one_month"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll">최근 1개월</a> 
+					<a href="javascript:search_order_history('two_month')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll two_month">최근 2개월</a>
+					<a href="javascript:search_order_history('three_month')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll three_month">최근 3개월 </a>
 					<a href="javascript:search_order_history('six_month')"
-						name="six_month"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll">최근
-						6개월</a> <a href="javascript:search_order_history('one_year')"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_1year">before_1year</a>
-					<a href="javascript:search_order_history('two_year')"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_2year">before_2year</a>
-					<a href="javascript:search_order_history('three_year')"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_3year">before_3year</a>
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll six_month">최근 6개월</a>
 
 					<div class="d-none">
 						조회한 기간:<input type="text" size="4" value="${beginYear}" />년 <input
@@ -201,13 +201,6 @@
 
 
 <script>
-			let date = new Date();
-			let before_1year = date.getFullYear() - 1;
-			let before_2year = date.getFullYear() - 2;
-			let before_3year = date.getFullYear() - 3;
-			document.querySelector('.before_1year').innerHTML = before_1year;
-			document.querySelector('.before_2year').innerHTML = before_2year;
-			document.querySelector('.before_3year').innerHTML = before_3year;
 			
 			function search_order_history(fixedSearchPeriod) {
 				var formObj = document.createElement("form");
@@ -262,13 +255,13 @@
 				
 				if (window.location.href.includes("today")) {
 					badges[0].classList.add("active");
-				} else if (window.location.href.includes("six_month")) {
+				} else if (window.location.href.includes("one_month")) {
 					badges[1].classList.add("active");
-				}else if (window.location.href.includes("one_year")) {
+				}else if (window.location.href.includes("two_month")) {
 					badges[2].classList.add("active");
-				}else if (window.location.href.includes("two_year")) {
+				}else if (window.location.href.includes("three_month")) {
 					badges[3].classList.add("active");
-				}else if (window.location.href.includes("three_year")) {
+				}else if (window.location.href.includes("six_month")) {
 					badges[4].classList.add("active");
 				}
 			

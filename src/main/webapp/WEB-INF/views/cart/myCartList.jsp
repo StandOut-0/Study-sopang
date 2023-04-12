@@ -149,7 +149,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 
 				<div class="border-top border-main border-2 mt-2">
 
-					<div class="shadow-sm mt-3 rounded border border-light">
+					<div class="">
 
 						<c:choose>
 
