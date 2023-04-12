@@ -9,36 +9,36 @@
 
 <div class="hero" style="height: 450px">
 	<div class="tab-content container h100 p-0 position-relative" id="">
-		<div class="tab-pane show active" id="hero01" role="tabpanel"
-			aria-labelledby="hero1">
-			<img src="https://via.placeholder.com/1200x451/e1e1e1"
+		<a class="tab-pane show active d-block" id="hero01" role="tabpanel"
+			aria-labelledby="hero1" href="${contextPath}/goods/goodsDetail.do?goods_id=150">
+			<img src="${contextPath}/resources/img/main/hero1.jpg"
 				class="today-image" data-log-props="" data-adsplatform=""
 				style="display: block; z-index: 1; position: absolute;">
-		</div>
-		<div class="tab-pane" id="hero02" role="tabpanel"
-			aria-labelledby="hero2">
-			<img src="https://via.placeholder.com/1200x452/e1e1e1"
+		</a>
+		<a class="tab-pane" id="hero02" role="tabpanel"
+			aria-labelledby="hero2" href="${contextPath}/goods/goodsDetail.do?goods_id=410">
+			<img src="${contextPath}/resources/img/main/hero2.jpg"
 				class="today-image" data-log-props="" data-adsplatform=""
 				style="display: block; z-index: 1; position: absolute;">
-		</div>
-		<div class="tab-pane" id="hero03" role="tabpanel"
-			aria-labelledby="hero3">
-			<img src="https://via.placeholder.com/1200x453/e1e1e1"
+		</a>
+		<a class="tab-pane" id="hero03" role="tabpanel"
+			aria-labelledby="hero3"href="${contextPath}/goods/goodsDetail.do?goods_id=330">
+			<img src="${contextPath}/resources/img/main/hero3.jpg"
 				class="today-image" data-log-props="" data-adsplatform=""
 				style="display: block; z-index: 1; position: absolute;">
-		</div>
-		<div class="tab-pane" id="hero04" role="tabpanel"
-			aria-labelledby="hero4">
-			<img src="https://via.placeholder.com/1200x454/e1e1e1"
+		</a>
+		<a class="tab-pane" id="hero04" role="tabpanel"
+			aria-labelledby="hero4"href="${contextPath}/goods/goodsDetail.do?goods_id=270">
+			<img src="${contextPath}/resources/img/main/hero4.jpg"
 				class="today-image" data-log-props="" data-adsplatform=""
 				style="display: block; z-index: 1; position: absolute;">
-		</div>
-		<div class="tab-pane" id="hero05" role="tabpanel"
-			aria-labelledby="hero5">
-			<img src="https://via.placeholder.com/1200x455/e1e1e1"
+		</a>
+		<a class="tab-pane" id="hero05" role="tabpanel"
+			aria-labelledby="hero5"href="${contextPath}/goods/goodsDetail.do?goods_id=420">
+			<img src="${contextPath}/resources/img/main/hero5.jpg"
 				class="today-image" data-log-props="" data-adsplatform=""
 				style="display: block; z-index: 1; position: absolute;">
-		</div>
+		</a>
 
 		<div
 			class="list-group position-absolute top-50 end-0 translate-middle-y z-2 me-5 rounded-0"
@@ -46,23 +46,23 @@
 			<a class="list-group-item list-group-item-action p-0 active"
 				id="hero1" data-bs-toggle="list" href="#hero01" role="tab"
 				aria-controls="hero01"> <img
-				src="https://via.placeholder.com/176x56/f5f5f5">
+				src="${contextPath}/resources/img/main/tab1.jpg">
 			</a> <a class="list-group-item list-group-item-action p-0" id="hero2"
 				data-bs-toggle="list" href="#hero02" role="tab"
 				aria-controls="hero02"> <img
-				src="https://via.placeholder.com/176x56/f5f5f5">
+				src="${contextPath}/resources/img/main/tab2.jpg">
 			</a> <a class="list-group-item list-group-item-action p-0" id="hero3"
 				data-bs-toggle="list" href="#hero03" role="tab"
 				aria-controls="hero03"> <img
-				src="https://via.placeholder.com/176x56/f5f5f5">
+				src="${contextPath}/resources/img/main/tab3.jpg">
 			</a> <a class="list-group-item list-group-item-action p-0" id="hero4"
 				data-bs-toggle="list" href="#hero04" role="tab"
 				aria-controls="hero04"> <img
-				src="https://via.placeholder.com/176x56/f5f5f5">
+				src="${contextPath}/resources/img/main/tab4.jpg">
 			</a> <a class="list-group-item list-group-item-action p-0" id="hero5"
 				data-bs-toggle="list" href="#hero05" role="tab"
 				aria-controls="hero05"> <img
-				src="https://via.placeholder.com/176x56/f5f5f5">
+				src="${contextPath}/resources/img/main/tab5.jpg">
 			</a>
 		</div>
 	</div>

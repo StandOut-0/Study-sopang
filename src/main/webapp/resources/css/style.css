@@ -6,7 +6,7 @@
     --mainColor: #5b9bd5;
     --mainColor_active: #4b88c2;
     --mainColorLight:#82bce2;
-    --back_eee: #eee;
+    --back_eee: #f5f5f5;
     --txt07: 0.7rem;
     --txt08: 0.8rem;
 
@@ -95,8 +95,9 @@
 
     .btn.border-main{color: var(--mainColor); background:white}
     .btn.border-main:hover, .list-group-item.active{
-        background: var(--mainColor);
-        color: white!important;
+	    color: white!important;
+	    border-color: #8dc9ff;
+	    box-shadow: 7px 7px 7px #00000018!important;
     }
 
 
