@@ -203,12 +203,12 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		HttpSession session = multipartRequest.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
 		
-		boolean check = true;
+		int check = 0;
 		List<ImageFileVO> imageFileList =upload(multipartRequest);
 		if(imageFileList!= null && imageFileList.size()!=0) {
 			for(ImageFileVO imageFileVO : imageFileList) {
 				if (imageFileVO.getFileName()=="" || imageFileVO.getFileName()==null) {
-					check = false;
+					check += 1;
 				}
 			}
 			newGoodsMap.put("imageFileList", imageFileList);
@@ -220,13 +220,15 @@ public class AdminGoodsControllerImpl extends BaseController  implements AdminGo
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			adminGoodsService.modifyGoods(goods_id, newGoodsMap);
-			if(check == true) {
 				for(ImageFileVO  imageFileVO:imageFileList) {
-					imageFileName = imageFileVO.getFileName();
-					File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
-					File destDir = new File(CURR_IMAGE_REPO_PATH+"\\"+goods_id);
-					FileUtils.copyFileToDirectory(srcFile, destDir);
-				}
+					if (imageFileVO.getFileName()=="" || imageFileVO.getFileName()==null) {
+						System.out.println("이미지를 업로드하지않았어요");
+					}else {
+						imageFileName = imageFileVO.getFileName();
+						File srcFile = new File(CURR_IMAGE_REPO_PATH+"\\"+"temp"+"\\"+imageFileName);
+						File destDir = new File(CURR_IMAGE_REPO_PATH+"\\"+goods_id);
+						FileUtils.copyFileToDirectory(srcFile, destDir);
+					}
 			}
 			message= "<script>";
 			message += " alert('수정되었습니다!');";
