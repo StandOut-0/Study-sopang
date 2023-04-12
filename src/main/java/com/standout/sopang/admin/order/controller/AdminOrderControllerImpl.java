@@ -90,4 +90,20 @@ public class AdminOrderControllerImpl extends BaseController  implements AdminOr
 	}
 	
 	
+	@Override
+	@RequestMapping(value="/modifyDeliveryState.do" ,method={RequestMethod.POST})
+	public ResponseEntity modifyDeliveryState(@RequestParam Map<String, String> deliveryMap, 
+			                        HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		adminOrderService.modifyDeliveryState(deliveryMap);
+		
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		message  = "mod_success";
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+		
+	}
+	
+	
 }

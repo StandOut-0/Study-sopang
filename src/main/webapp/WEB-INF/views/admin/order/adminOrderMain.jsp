@@ -44,24 +44,29 @@ function search_order_history(fixedSearchPeriod) {
 }
 
 
-function fn_modify_order_state(order_id,select_id){
-	var s_delivery_state=document.getElementById(select_id);
-    var index = s_delivery_state.selectedIndex;
-    var value = s_delivery_state[index].value;
-    //console.log("value: "+value );
-	 
+function selectValue(selectBox, value){
+	var input = selectBox.nextElementSibling
+	input.setAttribute("value", value);
+}
+
+
+function fn_modify_order_state(index, order_id){
+	var deliveryInputs=document.getElementsByName("delivery_state");
+	var delivery_state = deliveryInputs[index].value;
+	console.log(index+", "+delivery_state+", "+order_id);
+
 	$.ajax({
 		type : "post",
-		async : false,
+		async : false, //false인 경우 동기식으로 처리한다.
 		url : "${contextPath}/admin/order/modifyDeliveryState.do",
 		data : {
 			order_id:order_id,
-			"delivery_state":value
+			delivery_state:delivery_state
 		},
 		success : function(data, textStatus) {
 			if(data.trim()=='mod_success'){
 				alert("주문 정보를 수정했습니다.");
-				location.href="${contextPath}//admin/order/adminOrderMain.do";
+				location.href="${contextPath}/admin/order/adminOrderMain.do";
 			}else if(data.trim()=='failed'){
 				alert("다시 시도해 주세요.");	
 			}
@@ -74,7 +79,7 @@ function fn_modify_order_state(order_id,select_id){
 			//alert("작업을완료 했습니다");
 			
 		}
-	}); //end ajax		
+	}); //end ajax	
 }
 
 
@@ -87,7 +92,7 @@ function fn_modify_order_state(order_id,select_id){
 
 				<p class="fs-5 fw-bold mb-2">주문관리</p>
 
-				<form name="frm_delivery_list" action="${contextPath }/admin/admin.do" method="post">	
+				
 					
 					<input type="radio" name="simple" checked class="d-none" /> <select
 						name="curYear" class="d-none">
@@ -152,7 +157,7 @@ function fn_modify_order_state(order_id,select_id){
 							size="4" value="${endMonth}" />월 <input type="text" size="4"
 							value="${endDay}" />일
 					</div>
-
+		 
 					<div class="border-top border-main border-2 mt-2"></div>
 				
 					<div class="table-responsive mt-4">
@@ -163,7 +168,7 @@ function fn_modify_order_state(order_id,select_id){
 											class="table-light p-2 align-middle fw-bold border-end text-center samll"
 											style="width: 45px;">주문번호</td>
 										<td
-											class="table-light ps-4 align-middle fw-bold text-center border-end">상품정보</td>
+											class="table-light ps-4 align-middle fw-bold text-center border-end">주문정보</td>
 										<td
 											class="table-light ps-4 align-middle fw-bold text-center border-end">배송정보</td>
 										<td
@@ -178,7 +183,7 @@ function fn_modify_order_state(order_id,select_id){
 											<tr>
 											<td colspan="5">
 												<div class="p-4">
-													<p class="my-5 text-center">조회된 상품이 없습니다.</p>
+													<p class="my-5 text-center">조회된 주문이 없습니다.</p>
 												</div>
 											</td>
 										</tr>
@@ -187,7 +192,9 @@ function fn_modify_order_state(order_id,select_id){
 										<c:otherwise>
 										<c:forEach var="item" items="${newOrderList}" varStatus="i">
 											<c:choose>
+												
 											<c:when test="${item.order_id != pre_order_id }">  
+											<form name="frm_delivery_list">
 												<tr>
 													<td class="table-light align-middle border-end text-center">${item.order_id}</td>
 													<td class="border-end align-middle">
@@ -213,7 +220,7 @@ function fn_modify_order_state(order_id,select_id){
 														<div class="d-flex mb-1 align-items-center">
 															<span style="width: 100px;" class="">주문상품</span> <input
 																class="form-control rounded-0" type="text"
-																placeholder="주문상품" value="${item.goods_title}">
+																placeholder="주문상품" value="${item.goods_title}" readonly>
 														</div>
 														<div class="d-flex mb-1 align-items-center">
 															<span style="width: 100px;" class="">주문수량</span> <input
@@ -252,21 +259,21 @@ function fn_modify_order_state(order_id,select_id){
 																	  <c:when test="${item.delivery_state=='delivery_prepared' }">
 																		<select
 																name="s_delivery_state${i.index }"
-																id="s_delivery_state${i.index }"
+																id="s_delivery_state${i.index }"onchange="selectValue(this, this.value)"
 																class="text-warning-emphasis bg-warning-subtle form-select rounded-0 flex-inherit text-start small border border-end text-center">
 																	  </c:when>
 	
 																	  <c:when test="${item.delivery_state=='finished_delivering' }">
 																		<select
 																name="s_delivery_state${i.index }"
-																id="s_delivery_state${i.index }"
+																id="s_delivery_state${i.index }"onchange="selectValue(this, this.value)"
 																class="text-success bg-success-subtle form-select rounded-0 flex-inherit text-start small border border-end text-center"> 
 																	  </c:when>
 	
 																	  <c:otherwise>
 																		<select
 																name="s_delivery_state${i.index }"
-																id="s_delivery_state${i.index }"
+																id="s_delivery_state${i.index }" onchange="selectValue(this, this.value)"
 																class="text-danger bg-danger-subtle form-select rounded-0 flex-inherit text-start small border border-end text-center">  
 																	  </c:otherwise>
 	
@@ -324,6 +331,8 @@ function fn_modify_order_state(order_id,select_id){
 																</c:when>
 																</c:choose>	
 															</select>
+															<input type="hidden" id="delivery_state"
+														name="delivery_state" value="${item.delivery_state}">
 	
 														</div>
 
@@ -331,13 +340,17 @@ function fn_modify_order_state(order_id,select_id){
 
 													<td class="border-end align-middle text-center">${item.pay_order_time }</td>
 
-													<td class="text-center align-middle"><input
+													<td class="text-center align-middle">
+													<input
 														class="w-100 btn border-main small rounded-0 samll mb-2"
 														type="button" value="수정"
-														onClick="fn_modify_order_state('${item.order_id}','s_delivery_state${i.index}')" />
+														onClick="fn_modify_order_state('${i.index }','${item.order_id}')" />
 													</td>
 												</tr>
+											
+											</form>
 											</c:when>
+											
 											</c:choose>	
 											<c:set  var="pre_order_id" value="${item.order_id }" />
 										</c:forEach>
@@ -350,13 +363,15 @@ function fn_modify_order_state(order_id,select_id){
 					</div>
 
 
-				</form>  
+				
 				
 			</div>
 		</div>
 	</div>
 </div>
 <script>
+
+
 if (window.location.href.includes("fixedSearchPeriod")) {
 	const badges = document.querySelectorAll(".badge");
 	for (b of badges){ 

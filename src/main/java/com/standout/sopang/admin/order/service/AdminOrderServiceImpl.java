@@ -39,7 +39,10 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 	}
 	
 
-	
+	@Override
+	public void  modifyDeliveryState(Map deliveryMap) throws Exception{
+		adminOrderDAO.updateDeliveryState(deliveryMap);
+	}
 	
 
 }

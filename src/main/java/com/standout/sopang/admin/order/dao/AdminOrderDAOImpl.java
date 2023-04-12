@@ -21,5 +21,8 @@ public class AdminOrderDAOImpl  implements AdminOrderDAO{
 		return orderList;
 	}
 
-
+	public void  updateDeliveryState(Map deliveryMap) throws DataAccessException{
+		sqlSession.update("mapper.admin.order.updateDeliveryState",deliveryMap);
+	}
+	
 }

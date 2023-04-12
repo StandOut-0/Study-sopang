@@ -55,5 +55,17 @@
 		where  to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
 		order by pay_order_time desc) a		        
 	</select>
+	
+	
+	<update id="updateDeliveryState" parameterType="java.util.Map" >
+	   update t_shopping_order
+	    <set> 
+	      <if test=" delivery_state!='' and delivery_state!=null">
+	        delivery_state=#{delivery_state}
+	      </if>
+	    </set>
+	    where 
+	    order_id=#{order_id}
+	</update>	
 </mapper>
 

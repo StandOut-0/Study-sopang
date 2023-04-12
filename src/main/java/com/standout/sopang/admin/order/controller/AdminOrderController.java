@@ -13,5 +13,6 @@ public interface AdminOrderController {
 	public ModelAndView adminOrderMain(@RequestParam Map<String, String> dateMap,
             HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
-	
+	public ResponseEntity modifyDeliveryState(@RequestParam Map<String, String> deliveryMap, 
+            HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }
