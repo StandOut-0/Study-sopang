@@ -21,22 +21,10 @@
 	    <![CDATA[
 		 select a.*, rownum as rnum from
         (select member_name,member_id,member_pw, hp1, zipcode, member_address, subaddress, sopang_money, del_yn, to_char(joindate,'YYYY-MM-DD') as joindate 
-		from t_shopping_member order by joindate asc) a
+		from t_shopping_member 
+		where  to_char(joindate,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
+		order by joindate asc) a
 		]]>	        
 	</select>
-	
-	<update id="updateMyInfo" parameterType="java.util.HashMap">
-	    update t_shopping_member
-	    set
-	    member_name=#{member_name},
-	    member_pw=#{member_pw},
-	    hp1=#{hp1},
-		zipcode=#{zipcode},  
-		member_address=#{member_address},
-		subaddress=#{subaddress}
-		where 
-		member_id=#{member_id}
-	</update>
-	
 </mapper>
 

@@ -77,43 +77,4 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		
 	}
 	
-	
-	@Override
-	@RequestMapping(value="/modifyMyInfo.do" ,method = RequestMethod.POST)
-	public ResponseEntity modifyMyInfo(
-			@RequestParam("member_name")  String member_name,
-			@RequestParam("member_id")  String member_id,
-			@RequestParam("member_pw")  String member_pw,
-			@RequestParam("hp1")  String hp1,
-			@RequestParam("zipcode")  String zipcode,
-			@RequestParam("member_address")  String member_address,
-			@RequestParam("subaddress")  String subaddress,
-			               HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		HashMap<String,String> memberMap=new HashMap<String,String>();
-		String val[]=null;
-		HttpSession session=request.getSession();
-		
-		
-		System.out.println("받아온 정보입니다."+member_id+" "+member_name+" "+member_pw+" "+ hp1+" "+ zipcode+" "+ member_address+" "+ subaddress);
-		memberMap.put("member_name",member_name);
-		memberMap.put("member_id",member_id);
-		memberMap.put("member_pw",member_pw);
-		memberMap.put("hp1",hp1);
-		memberMap.put("zipcode",zipcode);
-		memberMap.put("member_address",member_address);
-		memberMap.put("subaddress",subaddress);
-		
-		//수정된 회원 정보를 다시 세션에 저장한다.
-		adminMemberService.modifyMyInfo(memberMap);
-		
-		String message = null;
-		ResponseEntity resEntity = null;
-		HttpHeaders responseHeaders = new HttpHeaders();
-		message  = "mod_success";
-		System.out.println("여기까지 옵니까?");
-		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-		return resEntity;
-	}	
-
-		
 }

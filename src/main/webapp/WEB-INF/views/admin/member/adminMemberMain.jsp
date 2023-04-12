@@ -4,7 +4,20 @@
 			<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 				<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 				<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<script>
+function search_order_history(fixedSearchPeriod) {
+	var formObj = document.createElement("form");
+	var i_fixedSearch_period = document.createElement("input");
+	i_fixedSearch_period.name = "fixedSearchPeriod";
+	i_fixedSearch_period.value = fixedSearchPeriod;
+	formObj.appendChild(i_fixedSearch_period);
+	document.body.appendChild(formObj);
+	formObj.method = "get";
+	formObj.action = "${contextPath}/admin/member/adminMemberMain.do";
+	formObj.submit();
+}
 
+</script>
 
 					<div class="container">
 						<div class="row ms-5 ps-5">
@@ -52,33 +65,35 @@
 
 										<div class="d-flex align-items-center gap-1 justify-content-between">
 											<div>
-												<a href="javascript:search_order_history('today')"
-													class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">오늘</a>
-												<a href="javascript:search_goods_list('six_month')" name="six_month"
-													class="badge rounded-pill btn mb-2 rounded-0 border-main samll">최근
-													6개월</a> <a href="javascript:search_goods_list('one_year')"
-													class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_1year">before_1year</a>
-												<a href="javascript:search_goods_list('two_year')"
-													class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_2year">before_2year</a>
-												<a href="javascript:search_goods_list('three_year')"
-													class="badge rounded-pill btn mb-2 rounded-0 border-main samll before_3year">before_3year</a>
+												 <a href="javascript:search_order_history('today')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">오늘</a>
+					<a href="javascript:search_order_history('one_month')"
+						name="one_month"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll">최근 1개월</a> 
+					<a href="javascript:search_order_history('two_month')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll two_month">최근 2개월</a>
+					<a href="javascript:search_order_history('three_month')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll three_month">최근 3개월 </a>
+					<a href="javascript:search_order_history('six_month')"
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll six_month">최근 6개월</a>
+						
 											</div>
-											<div>
+										<!-- 	<div>
 												<button type="button"
 													class="btn btn-main rounded-0 fw-bold p-2 ms-3 flex-fill fs-08"
 													style="width: 300px;">추가하기</button>
-											</div>
+											</div> -->
 										</div>
 
 
-										<div class="">
+									<%-- 	<div class="">
 											<input type="text" size="4" value="${beginYear}" />년 <input type="text"
 												size="4" value="${beginMonth}" />월 <input type="text" size="4"
 												value="${beginDay}" />일 &nbsp; ~ <input type="text" size="4"
 												value="${endYear}" />년 <input type="text" size="4"
 												value="${endMonth}" />월 <input type="text" size="4"
 												value="${endDay}" />일
-										</div>
+										</div> --%>
 
 										<div class="border-top border-main border-2 mt-2"></div>
 
@@ -166,8 +181,8 @@
 																	
 																			<td class="align-middle">
 																			<c:set var="index" value="${status.index}"/>
-																				<button class="w-100 btn border-main small rounded-0 samll mb-2" type="button" onClick="fn_modify_member_info(${item_num.count})">수정</button>
-																				<button class="w-100 btn border-main small rounded-0 samll mb-0" type="button" onClick="fn_delete_member('${item.member_id }','Y')">삭제</button>
+																				<%-- <button class="w-100 btn border-main small rounded-0 samll mb-2" type="button" onClick="fn_modify_member_info(${item_num.count})">수정</button> --%>
+																				<button class="w-100 btn border-main small rounded-0 samll mb-0" type="button" onClick="fn_delete_member('${item.member_id }','Y')">강제탈퇴</button>
 																			</td>
 																	
 														</tr>
@@ -191,66 +206,13 @@
 
 					<script>
 					
-					
-					
-					
-					function fn_modify_member_info(item){
-						var member_trs = document.querySelectorAll(".member_table tr");
-						var target = member_trs[item];
-						
-						var member_name= target.getElementsByClassName("member_name")[0].value;
-						var member_id= target.getElementsByClassName("member_id")[0].value;
-						var member_pw= target.getElementsByClassName("member_pw")[0].value;
-						var hp1= target.getElementsByClassName("hp1")[0].value;
-						var zipcode= target.getElementsByClassName("zipcode")[0].value;
-						var member_address= target.getElementsByClassName("member_address")[0].value;
-						var subaddress= target.getElementsByClassName("subaddress")[0].value;
-						
-						
-				 	console.log(member_name+" "+member_id+" "+member_pw + " "+hp1 + " "+zipcode + " "+member_address + " "+subaddress);
-						
-						$.ajax({
-							type : "post",
-							async : false, //false인 경우 동기식으로 처리한다.
-							url : "${contextPath}/admin/member/modifyMyInfo.do",
-							data : {
-								member_name:member_name,
-								member_id:member_id,
-								member_pw:member_pw,
-								hp1:hp1,
-								zipcode:zipcode,
-								member_address:member_address,
-								subaddress:subaddress
-							},
-							success : function(data, textStatus) {
-								if(data.trim()=='mod_success'){
-									alert("회원 정보를 수정했습니다.");
-								}else if(data.trim()=='failed'){
-									alert("다시 시도해 주세요.");	
-								}
-								
-							},
-							error : function(data, textStatus) {
-								alert("에러가 발생했습니다."+data);
-							},
-							complete : function(data, textStatus) {
-								//alert("작업을완료 했습니다");
-								
-							}
-						}); //end ajax 
-						
-					}
-					
-					
-					
-					
-					
+				
 					
 					
 					function fn_delete_member(member_id ,del_yn){
 						var member_id=member_id;
 						var del_yn=del_yn;
-					alert(member_id+", "+del_yn); 
+					/* alert(member_id+", "+del_yn);  */
 					    
 						var answer=confirm("해당회원을 삭제하시겠습니까?");
 						if(answer==true){
@@ -284,14 +246,6 @@
 					}
 					
 
-						let date = new Date();
-						let before_1year = date.getFullYear() - 1;
-						let before_2year = date.getFullYear() - 2;
-						let before_3year = date.getFullYear() - 3;
-						document.querySelector('.before_1year').innerHTML = before_1year;
-						document.querySelector('.before_2year').innerHTML = before_2year;
-						document.querySelector('.before_3year').innerHTML = before_3year;
-
 
 						function search_member(fixedSearchPeriod) {
 							var formObj = document.createElement("form");
@@ -307,23 +261,22 @@
 
 						if (window.location.href.includes("fixedSearchPeriod")) {
 							const badges = document.querySelectorAll(".badge");
-							for (b of badges) {
+							for (b of badges){ 
 								b.classList.remove("active");
 							}
-
+							
 							if (window.location.href.includes("today")) {
 								badges[0].classList.add("active");
-							} else if (window.location.href.includes("six_month")) {
+							} else if (window.location.href.includes("one_month")) {
 								badges[1].classList.add("active");
-							} else if (window.location.href.includes("one_year")) {
+							}else if (window.location.href.includes("two_month")) {
 								badges[2].classList.add("active");
-							} else if (window.location.href.includes("two_year")) {
+							}else if (window.location.href.includes("three_month")) {
 								badges[3].classList.add("active");
-							} else if (window.location.href.includes("three_year")) {
+							}else if (window.location.href.includes("six_month")) {
 								badges[4].classList.add("active");
 							}
 
 						}
-
 
 					</script>
