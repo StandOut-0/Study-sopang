@@ -41,7 +41,7 @@ public class ViewNameInterceptor extends HandlerInterceptorAdapter {
 			sopang_money=(Long)sqlSession.selectOne("mapper.sopang.counts.sopang_money",member_id);
 			session.setAttribute("sopang_money", sopang_money);
 			
-			System.out.println(member_id);
+			//System.out.println(member_id);
 			if(member_id.equals("1111") == true) {
 				int goodsLen = 0;
 				goodsLen=sqlSession.selectOne("mapper.sopang.counts.goodsLen");

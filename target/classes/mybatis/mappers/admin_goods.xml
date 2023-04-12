@@ -165,6 +165,31 @@
     	]]>
 	</delete>
 	
+	
+	
+	<update id="modifyGoods" parameterType="java.util.Map">
+
+	    <![CDATA[
+		   update t_shopping_goods
+			set
+		                goods_sort = #{goods_sort},
+                    	goods_title = #{goods_title},
+						goods_sales_price = #{goods_sales_price}
+			where
+			goods_id= #{goods_id} 						
+					  			
+		]]>
+	</update>
+	<update id="modifyimages" parameterType="imageFileVO">
+	    <![CDATA[
+		   update t_goods_detail_image
+			set					
+						fileType = #{fileType}
+			where
+			goods_id= #{goods_id} 
+			and fileName = #{fileName}
+		]]>
+	</update>
 
 </mapper>
 

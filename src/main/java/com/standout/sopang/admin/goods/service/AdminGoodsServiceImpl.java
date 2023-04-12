@@ -53,4 +53,25 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 		
 	}
 	
+	
+	@Override
+	public void modifyGoods(String goods_id, Map newGoodsMap) throws Exception{
+		int goods_id_toInt = Integer.parseInt(goods_id);
+		
+		adminGoodsDAO.modifyGoods(goods_id, newGoodsMap);
+		ArrayList<ImageFileVO> imageFileList = (ArrayList)newGoodsMap.get("imageFileList");
+		for(ImageFileVO imageFileVO : imageFileList) {
+			imageFileVO.setGoods_id(goods_id_toInt);
+		}
+		//파일은 수정하지않을 경우엔 modify를 사용하지않는다.
+		for(ImageFileVO imageFileVO : imageFileList) {
+				if (imageFileVO.getFileName()=="" || imageFileVO.getFileName()==null) {
+			
+				}else {
+					adminGoodsDAO.modifyImages(imageFileList);
+				}
+		}
+		
+	}
+	
 }

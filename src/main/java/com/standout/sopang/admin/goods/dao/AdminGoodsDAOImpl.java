@@ -45,6 +45,21 @@ public class AdminGoodsDAOImpl  implements AdminGoodsDAO{
 		sqlSession.insert("mapper.admin.goods.deleteimages",goods_id);
 	}
 
+	
+	@Override
+	public void modifyGoods(String goods_id, Map newGoodsMap) throws Exception {
+		sqlSession.insert("mapper.admin.goods.modifyGoods",newGoodsMap);
+	}
+
+	@Override
+	public void modifyImages(List imageFileList) throws Exception {
+		for(int i=0; i<imageFileList.size();i++){
+			ImageFileVO imageFileVO=(ImageFileVO)imageFileList.get(i);
+			sqlSession.insert("mapper.admin.goods.modifyimages",imageFileVO);
+		}
+		
+	}
+
 
 
 

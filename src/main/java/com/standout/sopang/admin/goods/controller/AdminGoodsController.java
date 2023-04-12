@@ -17,5 +17,5 @@ public interface AdminGoodsController {
 	
 	public ModelAndView deleteGoods(@RequestParam("goods_id") String goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
-	public ResponseEntity modifyGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
+	public ResponseEntity modifyGoods(@RequestParam("goods_id") String goods_id, MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
 }

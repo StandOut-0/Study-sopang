@@ -273,7 +273,7 @@
 
 													<button
 														class="w-100 btn border-main small rounded-0 samll mb-2"
-														type="submit" formaction="${contextPath}/admin/goods/modifyGoods.do">수정</button>
+														type="submit" formaction="${contextPath}/admin/goods/modifyGoods.do?goods_id=${item.goods_id }">수정</button>
 													<button href="https://www.naver.com"
 														class="w-100 btn border-main small rounded-0 samll mb-0" 
 														onClick="deleteGoods(${item.goods_id})" type="button">삭제</button>

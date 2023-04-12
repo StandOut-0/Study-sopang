@@ -18,4 +18,7 @@ public interface AdminGoodsDAO {
 	
 	public void deleteGoods(String goods_id) throws Exception;
 	
+	public void  modifyGoods(String goods_id, Map newGoodsMap) throws Exception;
+	public void  modifyImages(List imageFileList) throws Exception;
+	
 }
