@@ -44,7 +44,20 @@
     text-align: center;}
 
 
-	.warn *::placeholder{color: red;} 
+
+
+html {scroll-behavior: smooth;}
+.back-to-top {
+    width: 45px;
+    height: 45px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+
+
+.warn *::placeholder{color: red;} 
 
 @media (min-width: 250px){
 

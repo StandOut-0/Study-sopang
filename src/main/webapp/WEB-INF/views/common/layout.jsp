@@ -48,6 +48,12 @@
 
 	<tiles:insertAttribute name="quickMenu" />
 
+
+
+<a href="#" class="back-to-top text-decoration-none d-inline-block text-center lh-lg pt-2 fw-bold btn border-main" title="Back to top"><i class="fa-solid fa-arrow-up lh-base"></i></a>
+
+
+
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
