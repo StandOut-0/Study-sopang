@@ -54,5 +54,31 @@
 		integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
 		crossorigin="anonymous"></script>
 	<script src="${contextPath}/resources/js/script.js"></script>
+	
+	
+	<script>
+	
+	if (window.location.href.includes("listMyOrderHistory")){
+		locationName("listMyOrderHistory");
+	}else if(window.location.href.includes("myCartList")){
+		locationName("myCartList");
+	}else if(window.location.href.includes("myDetailInfo")){
+		locationName("myDetailInfo");
+	}else if(window.location.href.includes("adminGoodsMain")){
+		locationName("adminGoodsMain");
+	}else if(window.location.href.includes("adminOrderMain")){
+		locationName("adminOrderMain");
+	}else if(window.location.href.includes("adminMemberMain")){
+		locationName("adminMemberMain");
+	}
+	function locationName(locationName){
+		const myPageMenu = document.querySelectorAll(".sideMenu");
+		for (b of myPageMenu){ b.classList.remove("fw-bold");}
+		let target = document.querySelector("."+locationName);
+		target.classList.add("fw-bold");
+	}
+	
+	</script>
+	
 </body>
 

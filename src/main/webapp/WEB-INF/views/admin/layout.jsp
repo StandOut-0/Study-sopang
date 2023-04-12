@@ -51,9 +51,9 @@
 				class="position-absolute top-100 start-0 bg-light px-3 py-4 d-flex flex-column border secondary-subtle"
 				style="width: 150px;">
 				<p class="fw-bold text-black mb-2">SO관리</p>
-				<a href="${contextPath}/admin/goods/adminGoodsMain.do" class="text-decoration-none mb-2 small">상품관리</a> <a
-					href="${contextPath}/admin/order/adminOrderMain.do" class="text-decoration-none mb-2 small">주문관리</a> <a
-					href="${contextPath}/admin/member/adminMemberMain.do" class="text-decoration-none mb-0 small">회원관리</a>
+				<a href="${contextPath}/admin/goods/adminGoodsMain.do" class="text-decoration-none mb-2 small sideMenu adminGoodsMain">상품관리</a> <a
+					href="${contextPath}/admin/order/adminOrderMain.do" class="text-decoration-none mb-2 small sideMenu adminOrderMain">주문관리</a> <a
+					href="${contextPath}/admin/member/adminMemberMain.do" class="text-decoration-none mb-0 small sideMenu adminMemberMain">회원관리</a>
 			</div>
 		</div>
 
