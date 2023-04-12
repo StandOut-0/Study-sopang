@@ -83,7 +83,9 @@
 	    <![CDATA[
 		select a.*, rownum as rnum from(select * 
 		from t_shopping_goods 
-		order by goods_credate asc) a        
+        where  to_char(goods_credate,'yyyy-mm-dd')  
+        between #{beginDate} and #{endDate}
+		order by goods_credate desc) a  
     	]]>
 	</select>
 	<!-- where rownum >=1 and rownum <=10 -->
