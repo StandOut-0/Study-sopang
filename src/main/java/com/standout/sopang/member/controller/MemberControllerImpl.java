@@ -73,13 +73,13 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		try {
 		    memberService.addMember(_memberVO);
 		    message  = "<script>";
-		    message +=" alert('회원 가입을 마쳤습니다.로그인창으로 이동합니다.');";
+		    message +=" alert('sopang에 오신걸 환영합니다!');";
 		    message += " location.href='"+request.getContextPath()+"/member/login.do';";
 		    message += " </script>";
 		    
 		}catch(Exception e) {
 			message  = "<script>";
-		    message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+			/* message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');"; */
 		    message += " location.href='"+request.getContextPath()+"/member/join.do';";
 		    message += " </script>";
 			e.printStackTrace();

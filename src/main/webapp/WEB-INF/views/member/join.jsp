@@ -63,9 +63,10 @@ function execDaumPostcode() {
 }
 
 function fn_overlapped(){
-    var _id=$("#_member_id").val();
+    var _id=$("#member_id").val();
+  	/* console.log(_id); */
     if(_id==''){
-   	 alert("ID를 입력하세요");
+   	 /* alert("ID를 입력하세요"); */
    	 return;
     }
     $.ajax({
@@ -76,16 +77,20 @@ function fn_overlapped(){
        data: {id:_id},
        success:function (data,textStatus){
           if(data=='false'){
-       	    alert("사용할 수 있는 ID입니다.");
-       	    $('#btnOverlapped').prop("disabled", true);
-       	    $('#_member_id').prop("disabled", true);
+       	    /* alert("사용할 수 있는 ID입니다."); */
+       	    $('#member_id').addClass("is-valid");
+       	 $('#member_id').removeClass("is-invalid");
+       	 	$('.member_id-feedback.valid-feedback').removeClass("d-none");
        	    $('#member_id').val(_id);
           }else{
-        	  alert("사용할 수 없는 ID입니다.");
+        	  $('#member_id').removeClass("is-valid");
+        	  $('#member_id').addClass("is-invalid");
+        	  $('.member_id-feedback.invalid-feedback').removeClass("d-none");
+        	  /* alert("사용할 수 없는 ID입니다."); */
           }
        },
        error:function(data,textStatus){
-          alert("에러가 발생했습니다.");ㅣ
+          alert("에러가 발생했습니다.");
        },
        complete:function(data,textStatus){
           //alert("작업을완료 했습니다");
@@ -95,51 +100,116 @@ function fn_overlapped(){
 </script>
 </head>
 <body>
-	<form action="${contextPath}/member/join.do" method="post">	
-	<input class="form-control form-control-lg rounded-0 mb-0" name="member_id" type="text" placeholder="아이디">
-          
-       <input class="form-control form-control-lg rounded-0 mb-0 is-valid d-none" type="text" placeholder="아이디">
-     
-         <input class="form-control form-control-lg rounded-0 mb-0 is-invalid d-none" type="text" placeholder="아이디">
-     
-            <div class="valid-feedback text-start fs-07 d-none">
+	<form action="${contextPath}/member/join.do" method="post" id="joinForm">	
+	<input class="form-control form-control-lg rounded-0 mb-0" name="member_id" id="member_id" type="text" placeholder="아이디" onblur="fn_overlapped()" required>
+            <div class="member_id-feedback valid-feedback text-start fs-07 d-none">
                 사용가능한 아이디 입니다.
               </div>
-              <div class="invalid-feedback text-start fs-07 d-none">
+              <div class="member_id-feedback invalid-feedback text-start fs-07 d-none">
                 사용중인 아이디 입니다.
               </div> 
           <div class="mb-3"></div>
 
 
-        <input class="form-control form-control-lg rounded-0 mb-3" name="member_pw"  type="text" placeholder="비밀번호">
-
-
-
-        <input class="form-control form-control-lg rounded-0 mb-0" type="text" placeholder="비밀번호 확인">
-
-        <input class="form-control form-control-lg rounded-0 mb-0 is-valid d-none" type="text" placeholder="비밀번호 확인">
-
-        <input class="form-control form-control-lg rounded-0 mb-0 is-invalid d-none" type="text" placeholder="비밀번호 확인">
-
-        <div class="valid-feedback text-start fs-07 d-none">
+        <input class="form-control form-control-lg rounded-0 mb-3 member_pwWrite" name="member_pw"  type="text" placeholder="비밀번호" required onblur="member_pwChecking()">
+        <input class="form-control form-control-lg rounded-0 mb-0 member_pwCheck" type="text" placeholder="비밀번호 확인" required onblur="member_pwChecking()">
+        
+        <div class="member_pw-feedback valid-feedback text-start fs-07 d-none">
             비밀번호가 일치합니다.
-          </div>
-          <div class="invalid-feedback text-start fs-07 d-none">
+          </div> 
+          
+        <div class="member_pw-feedback invalid-feedback text-start fs-07 d-none">
             비밀번호가 일치하지않습니다.
           </div> 
+          
+        <script>
+        function member_pwChecking(){
+        	 let member_pwWrite = document.querySelector('.member_pwWrite');
+             let member_pwCheck = document.querySelector('.member_pwCheck');
+             let member_pw_feedback = document.querySelector('.member_pw-feedback.invalid-feedback');
+             let member_pw_feedback_valid = document.querySelector('.member_pw-feedback.valid-feedback');
+             
+             if(member_pwWrite.value != member_pwCheck.value){//같지않을때
+            	 member_pwWrite.classList.remove("is-valid");
+            	 member_pwCheck.classList.remove("is-valid");
+            	 
+            	 member_pwWrite.classList.add("is-invalid");
+            	 member_pwCheck.classList.add("is-invalid");
+            	 member_pw_feedback.classList.remove("d-none");
+            	 member_pw_feedback.classList.add("d-block");
+            	 
+            	 member_pw_feedback_valid.classList.remove("d-block");
+            	 member_pw_feedback_valid.classList.add("d-none");
+             }else{//같을때
+            	 member_pwWrite.classList.remove("is-invalid");
+            	 member_pwCheck.classList.remove("is-invalid");
+            	 member_pw_feedback.classList.add("d-none");
+            	 member_pw_feedback.classList.remove("d-block");
+            	 
+            	 member_pwWrite.classList.add("is-valid");
+            	 member_pwCheck.classList.add("is-valid");
+            	 
+            	 member_pw_feedback_valid.classList.add("d-block");
+            	 member_pw_feedback_valid.classList.remove("d-none");
+             }
+        }
+       
+        </script>
+        
+
+          
+          
       <div class="mb-3"></div>
 
 
-        <input class="form-control form-control-lg rounded-0 mb-3" name="member_name" type="text" placeholder="이름">
-        <input class="form-control form-control-lg rounded-0 mb-3" name="hp1" type="text" placeholder="휴대폰번호">
+        <input class="form-control form-control-lg rounded-0 mb-3" name="member_name" type="text" placeholder="이름" required oninput="etcInptut()">
+        <input class="form-control form-control-lg rounded-0 mb-3" name="hp1" type="text" placeholder="휴대폰번호" required oninput="etcInptut()">
 
 
-        <div class="invalid-feedback text-start fs-07 mb-3 d-none">
+        <div class="allRequiredInputCheck invalid-feedback text-start fs-07 mb-3 d-none">
             모든 정보를 입력해주세요.
           </div> 
 
-        <button type="submit" class="btn btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">회원가입</button>
+        <button type="button" onClick="joinSopang()" class="btn btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3">회원가입</button>
         <a class="btn border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mb-3"  href="${contextPath}/member/login.do">로그인</a>
         </form>
+        
+        <script>
+        const form = document.getElementById("joinForm");
+        const inputs = form.querySelectorAll("input[required]");
+        var allRequiredInputCheck = document.querySelector('.allRequiredInputCheck');
+        
+        function etcInptut(){
+        	if(this.value != ""){
+        		inputs.forEach(input => {
+        			input.classList.remove("is-invalid");	
+        		});
+                allRequiredInputCheck.classList.add('d-none');
+        	}
+        }
+        
+        function joinSopang(){
+        	
+            let isValid = true;
+            inputs.forEach(input => {
+                if (!input.value) { // 값이 없으면
+                  isValid = false;
+                  input.classList.add("is-invalid"); // 유효하지 않은 입력을 표시하기 위해 스타일을 변경
+                } else {
+                  input.classList.remove("is-invalid");
+                  allRequiredInputCheck.classList.add('d-none');
+                }
+              });
+            if (isValid) {
+                // 모든 입력이 유효하면 폼을 제출
+                form.submit();
+              } else {
+            	  allRequiredInputCheck.classList.remove('d-none');
+              }
+        }
+        
+        </script>
+        
+        
 </body>
 </html>
