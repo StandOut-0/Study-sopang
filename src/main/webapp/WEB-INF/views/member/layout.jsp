@@ -20,6 +20,7 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer">
 <link href="${contextPath}/resources/css/style.css" rel="stylesheet"
 	type="text/css" media="screen">
+<link rel="shortcut icon" href="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://standout.tistory.com&size=16" />	
 <title><tiles:insertAttribute name="title" /></title>
 </head>
 <body>
