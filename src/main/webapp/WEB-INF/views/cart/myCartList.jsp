@@ -85,6 +85,7 @@ function fn_order_all_cart_goods(){
 		for(var i=0; i<length;i++){
 			if(checked_goods[i].checked==true){
 				checkLen++;
+				console.log(checkLen);
 				order_goods_id=checked_goods[i].value;
 				order_goods_qty=cart_goods_qty[i].value;
 				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
@@ -309,33 +310,35 @@ for (let i=0; i<selectBox_len; i++){
 var total = 0;
 const checkboxes = document.getElementsByName('checked_goods');
 
+var totalPrice=document.getElementById("totalPrice");
+var goodsPrice=document.getElementById("goodsPrice");
 function selectAll(selectAll){
+	
 	const goods_sales_price = document.querySelectorAll(".goods_sales_price");
 	checkboxes.forEach((checkbox) => {
 	    checkbox.checked = selectAll.checked;
 	  }); 
-	
 	if (selectAll.checked == true) {
+		total=0;
 		for (const i of goods_sales_price) {
 			total += i.innerHTML*1;
 		};
-		var totalPrice=document.getElementById("totalPrice");
-		var goodsPrice=document.getElementById("goodsPrice");
 		totalPrice.innerHTML=total;
-		goodsPrice.innerHTML=total; 
+		goodsPrice.innerHTML=total;
 	}
 	else if(selectAll.checked == false){ 
 		for (const i of goods_sales_price) {
 			total -= i.innerHTML*1;
 		};
-		var totalPrice=document.getElementById("totalPrice");
-		var goodsPrice=document.getElementById("goodsPrice");
 		totalPrice.innerHTML=total;
 		goodsPrice.innerHTML=total;
 	}
 	
 }
 
+
+//체크박스를 누를때
+let all_select = document.querySelector(".all-deal-select");
 checkboxes.forEach((i) => i.addEventListener("click", function () {
 	if (this.checked == true) {
 		total += i.getAttribute("price")*1;
@@ -343,6 +346,7 @@ checkboxes.forEach((i) => i.addEventListener("click", function () {
 	}
 	else if(this.checked == false){
 		total -= i.getAttribute("price")*1;
+		all_select.checked = false;
 		/* alert(total); */
 	}
 	totalPrice.innerHTML=total;
