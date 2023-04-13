@@ -70,7 +70,7 @@
 
 								<a href="javascript:fn_modify_member_info()"
 									class="btn btn-lg btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mt-4 mb-2">수정하기</a>
-								<button type="button"
+								<button type="button" onClick="location.reload()"
 									class="btn btn-lg border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mt-0 mb-2 fs-6">취소하기</button>
 								<button type="button" onClick="fn_delete_member('${member_info.member_id }','Y')"
 									class="btn btn-lg border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mt-0 mb-3 fs-6">탈퇴하기</button>
