@@ -25,7 +25,7 @@
 <body>
 
 	<div class="m-auto mt-5 pt-5 loginBox text-center">
-        <img src="https://via.placeholder.com/208x48/e1e1e1" class="mb-4">
+        <img src="${contextPath}/resources/img/logo.png" width="208px" class="mb-4 me-3">
 	
 		<tiles:insertAttribute name="body" />
 		<footer class="footer small text-secondary mt-5">
