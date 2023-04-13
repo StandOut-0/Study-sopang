@@ -54,7 +54,9 @@ public abstract class BaseController  {
 		endDay   = df.format(cal.get(Calendar.DATE));
 		endDate = endYear +"-"+ endMonth +"-"+endDay;
 		
-		if(fixedSearchPeriod == null || fixedSearchPeriod.equals("today")) {
+		if(fixedSearchPeriod == null) {
+			cal.add(cal.MONTH, -1);
+		}else if(fixedSearchPeriod.equals("today")) {
 			cal.add(Calendar.DAY_OF_YEAR,-0);
 		}else if(fixedSearchPeriod.equals("one_month")) {
 			cal.add(cal.MONTH, -1);

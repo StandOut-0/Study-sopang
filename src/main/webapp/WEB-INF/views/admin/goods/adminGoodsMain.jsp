@@ -53,10 +53,10 @@
 				<div class="d-flex align-items-center gap-1 justify-content-between">
 					<div>
 						<a href="javascript:search_order_history('today')"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">오늘</a>
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll ">오늘</a>
 					<a href="javascript:search_order_history('one_month')"
 						name="one_month"
-						class="badge rounded-pill btn mb-2 rounded-0 border-main samll">최근 1개월</a> 
+						class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">최근 1개월</a> 
 					<a href="javascript:search_order_history('two_month')"
 						class="badge rounded-pill btn mb-2 rounded-0 border-main samll two_month">최근 2개월</a>
 					<a href="javascript:search_order_history('three_month')"
