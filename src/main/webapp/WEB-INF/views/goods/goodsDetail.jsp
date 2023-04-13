@@ -111,7 +111,7 @@
                     </div>
                     <div class="tab-pane" id="detailInfo02" role="tabpanel"
                         aria-labelledby="detailInfo2">
-                        <img src="https://via.placeholder.com/1200x412/e1e1e1">
+                        <img src="${contextPath}/resources/img/goods/detailInfo.jpg">
                     </div>
                 </div>
             </div>
