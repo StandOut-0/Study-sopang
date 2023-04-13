@@ -48,7 +48,7 @@
                     <p class="fs-6 mb-1">${goods.goods_sort }</p>
                     <p class="fs-3 fw-bold">${goods.goods_title }</p>
                     <hr>
-                    <p class="fs-6 mb-1"><span class="fs-4 text-danger fw-bold">${goods.goods_sales_price }</span>원</p>
+                    <p class="fs-6 mb-1"><span class="fs-4 text-danger fw-bold">${goods.goods_sales_price }</span>원 	·  1개</p>
 
 					
                     <div class="d-flex gap-2 mt-4">
@@ -62,8 +62,10 @@
 						<option value="5">5</option>
 						<option value="6">6</option>
 						<option value="7">7</option>
-					</select> <input type="hidden" id="goods_qty"
-						name="goods_qty" value="1">
+					</select> 
+					
+					<input type="hidden" id="goods_qty"
+						name="order_goods_qty" value="1">
 
 					<!-- list-group-item list-group-item-action btn mb-2 rounded-0 border-main samll -->
                         <a  href="javascript:add_cart('${goods.goods_id}')"
@@ -177,7 +179,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     i_order_goods_qty.name="order_goods_qty";
     
     i_goods_id.value=goods_id;
-    i_order_goods_qty.value=order_goods_qty.value;
+    i_order_goods_qty.value=1;
     i_goods_title.value=goods_title;
     i_goods_sales_price.value=goods_sales_price;
     i_fileName.value=fileName;
