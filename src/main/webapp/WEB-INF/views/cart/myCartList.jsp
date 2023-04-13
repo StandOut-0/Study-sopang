@@ -79,9 +79,13 @@ function fn_order_all_cart_goods(){
 	var cart_goods_qty=objForm.cart_goods_qty; 
 	var h_order_each_goods_qty=objForm.h_order_each_goods_qty;
 	var checked_goods=objForm.checked_goods;
-	var length=checked_goods.length;
-
+	
+	var cartGood=document.getElementsByClassName("cartGood");
+	var length=document.getElementsByClassName("cartGood").length;
+	
 	let checkLen = 0;
+
+	if(length>1){
 		//전체 체크박스를 돌려 체크됬을때만 걸러낸다.
 		for(var i=0; i<length;i++){
 			if(checked_goods[i].checked==true){
@@ -91,19 +95,33 @@ function fn_order_all_cart_goods(){
 				order_goods_qty=cart_goods_qty[i].value;
 				console.log(order_goods_id+":"+order_goods_qty);
 				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
-				objForm.method="post";
-			 	objForm.action="${contextPath}/order/orderAllCartGoods.do";
-			 	
-			 	
-				objForm.submit();
-				
-				//사용자가 뒤로가기 한뒤 다시 주문할때를 대비해 input 값을 되돌려놓음.
-			 	cart_goods_qty[i].value=cart_goods_qty[i].previousElementSibling.value;
 			}
 		}	
-		if(checkLen==0){
-			alert("원하시는 상품을 선택해주세요!");
+	}else if(length=1){
+		
+		if(cartGood[0].checked){
+			
+			checkLen++;
+			order_goods_id=checked_goods.value;
+			order_goods_qty=cart_goods_qty.value;
+			cart_goods_qty.value=order_goods_id+":"+order_goods_qty;
 		}
+	}
+	
+	if(checkLen > 0){
+		objForm.method="post";
+	 	objForm.action="${contextPath}/order/orderAllCartGoods.do";
+		objForm.submit();
+		
+		//사용자가 뒤로가기 한뒤 다시 주문할때를 대비해 input 값을 되돌려놓음.
+	 	cart_goods_qty[i].value=cart_goods_qty[i].previousElementSibling.value;
+	}else {alert("원하시는 상품을 선택해주세요!");}
+		
+	
+
+		
+		
+		
 }
 
 
@@ -179,7 +197,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 											class="shadow-sm p-0 mt-3 rounded border border-light d-flex justify-content-between">
 											<div class="d-flex">
 												<div class="d-flex align-items-center p-3 bg-light">
-													<input type="checkbox" name="checked_goods"
+													<input type="checkbox" name="checked_goods" class="cartGood"
 														price="${item.goods_sales_price*cart_goods_qty}"
 														value="${item.goods_id}">
 												</div>
@@ -224,7 +242,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 														<option value="5">5</option>
 														<option value="6">6</option>
 														<option value="7">7</option>
-													</select> <input type="text" id="cart_goods_qty"
+													</select> <input type="hidden" id="cart_goods_qty"
 														name="cart_goods_qty" value="${cart_goods_qty}"> <a
 														href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');"
 														class="btn btn-sm border-main rounded-0 small d-block mt-2"
