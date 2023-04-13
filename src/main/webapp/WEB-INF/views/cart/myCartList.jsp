@@ -71,6 +71,7 @@ function delete_cart_goods(cart_id){
 
 
 function fn_order_all_cart_goods(){
+	
 	var order_goods_qty;
 	var order_goods_id;
 	
@@ -88,11 +89,16 @@ function fn_order_all_cart_goods(){
 				console.log(checkLen);
 				order_goods_id=checked_goods[i].value;
 				order_goods_qty=cart_goods_qty[i].value;
+				console.log(order_goods_id+":"+order_goods_qty);
 				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
-				/* alert(cart_goods_qty[i].value);  */
 				objForm.method="post";
 			 	objForm.action="${contextPath}/order/orderAllCartGoods.do";
+			 	
+			 	
 				objForm.submit();
+				
+				//사용자가 뒤로가기 한뒤 다시 주문할때를 대비해 input 값을 되돌려놓음.
+			 	cart_goods_qty[i].value=cart_goods_qty[i].previousElementSibling.value;
 			}
 		}	
 		if(checkLen==0){
@@ -218,7 +224,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 														<option value="5">5</option>
 														<option value="6">6</option>
 														<option value="7">7</option>
-													</select> <input type="hidden" id="cart_goods_qty"
+													</select> <input type="text" id="cart_goods_qty"
 														name="cart_goods_qty" value="${cart_goods_qty}"> <a
 														href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');"
 														class="btn btn-sm border-main rounded-0 small d-block mt-2"
@@ -291,6 +297,8 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 
 
 <script>
+
+	
 /* 단순히 input의 value를 select에 select해서 사용자에게 보여주는 역할을 함. */
 var cart_goods_qty_inputs = document.getElementsByName("cart_goods_qty");
 cart_goods_qty_inputs.forEach((cart_goods_qty_inputs) => {
