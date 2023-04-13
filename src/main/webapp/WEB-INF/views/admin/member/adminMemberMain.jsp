@@ -132,19 +132,19 @@ function search_order_history(fixedSearchPeriod) {
 																		<td class="border-end align-middle">
 																			<div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">이름</span>
-																				<input class="form-control rounded-0 member_name" type="text" placeholder="이름" value="${item.member_name}">
+																				<input class="form-control rounded-0 member_name" type="text" placeholder="이름" value="${item.member_name}"readonly >
 																			</div>
 																			<div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">아이디</span>
-																				<input class="form-control rounded-0 member_id" type="text" name="member_id" placeholder="아이디" value="${item.member_id}" disabled>
+																				<input class="form-control rounded-0 member_id" type="text" name="member_id" placeholder="아이디" value="${item.member_id}" readonly >
 																			</div>
 																			<div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">비밀번호</span>
-																				<input class="form-control rounded-0 member_pw" type="text" name="member_pw" placeholder="비밀번호" value="${item.member_pw}">
+																				<input class="form-control rounded-0 member_pw" type="text" name="member_pw" placeholder="비밀번호" value="${item.member_pw}"readonly >
 																			</div>
 																			<div class="d-flex mb-0 align-items-center">
 																				<span style="width: 100px;" class="">휴대전화</span>
-																				<input class="form-control rounded-0 hp1" type="text" name="hp1" placeholder="010-0000-0000" value="${item.hp1}">
+																				<input class="form-control rounded-0 hp1" type="text" name="hp1" placeholder="010-0000-0000" value="${item.hp1}"readonly >
 																			</div>
 																		</td>
 																		<td class="border-end align-middle">
@@ -152,18 +152,17 @@ function search_order_history(fixedSearchPeriod) {
 																				<span style="width: 97.5px;" class="">우편번호</span>
 																				<div class="input-group mb-0">
 																					<input type="text" class="form-control rounded-0 zipcode" placeholder="우편번호" id="zipcode" name="zipcode" size=5
-														value="${item.zipcode}" aria-describedby="button-addon2">
-														<a class="btn border-main small rounded-0 samll"
-														href="javascript:execDaumPostcode()" id="button-addon2">우편번호검색</a>
+														value="${item.zipcode}" aria-describedby="button-addon2"readonly >
+														
 																				</div>
 																				
 																				
 																			</div><div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">주소</span>
-																				<input class="form-control rounded-0 member_address" type="text" placeholder="주소"  name="member_address"  value="${item.member_address}">
+																				<input class="form-control rounded-0 member_address" type="text" placeholder="주소"  name="member_address"  value="${item.member_address}"readonly >
 																			</div><div class="d-flex mb-1 align-items-center">
 																				<span style="width: 100px;" class="">상세주소</span>
-																				<input class="form-control rounded-0 subaddress" type="text" placeholder="상세주소"  name="subaddress" value="${item.subaddress}">
+																				<input class="form-control rounded-0 subaddress" type="text" placeholder="상세주소"  name="subaddress" value="${item.subaddress}"readonly >
 																			</div>     
 																		</td>
 																		<td class="border-end align-middle text-center">
