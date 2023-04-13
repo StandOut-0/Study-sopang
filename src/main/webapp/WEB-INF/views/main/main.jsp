@@ -132,20 +132,20 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="#" class="text-decoration-none">
-							<p class="fw-bold fs-4 mb-1">카테고리1</p> <span class="small">바로가기
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=디지털" class="text-decoration-none">
+							<p class="fw-bold fs-4 mb-1">디지털</p> <span class="small">바로가기
 								> </span>
 						</a>
 					</div>
 
 					<div class="position-relative">
-						<img src="https://via.placeholder.com/350x600/e1e1e1">
-						<button type="button"
+						<img src="${contextPath}/resources/img/main/hot1.jpg">
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=디지털"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
-							<p class="mb-0 fw-bold">상품이름</p>
-							<span class="small">상품에 대한 간단 설명</span>
-						</button>
+							<p class="mb-0 fw-bold">디지털</p>
+							<span class="small">sopang이 필요한것들만 모아놨다!</span>
+						</a>
 					</div>
 
 					<div
@@ -175,20 +175,20 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="#" class="text-decoration-none">
-							<p class="fw-bold fs-4 mb-1">카테고리2</p> <span class="small">바로가기
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=도서" class="text-decoration-none">
+							<p class="fw-bold fs-4 mb-1">도서</p> <span class="small">바로가기
 								> </span>
 						</a>
 					</div>
 
 					<div class="position-relative">
-						<img src="https://via.placeholder.com/350x600/e1e1e1">
-						<button type="button"
+						<img src="${contextPath}/resources/img/main/hot2.jpg">
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=도서"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
-							<p class="mb-0 fw-bold">상품이름</p>
-							<span class="small">상품에 대한 간단 설명</span>
-						</button>
+							<p class="mb-0 fw-bold">도서</p>
+							<span class="small">sopang이 필요한것들만 모아놨다!</span>
+						</a>
 					</div>
 
 
@@ -219,20 +219,20 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="#" class="text-decoration-none">
-							<p class="fw-bold fs-4 mb-1">카테고리3</p> <span class="small">바로가기
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=건강기능식품" class="text-decoration-none">
+							<p class="fw-bold fs-4 mb-1">건강기능식품</p> <span class="small">바로가기
 								> </span>
 						</a>
 					</div>
 
 					<div class="position-relative">
-						<img src="https://via.placeholder.com/350x600/e1e1e1">
-						<button type="button"
+						<img src="${contextPath}/resources/img/main/hot3.jpg">
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=건강기능식품"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
-							<p class="mb-0 fw-bold">상품이름</p>
-							<span class="small">상품에 대한 간단 설명</span>
-						</button>
+							<p class="mb-0 fw-bold">건강기능식품</p>
+							<span class="small">sopang이 필요한것들만 모아놨다!</span>
+						</a>
 					</div>
 
 
@@ -263,20 +263,20 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="#" class="text-decoration-none">
-							<p class="fw-bold fs-4 mb-1">카테고리4</p> <span class="small">바로가기
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=생활용품" class="text-decoration-none">
+							<p class="fw-bold fs-4 mb-1">생활용품</p> <span class="small">바로가기
 								> </span>
 						</a>
 					</div>
 
 					<div class="position-relative">
-						<img src="https://via.placeholder.com/350x600/e1e1e1">
-						<button type="button"
+						<img src="${contextPath}/resources/img/main/hot4.jpg">
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=생활용품"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
-							<p class="mb-0 fw-bold">상품이름</p>
-							<span class="small">상품에 대한 간단 설명</span>
-						</button>
+							<p class="mb-0 fw-bold">생활용품</p>
+							<span class="small">sopang이 필요한것들만 모아놨다!</span>
+						</a>
 					</div>
 
 
