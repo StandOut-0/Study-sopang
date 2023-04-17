@@ -20,8 +20,6 @@
 			style="gap: 4.1rem !important;">
 
 			<c:forEach var="item" items="${goodsList}">
-
-
 				<div class="p-0">
 					<a
 						href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}"
@@ -34,13 +32,11 @@
 						</p>
 					</a>
 				</div>
-
 			</c:forEach>
 
 		</div>
 	</div>
-
-
+	
 </div>
 
 

@@ -13,26 +13,7 @@ public class GoodsVO {
 	private String goods_delivery_price;
 	private Date goods_delivery_date;
 	private Date goods_credate;
-
 	private String goods_fileName;
-	
-	
-	
-	
-	
-	/*
-	 * private String cart_goods_qty; public String getCart_goods_qty() { return
-	 * cart_goods_qty; }
-	 * 
-	 * public void setCart_goods_qty(String cart_goods_qty) { this.cart_goods_qty =
-	 * cart_goods_qty; }
-	 */
-
-	
-	
-	
-	
-	
 
 	public GoodsVO() {
 	}

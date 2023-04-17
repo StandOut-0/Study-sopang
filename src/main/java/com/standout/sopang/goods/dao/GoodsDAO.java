@@ -8,8 +8,10 @@ import com.standout.sopang.goods.vo.GoodsVO;
 import com.standout.sopang.goods.vo.ImageFileVO;
 
 public interface GoodsDAO {
-	//메인페이지
+	//메인페이지 - 지정 status별
 	public List<GoodsVO> selectGoodsList(String goodsStatus ) throws DataAccessException;
+	
+	//header 카테고리별
 	public List<GoodsVO> selectMenusList(String goodsStatus ) throws DataAccessException;
 	
 	//리스트페이지
