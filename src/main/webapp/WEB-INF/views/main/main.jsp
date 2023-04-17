@@ -4,42 +4,51 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%
-  request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
 %>
 
+
+<!-- hero섹션, 광고영역 -->
 <div class="hero" style="height: 450px">
 	<div class="tab-content container h100 p-0 position-relative" id="">
-		<a class="tab-pane show active d-block" id="hero01" role="tabpanel"
-			aria-labelledby="hero1" href="${contextPath}/goods/goodsDetail.do?goods_id=150">
-			<img src="${contextPath}/resources/img/main/hero1.jpg"
-				class="today-image" data-log-props="" data-adsplatform=""
-				style="display: block; z-index: 1; position: absolute;">
-		</a>
-		<a class="tab-pane" id="hero02" role="tabpanel"
-			aria-labelledby="hero2" href="${contextPath}/goods/goodsDetail.do?goods_id=410">
-			<img src="${contextPath}/resources/img/main/hero2.jpg"
-				class="today-image" data-log-props="" data-adsplatform=""
-				style="display: block; z-index: 1; position: absolute;">
-		</a>
-		<a class="tab-pane" id="hero03" role="tabpanel"
-			aria-labelledby="hero3"href="${contextPath}/goods/goodsDetail.do?goods_id=330">
-			<img src="${contextPath}/resources/img/main/hero3.jpg"
-				class="today-image" data-log-props="" data-adsplatform=""
-				style="display: block; z-index: 1; position: absolute;">
-		</a>
-		<a class="tab-pane" id="hero04" role="tabpanel"
-			aria-labelledby="hero4"href="${contextPath}/goods/goodsDetail.do?goods_id=270">
-			<img src="${contextPath}/resources/img/main/hero4.jpg"
-				class="today-image" data-log-props="" data-adsplatform=""
-				style="display: block; z-index: 1; position: absolute;">
-		</a>
-		<a class="tab-pane" id="hero05" role="tabpanel"
-			aria-labelledby="hero5"href="${contextPath}/goods/goodsDetail.do?goods_id=420">
-			<img src="${contextPath}/resources/img/main/hero5.jpg"
-				class="today-image" data-log-props="" data-adsplatform=""
-				style="display: block; z-index: 1; position: absolute;">
-		</a>
 
+		<!-- tabCaller 버튼영역 -->
+		<a class="tab-pane show active d-block" id="hero01" role="tabpanel"
+			aria-labelledby="hero1"
+			href="${contextPath}/goods/goodsDetail.do?goods_id=150"> <img
+			src="${contextPath}/resources/img/main/hero1.jpg" class="today-image"
+			data-log-props="" data-adsplatform=""
+			style="display: block; z-index: 1; position: absolute;">
+		</a> <a class="tab-pane" id="hero02" role="tabpanel"
+			aria-labelledby="hero2"
+			href="${contextPath}/goods/goodsDetail.do?goods_id=410"> <img
+			src="${contextPath}/resources/img/main/hero2.jpg" class="today-image"
+			data-log-props="" data-adsplatform=""
+			style="display: block; z-index: 1; position: absolute;">
+		</a> <a class="tab-pane" id="hero03" role="tabpanel"
+			aria-labelledby="hero3"
+			href="${contextPath}/goods/goodsDetail.do?goods_id=330"> <img
+			src="${contextPath}/resources/img/main/hero3.jpg" class="today-image"
+			data-log-props="" data-adsplatform=""
+			style="display: block; z-index: 1; position: absolute;">
+		</a> <a class="tab-pane" id="hero04" role="tabpanel"
+			aria-labelledby="hero4"
+			href="${contextPath}/goods/goodsDetail.do?goods_id=270"> <img
+			src="${contextPath}/resources/img/main/hero4.jpg" class="today-image"
+			data-log-props="" data-adsplatform=""
+			style="display: block; z-index: 1; position: absolute;">
+		</a> <a class="tab-pane" id="hero05" role="tabpanel"
+			aria-labelledby="hero5"
+			href="${contextPath}/goods/goodsDetail.do?goods_id=420"> <img
+			src="${contextPath}/resources/img/main/hero5.jpg" class="today-image"
+			data-log-props="" data-adsplatform=""
+			style="display: block; z-index: 1; position: absolute;">
+		</a>
+		<!-- tabCaller 버튼영역 -->
+
+
+
+		<!-- tab본문영역, caller 선택시 id값에 맞는 tab이 표출된다. -->
 		<div
 			class="list-group position-absolute top-50 end-0 translate-middle-y z-2 me-5 rounded-0"
 			role="tablist">
@@ -65,9 +74,15 @@
 				src="${contextPath}/resources/img/main/tab5.jpg">
 			</a>
 		</div>
+		<!-- tab본문영역, caller 선택시 id값에 맞는 tab이 표출된다. -->
+
 	</div>
 </div>
+<!-- hero섹션, 광고영역 -->
 
+
+
+<!-- sopang추천 광고영역 -->
 <div class="container">
 	<div class="row">
 		<div class="d-flex p-0 align-items-center gap-3 mt-5">
@@ -75,25 +90,27 @@
 			<p class="fs-6">| 오늘 소팡이 엄선한 가장 HOT한 상품!</p>
 		</div>
 	</div>
-		<style>
-			.bestseller a:nth-child(1) , .bestseller a:nth-child(2) {width:calc(50% - 9px);height:300px}
-			.bestseller a:nth-child(3) , .bestseller a:nth-child(4) ,
-			.bestseller a:nth-child(5) , .bestseller a:nth-child(6) {width:279px;height:300px}
-			.bestseller img{height:100%}
-		</style>
 	<div class="row border p-3">
 		<div class="d-flex p-0 align-items-center gap-3 flex-wrap bestseller">
-		<c:set  var="goods_count" value="0" />
-		<c:forEach var="item" items="${goodsMap.bestseller}">
-	   <c:set  var="goods_count" value="${goods_count+1 }" />
-			<a class="back_eee position-relative" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-			<img class="position-absolute top-50 start-50 translate-middle" src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-			</a>
-		</c:forEach>
+			<c:set var="goods_count" value="0" />
+			<!-- goodsMap 상품리스트 중, goods_status의 값이  bestseller로 지정된 리스트만 추출해 뿌린다.  -->
+			<c:forEach var="item" items="${goodsMap.bestseller}">
+				<c:set var="goods_count" value="${goods_count+1 }" />
+				<a class="back_eee position-relative"
+					href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+					<img class="position-absolute top-50 start-50 translate-middle"
+					src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+				</a>
+			</c:forEach>
+			<!-- goodsMap 상품리스트 중, goods_status의 값이  bestseller로 지정된 리스트만 추출해 뿌린다.  -->
 		</div>
 	</div>
 </div>
+<!-- sopang추천 광고영역 -->
 
+
+
+<!-- sopang 카테고리 광고영역 -->
 <div class="container">
 	<div class="row">
 		<div class="p-0 align-items-center gap-3 mt-5">
@@ -101,9 +118,11 @@
 			<p class="fs-3 fw-bold">카테고리별 추천상품</p>
 		</div>
 	</div>
-	<style>.categoryTabGoodList img{width:200px;height:200px}</style>
+
 	<div class="row position-relative">
 
+
+		<!-- tab Caller -->
 		<div
 			class="list-group position-absolute bottom-0 start-0 z-2 rounded-0 mb-4"
 			role="tablist" style="width: 150px">
@@ -121,10 +140,13 @@
 				id="trend4" data-bs-toggle="list" href="#trend04" role="tab"
 				aria-controls="trend04"># 생활용품</a>
 		</div>
+		<!-- tab Caller -->
 
 
+		<!-- tab 본문영역 -->
 		<div class="tab-content border-top border-main border-2 p-0">
 
+			<!-- 디지털 -->
 			<div class="tab-pane fade show active" id="trend01" role="tabpanel"
 				aria-labelledby="trend1">
 
@@ -132,42 +154,51 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=디지털" class="text-decoration-none">
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=디지털"
+							class="text-decoration-none">
 							<p class="fw-bold fs-4 mb-1">디지털</p> <span class="small">바로가기
 								> </span>
 						</a>
 					</div>
 
 					<div class="position-relative">
-						<img src="${contextPath}/resources/img/main/hot1.jpg">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=디지털"
+						<img src="${contextPath}/resources/img/main/hot1.jpg"> <a
+							href="${contextPath}/goods/menuGoods.do?menuGoods=디지털"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
-							<p class="mb-0 fw-bold">디지털</p>
-							<span class="small">sopang이 필요한것들만 모아놨다!</span>
+							<p class="mb-0 fw-bold">디지털</p> <span class="small">sopang이
+								필요한것들만 모아놨다!</span>
 						</a>
 					</div>
 
 					<div
-						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap" style="gap: 1.8rem!important;">
+						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap"
+						style="gap: 1.8rem !important;">
 						<c:forEach var="item" items="${goodsMap.cate_digital}" end="5">
-	   					<c:set  var="goods_count" value="${goods_count+1 }" />
-	   					<div>
-						<a class="text-decoration-none" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-						<div class="back_eee">
-							<img src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+							<c:set var="goods_count" value="${goods_count+1 }" />
+							<div>
+								<a class="text-decoration-none"
+									href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+									<div class="back_eee">
+										<img
+											src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+									</div>
+									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
+									<p>
+										<span class="fw-bold">${item.goods_sales_price}</span>원
+									</p>
+								</a>
 							</div>
-							<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
-							<p><span class="fw-bold">${item.goods_sales_price}</span>원</p>
-						</a>
-						</div>
 						</c:forEach>
 					</div>
-					
+
 				</div>
 
 			</div>
+			<!-- 디지털 -->
 
+
+			<!-- 도서 -->
 			<div class="tab-pane fade" id="trend02" role="tabpanel"
 				aria-labelledby="trend2">
 
@@ -175,43 +206,52 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=도서" class="text-decoration-none">
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=도서"
+							class="text-decoration-none">
 							<p class="fw-bold fs-4 mb-1">도서</p> <span class="small">바로가기
 								> </span>
 						</a>
 					</div>
 
 					<div class="position-relative">
-						<img src="${contextPath}/resources/img/main/hot2.jpg">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=도서"
+						<img src="${contextPath}/resources/img/main/hot2.jpg"> <a
+							href="${contextPath}/goods/menuGoods.do?menuGoods=도서"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
-							<p class="mb-0 fw-bold">도서</p>
-							<span class="small">sopang이 필요한것들만 모아놨다!</span>
+							<p class="mb-0 fw-bold">도서</p> <span class="small">sopang이
+								필요한것들만 모아놨다!</span>
 						</a>
 					</div>
 
 
 					<div
-						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap" style="gap: 1.8rem!important;">
+						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap"
+						style="gap: 1.8rem !important;">
 						<c:forEach var="item" items="${goodsMap.cate_book}" end="5">
-	   					<c:set  var="goods_count" value="${goods_count+1 }" />
-	   					<div>
-						<a class="text-decoration-none" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-								<div class="back_eee">
-							<img src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+							<c:set var="goods_count" value="${goods_count+1 }" />
+							<div>
+								<a class="text-decoration-none"
+									href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+									<div class="back_eee">
+										<img
+											src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+									</div>
+									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
+									<p>
+										<span class="fw-bold">${item.goods_sales_price}</span>원
+									</p>
+								</a>
 							</div>
-							<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
-							<p><span class="fw-bold">${item.goods_sales_price}</span>원</p>
-						</a>
-						</div>
 						</c:forEach>
 					</div>
 
 				</div>
 
 			</div>
+			<!-- 도서 -->
 
+
+			<!-- 건강기능식품 -->
 			<div class="tab-pane fade" id="trend03" role="tabpanel"
 				aria-labelledby="trend3">
 
@@ -219,43 +259,52 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=건강기능식품" class="text-decoration-none">
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=건강기능식품"
+							class="text-decoration-none">
 							<p class="fw-bold fs-4 mb-1">건강기능식품</p> <span class="small">바로가기
 								> </span>
 						</a>
 					</div>
 
 					<div class="position-relative">
-						<img src="${contextPath}/resources/img/main/hot3.jpg">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=건강기능식품"
+						<img src="${contextPath}/resources/img/main/hot3.jpg"> <a
+							href="${contextPath}/goods/menuGoods.do?menuGoods=건강기능식품"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
-							<p class="mb-0 fw-bold">건강기능식품</p>
-							<span class="small">sopang이 필요한것들만 모아놨다!</span>
+							<p class="mb-0 fw-bold">건강기능식품</p> <span class="small">sopang이
+								필요한것들만 모아놨다!</span>
 						</a>
 					</div>
 
 
 					<div
-						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap" style="gap: 1.8rem!important;">
+						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap"
+						style="gap: 1.8rem !important;">
 						<c:forEach var="item" items="${goodsMap.cate_health}" end="5">
-	   					<c:set  var="goods_count" value="${goods_count+1 }" />
-	   					<div>
-						<a class="text-decoration-none" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-								<div class="back_eee">
-							<img src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+							<c:set var="goods_count" value="${goods_count+1 }" />
+							<div>
+								<a class="text-decoration-none"
+									href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+									<div class="back_eee">
+										<img
+											src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+									</div>
+									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
+									<p>
+										<span class="fw-bold">${item.goods_sales_price}</span>원
+									</p>
+								</a>
 							</div>
-							<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
-							<p><span class="fw-bold">${item.goods_sales_price}</span>원</p>
-						</a>
-						</div>
 						</c:forEach>
 					</div>
 
 				</div>
 
 			</div>
+			<!-- 건강기능식품 -->
 
+
+			<!-- 생활용품 -->
 			<div class="tab-pane fade" id="trend04" role="tabpanel"
 				aria-labelledby="trend4">
 
@@ -263,50 +312,58 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=생활용품" class="text-decoration-none">
+						<a href="${contextPath}/goods/menuGoods.do?menuGoods=생활용품"
+							class="text-decoration-none">
 							<p class="fw-bold fs-4 mb-1">생활용품</p> <span class="small">바로가기
 								> </span>
 						</a>
 					</div>
 
 					<div class="position-relative">
-						<img src="${contextPath}/resources/img/main/hot4.jpg">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=생활용품"
+						<img src="${contextPath}/resources/img/main/hot4.jpg"> <a
+							href="${contextPath}/goods/menuGoods.do?menuGoods=생활용품"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
-							<p class="mb-0 fw-bold">생활용품</p>
-							<span class="small">sopang이 필요한것들만 모아놨다!</span>
+							<p class="mb-0 fw-bold">생활용품</p> <span class="small">sopang이
+								필요한것들만 모아놨다!</span>
 						</a>
 					</div>
 
 
 					<div
-						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap" style="gap: 1.8rem!important;">
+						class="d-flex p-4 pe-0 pb-0 categoryTabGoodList align-items-start flex-wrap"
+						style="gap: 1.8rem !important;">
 						<c:forEach var="item" items="${goodsMap.cate_daily}" end="5">
-	   					<c:set  var="goods_count" value="${goods_count+1 }" />
-	   					<div>
-						<a class="text-decoration-none" href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-								<div class="back_eee">
-							<img src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+							<c:set var="goods_count" value="${goods_count+1 }" />
+							<div>
+								<a class="text-decoration-none"
+									href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+									<div class="back_eee">
+										<img
+											src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+									</div>
+									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
+									<p>
+										<span class="fw-bold">${item.goods_sales_price}</span>원
+									</p>
+								</a>
 							</div>
-							<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
-							<p><span class="fw-bold">${item.goods_sales_price}</span>원</p>
-						</a>
-						</div>
 						</c:forEach>
 					</div>
 
 				</div>
 
 			</div>
+			<!-- 생활용품 -->
+
 
 		</div>
-
-
-
 	</div>
-</div>
+	<!-- tab 본문영역 -->
 
+
+</div>
+<!-- sopang 카테고리 광고영역 -->
 
 
 

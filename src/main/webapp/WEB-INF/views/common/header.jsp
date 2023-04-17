@@ -175,7 +175,7 @@
 									onKeyUp="keywordSearch()"> <input name="search"
 									type="submit" id="searchInputWithLabel" class="d-none">
 								<label for="searchInputWithLabel"
-									class="samll d-flex align-items-center px-2 pe-2"><i
+									class="samll d-flex align-items-center px-2 pe-2" style="cursor: pointer;"><i
 									class="fa-solid fa-magnifying-glass d-block color-main"></i></label> </a>
 							</form>
 							<!-- 추천키워드 -->

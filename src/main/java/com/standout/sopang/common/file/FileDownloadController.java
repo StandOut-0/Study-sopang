@@ -17,8 +17,10 @@ import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class FileDownloadController {
+	//파일경로
 	private static String CURR_IMAGE_REPO_PATH = "C:\\sopang\\file_repo";
 	
+	//업로드/인서트 된 파일 불러오기, goods_id와 fileName값을 받아 풀력한다.
 	@RequestMapping("/download")
 	protected void download(@RequestParam("fileName") String fileName,
 		                 	@RequestParam("goods_id") String goods_id,
@@ -41,7 +43,7 @@ public class FileDownloadController {
 		out.close();
 	}
 	
-	
+	//업로드/인서트 된 파일 썸네일로 불러오기, goods_id와 fileName값을 받아 풀력한다.
 	@RequestMapping("/thumbnails.do")
 	protected void thumbnails(@RequestParam("fileName") String fileName,
                             	@RequestParam("goods_id") String goods_id,
@@ -53,6 +55,8 @@ public class FileDownloadController {
 		if (image.exists()) { 
 			Thumbnails.of(image).size(121,154).outputFormat("png").toOutputStream(out);
 		}
+		
+		//파일크기 설정
 		byte[] buffer = new byte[1024 * 8];
 		out.write(buffer);
 		out.close();

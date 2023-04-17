@@ -55,7 +55,26 @@ html {scroll-behavior: smooth;}
     right: 20px;
 }
 
+.bestseller a:nth-child(1), .bestseller a:nth-child(2) {
+	width: calc(50% - 9px);
+	height: 300px
+}
 
+.bestseller a:nth-child(3), .bestseller a:nth-child(4), .bestseller a:nth-child(5),
+	.bestseller a:nth-child(6) {
+	width: 279px;
+	height: 300px
+}
+
+.bestseller img {
+	height: 100%
+}
+
+
+.categoryTabGoodList img {
+	width: 200px;
+	height: 200px
+}
 
 .warn *::placeholder{color: red;} 
 

@@ -29,14 +29,15 @@ import com.standout.sopang.goods.vo.ImageFileVO;
 public abstract class BaseController  {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\sopang\\file_repo";
 	
+	//"/*.do"로 요청시 view네임 return
 	@RequestMapping(value="/*.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	protected  ModelAndView viewForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		
 		return mav;
 	}
 	
+	// 관리자, 마이페이지에서 공통으로 사용될 버튼식조회 기간설정 메소드
 	protected String calcSearchPeriod(String fixedSearchPeriod){
 		String beginDate=null;
 		String endDate=null;
@@ -54,6 +55,7 @@ public abstract class BaseController  {
 		endDay   = df.format(cal.get(Calendar.DATE));
 		endDate = endYear +"-"+ endMonth +"-"+endDay;
 		
+		//별다른 지정이 없을경우, 1개월
 		if(fixedSearchPeriod == null) {
 			cal.add(cal.MONTH, -1);
 		}else if(fixedSearchPeriod.equals("today")) {
@@ -76,7 +78,7 @@ public abstract class BaseController  {
 		return beginDate+","+endDate;
 	}
 	
-	
+	//상품추가/수정시 사용될 파일 upload메소드, fileList return
 	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List<ImageFileVO> fileList= new ArrayList<ImageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();

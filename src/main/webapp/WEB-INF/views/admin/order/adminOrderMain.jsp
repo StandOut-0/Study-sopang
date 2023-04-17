@@ -201,17 +201,17 @@ function fn_modify_order_state(index, order_id){
 														<div class="d-flex mb-1 align-items-center">
 															<span style="width: 110px;" class="">주문회원</span> <input
 																class="form-control rounded-0" type="text"
-																placeholder="회원이름" value="${item.member_id}">
+																placeholder="회원이름" value="${item.member_id}" readonly>
 														</div>
 														<div class="d-flex mb-1 align-items-center">
 															<span style="width: 110px;" class="">수령자</span> <input
 																class="form-control rounded-0" type="text"
-																placeholder="수령자" value="${item.receiver_name}">
+																placeholder="수령자" value="${item.receiver_name}" readonly>
 														</div>
 														<div class="d-flex mb-1 align-items-center">
 															<span style="width: 110px;" class="">배송연락처</span> <input
 																class="form-control rounded-0" type="text"
-																placeholder="010-0000-0000" value="${item.receiver_hp1}">
+																placeholder="010-0000-0000" value="${item.receiver_hp1}" readonly>
 														</div>
 	
 													</td>
@@ -225,7 +225,7 @@ function fn_modify_order_state(index, order_id){
 														<div class="d-flex mb-1 align-items-center">
 															<span style="width: 100px;" class="">주문수량</span> <input
 																class="form-control rounded-0" type="text"
-																placeholder="주문상품" value="${item.order_goods_qty}">
+																placeholder="주문상품" value="${item.order_goods_qty}" readonly>
 														</div> 
 
 

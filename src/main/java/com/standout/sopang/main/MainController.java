@@ -26,6 +26,7 @@ public class MainController extends BaseController{
 	@Autowired
 	private GoodsService goodsService;
 	
+	///main/main.do로 요청시 listGoods, 상품목록을 불러와 goodsMap에 저장 후 viewName과 함께 리턴.
 	@RequestMapping(value= "/main/main.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		HttpSession session;

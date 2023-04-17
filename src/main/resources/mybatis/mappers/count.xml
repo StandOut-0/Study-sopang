@@ -4,17 +4,15 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.sopang.counts">
-<resultMap id="memberResult" type="MemberVO">
-		<result property="sopang_money" column="sopang_money" />
-	</resultMap>	
 	
+	<!-- 장바구니 갯수 카운트 -->
 	<select id="cartLen" parameterType="String" resultType="int">
         <![CDATA[
-        select count(*) from t_shopping_cart
-			  where member_id=#{member_id}
+        select count(*) from t_shopping_cart where member_id=#{member_id}
 	    ]]>
 	</select>
 	
+	<!-- 배송중 갯수 카운트 -->
 	<select id="deliveringLen" parameterType="String" resultType="int">
         <![CDATA[
         select count(*) from t_shopping_order
@@ -22,24 +20,28 @@
 	    ]]>
 	</select>
 	
+	<!-- 배송중 갯수 카운트 -->
 	<select id="sopang_money" parameterType="String" resultType="java.lang.Long">
         <![CDATA[
         select sopang_money from t_shopping_member where member_id = #{member_id}
 	    ]]>
 	</select>
 	
+	<!-- 싱픔 갯수 카운트 -->
 	<select id="goodsLen" resultType="int">
         <![CDATA[
          select count(*) from t_shopping_goods
 	    ]]>
 	</select>
 	
+	<!-- 주문 건수 카운트 -->
 	<select id="ordersLen" resultType="int">
         <![CDATA[
          select count(*) from t_shopping_order where delivery_state <>'cancel_order'
 	    ]]>
 	</select>
 	
+	<!-- 총매출 카운트 -->
 	 <select id="totalSales" resultType="java.lang.Long">
         <![CDATA[
         select sum(goods_sales_price*order_goods_qty) 
