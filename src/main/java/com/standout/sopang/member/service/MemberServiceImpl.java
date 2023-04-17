@@ -16,16 +16,19 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 	
+	//로그인
 	@Override
 	public MemberVO login(Map  loginMap) throws Exception{
 		return memberDAO.login(loginMap);
 	}
 	
+	//회원가입
 	@Override
 	public void addMember(MemberVO memberVO) throws Exception{
 		memberDAO.insertNewMember(memberVO);
 	}
 	
+	//아이디 중복확인
 	@Override
 	public String overlapped(String id) throws Exception{
 		return memberDAO.selectOverlappedID(id);

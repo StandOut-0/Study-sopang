@@ -30,36 +30,38 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	@Autowired
 	private MemberVO memberVO;
 
+	//로그인
 	@Override
 	@RequestMapping(value="/login.do" ,method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam Map<String, String> loginMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("로그인sql 실행합니다.");
 		memberVO = memberService.login(loginMap);
+		
+		//memberVO가 존재할 경우
 		if (memberVO != null && memberVO.getMember_id() != null) {
 			HttpSession session = request.getSession();
 			session = request.getSession();
+			
+			//로그인 여부 isLogOn와 회원정보 memberInfo를 세션에 저장한다.
 			session.setAttribute("isLogOn", true);
 			session.setAttribute("memberInfo", memberVO);
-
-			String action = (String) session.getAttribute("action");
-			if (action != null && action.equals("/order/orderEachGoods.do")) {
-				mav.setViewName("forward:" + action);
-			} else {
-				System.out.println("정상적으로 로그인됨");
-				mav.setViewName("redirect:/main/main.do");
-			}
-
-		} else {
-			System.out.println("아이디/비밀번호가 틀림");
+			
+			//메인페이지로 이동.
+			mav.setViewName("redirect:/main/main.do");
+			
+		} else { //memberVO가 존재하지않을 경우 message를 담아 return + login페이지로 이동
 			String message = "아이디나  비밀번호가 틀립니다. 다시 로그인해주세요";
 			mav.addObject("message", message);
 			mav.setViewName("/member/login");
 		}
 		return mav;
 	}
+	
+	
+	
 
+	//회원가입
 	@Override
 	@RequestMapping(value="/join.do" ,method = RequestMethod.POST)
 	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO,
@@ -70,7 +72,9 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		
 		try {
+			//회원가입을 try, addMember 성공시 안내문구와 함께  login페이지로 이동한다.
 		    memberService.addMember(_memberVO);
 		    message  = "<script>";
 		    message +=" alert('sopang에 오신걸 환영합니다!');";
@@ -78,38 +82,47 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		    message += " </script>";
 		    
 		}catch(Exception e) {
+			//오류발생시, 회원가입페이지로 재이동
 			message  = "<script>";
-			/* message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');"; */
 		    message += " location.href='"+request.getContextPath()+"/member/join.do';";
 		    message += " </script>";
 			e.printStackTrace();
 		}
-		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		
+		//각 케이스에 따른 위 설정값 return
 		return resEntity;
 	}
 
+	
+	
+	
+	//아이디 중복확인
 	@Override
 	@RequestMapping(value="/overlapped.do" ,method = RequestMethod.POST)
 	public ResponseEntity overlapped(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception{
 		ResponseEntity resEntity = null;
+		
+		//overlapped의 경과를 매핑해 return 한다.
 		String result = memberService.overlapped(id);
-		resEntity =new ResponseEntity(result, HttpStatus.OK);
+		resEntity = new ResponseEntity(result, HttpStatus.OK);
 		return resEntity;
 	}
 	
 	
 	
+	//로그아웃
 	@Override
 	@RequestMapping(value="/logout.do" ,method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session=request.getSession();
+		//세션 설정 초기화 및 메인페이지 이동.
 		session.setAttribute("isLogOn", false);
 		session.removeAttribute("memberInfo");
-		System.out.println(session.getAttribute("isLogOn"));
-		System.out.println(session.getAttribute("memberInfo"));
 		mav.setViewName("redirect:/main/main.do");
 		return mav;
 	}
 
+	
 }
