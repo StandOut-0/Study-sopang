@@ -5,7 +5,6 @@ public class MyPageVO {
 	private String beginDate;
 	private String endDate;
 	
-	
 	public String getMember_id() {
 		return member_id;
 	}
@@ -24,7 +23,5 @@ public class MyPageVO {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	
-	
 
 }
