@@ -34,61 +34,61 @@ public class CartControllerImpl extends BaseController implements CartController
 	@Autowired
 	private MemberVO memberVO;
 	
+	//장바구니
 	@RequestMapping(value="/myCartList.do" ,method = RequestMethod.GET)
 	public ModelAndView myCartMain(HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
+		
 		HttpSession session=request.getSession();
 		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String member_id=memberVO.getMember_id();
+		
+		//회원정보에 맞는 장바구니 리스트를 불러온다. 
 		cartVO.setMember_id(member_id);
 		Map<String ,List> cartMap=cartService.myCartList(cartVO);
-		session.setAttribute("cartMap", cartMap);//장바구니 목록 화면에서 상품 주문 시 사용하기 위해서 장바구니 목록을 세션에 저장한다.
-		//mav.addObject("cartMap", cartMap);
+		
+		session.setAttribute("cartMap", cartMap);
 		return mav;
 	}
 	
+	
+	//장바구니 추가
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		
-		/* System.out.println(goods_id+"의 상품을, "+cart_goods_qty+"개 담았습니다."); */
-		
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
-		/* System.out.println(memberVO); */
 		String member_id=memberVO.getMember_id();
 		
+		//회원정보와 추가하고자하는 상품id로 장바구니 중복체크 후 boolean형 isAreadyExisted로 리턴값 저장
 		cartVO.setMember_id(member_id);
-		//카트 등록전에 이미 등록된 제품인지 판별한다.
-		
 		cartVO.setGoods_id(goods_id);
-		cartVO.setMember_id(member_id);
-		
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
-		System.out.println("findCartGoods를 실행완료");
-		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		
-
-		/* cartVO.setCart_goods_qty(cart_goods_qty); */
-		
-		if(isAreadyExisted==true){
-			return "already_existed";
-		}else{
-			cartService.addGoodsInCart(cartVO);
-			return "add_success";
-		}
+		//중복될경우 already_existed return, 외의 경우 add_success return
+		if(isAreadyExisted==true){return "already_existed";}
+		else{cartService.addGoodsInCart(cartVO);return "add_success";}
 	}
 	
+	
+	
+	//장바구니 삭제
 	@RequestMapping(value="/removeCartGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView removeCartGoods(@RequestParam("cart_id") int cart_id,
 			                          HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		ModelAndView mav=new ModelAndView();
+		
+		//@RequestParam받은 cart_id 상품을 삭제 후 myCartList로 redirect
 		cartService.removeCartGoods(cart_id);
 		mav.setViewName("redirect:/cart/myCartList.do");
 		return mav;
 	}
 	
+	
+	
+	//장바구니 수정
 	@RequestMapping(value="/modifyCartQty.do" ,method = RequestMethod.POST)
 	public @ResponseBody String  modifyCartQty(@RequestParam("goods_id") int goods_id,
 			                                   @RequestParam("cart_goods_qty") int cart_goods_qty,
@@ -96,16 +96,16 @@ public class CartControllerImpl extends BaseController implements CartController
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String member_id=memberVO.getMember_id();
-		cartVO.setGoods_id(goods_id);
+		
+		//member_id의 @RequestParam받은 goods_id와 cart_goods_qty에 수정내용을 반영하고 결과값을 리턴받아 result에 저장
 		cartVO.setMember_id(member_id);
+		cartVO.setGoods_id(goods_id);
 		cartVO.setCart_goods_qty(cart_goods_qty);
 		boolean result=cartService.modifyCartQty(cartVO);
 		
-		if(result==true){
-		   return "modify_success";
-		}else{
-			  return "modify_failed";	
-		}
+		//완료시 modify_success, 외의 경우 modify_failed를 리턴.
+		if(result==true){return "modify_success";}
+		else{return "modify_failed";	}
 		
 	}
 	
