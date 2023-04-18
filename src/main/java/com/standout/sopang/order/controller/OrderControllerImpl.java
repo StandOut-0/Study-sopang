@@ -24,124 +24,103 @@ import com.standout.sopang.order.service.OrderService;
 import com.standout.sopang.order.vo.OrderVO;
 
 @Controller("orderController")
-@RequestMapping(value="/order")
+@RequestMapping(value = "/order")
 public class OrderControllerImpl extends BaseController implements OrderController {
 	@Autowired
 	private OrderService orderService;
 	@Autowired
 	private OrderVO orderVO;
-	
-	@RequestMapping(value="/orderEachGoods.do" ,method = RequestMethod.POST)
-	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO,
-			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		
+
+	// 개별주문
+	@RequestMapping(value = "/orderEachGoods.do", method = RequestMethod.POST)
+	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
 		request.setCharacterEncoding("utf-8");
-		HttpSession session=request.getSession();
-		session=request.getSession();
-		
-		Boolean isLogOn=(Boolean)session.getAttribute("isLogOn");
-		String action=(String)session.getAttribute("action");
-		//로그인 여부 체크
-		//이전에 로그인 상태인 경우는 주문과정 진행
-		//로그아웃 상태인 경우 로그인 화면으로 이동
-		
-		System.out.println("isLogOn: "+isLogOn);
-		if(isLogOn==null || isLogOn==false){
+		HttpSession session = request.getSession();
+		session = request.getSession();
+
+		// 로그인 여부 체크
+		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
+		String action = (String) session.getAttribute("action");
+
+		// 이전에 로그인 상태인 경우는 주문과정 진행
+		if (isLogOn == null || isLogOn == false) {
 			session.setAttribute("orderInfo", _orderVO);
 			session.setAttribute("action", "/order/orderEachGoods.do");
 			return new ModelAndView("redirect:/member/login.do");
-		}else{
-			 if(action!=null && action.equals("/order/orderEachGoods.do")){
-				orderVO=(OrderVO)session.getAttribute("orderInfo");
-				System.out.println("[orderVO]: "+orderVO);
+		}
+		// 로그아웃 상태인 경우 로그인 화면으로 이동
+		else {
+			if (action != null && action.equals("/order/orderEachGoods.do")) {
+				orderVO = (OrderVO) session.getAttribute("orderInfo");
 				session.removeAttribute("action");
-			 }else {
-				 orderVO=_orderVO;
-			 }
-		 }
-		
-		
-		String viewName=(String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		
-		List myOrderList=new ArrayList<OrderVO>();
-		myOrderList.add(orderVO);
+			} else {
+				orderVO = _orderVO;
+			}
+		}
 
-		MemberVO memberInfo=(MemberVO)session.getAttribute("memberInfo");
-		
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+
+		// myOrderList에 선택한 상품정보 orderVO를 리다이렉트.
+		List myOrderList = new ArrayList<OrderVO>();
+		myOrderList.add(orderVO);
 		session.setAttribute("myOrderList", myOrderList);
+
+		// + 회원정보와 함께 리다이렉트.
+		MemberVO memberInfo = (MemberVO) session.getAttribute("memberInfo");
 		session.setAttribute("orderer", memberInfo);
+
 		return mav;
 	}
+
 	
-	@RequestMapping(value="/payToOrderGoods.do" ,method = RequestMethod.POST)
-	public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap,
-			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		//String viewName=(String)request.getAttribute("viewName");
-		String viewName="listMyOrderHistory";
-		ModelAndView mav = new ModelAndView(viewName);
-		
-		HttpSession session=request.getSession();
-		MemberVO memberVO=(MemberVO)session.getAttribute("orderer");
-		
-		String member_id=memberVO.getMember_id();
-		String orderer_name=memberVO.getMember_name();
-		String orderer_hp = memberVO.getHp1();
-		
-		List<OrderVO> myOrderList=(List<OrderVO>)session.getAttribute("myOrderList");
-		
-		for(int i=0; i<myOrderList.size();i++){
-			OrderVO orderVO=(OrderVO)myOrderList.get(i);
-			orderVO.setMember_id(member_id);
-			orderVO.setReceiver_name(receiverMap.get("receiver_name"));
-			orderVO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
-			orderVO.setDelivery_address(receiverMap.get("delivery_address"));
-//			orderVO.setPay_method(receiverMap.get("pay_method"));
-//			orderVO.setCard_com_name(receiverMap.get("card_com_name"));
-//			orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
-//			orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));	
-			orderVO.setOrderer_hp(orderer_hp);	
-			myOrderList.set(i, orderVO); //각 orderVO에 주문자 정보를 세팅한 후 다시 myOrderList에 저장한다.
-		}//end for
-		
-		
-	    orderService.addNewOrder(myOrderList);
-	    
-	    System.out.println("리다이렉트 할겁니다.");
-	    return new ModelAndView("redirect:/mypage/listMyOrderHistory.do");
-	    
-//		mav.addObject("myOrderInfo",receiverMap);//OrderVO로 주문결과 페이지에  주문자 정보를 표시한다.
-//		mav.addObject("myOrderList", myOrderList);
-//		return mav;
-	}
 	
-	@RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
-	public ModelAndView orderAllCartGoods( @RequestParam("cart_goods_qty")  String[] cart_goods_qty,
-			                 HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		String viewName=(String)request.getAttribute("viewName");
+	
+	// 다중주문
+	@RequestMapping(value = "/orderAllCartGoods.do", method = RequestMethod.POST)
+	public ModelAndView orderAllCartGoods(@RequestParam("cart_goods_qty") String[] cart_goods_qty,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session=request.getSession();
-		Map cartMap=(Map)session.getAttribute("cartMap");
-		List myOrderList=new ArrayList<OrderVO>();
+		HttpSession session = request.getSession();
+		List myOrderList = new ArrayList<OrderVO>();
+
+		//장바구니 리스트를 받아 저장 
+		Map cartMap = (Map) session.getAttribute("cartMap");
+		List<GoodsVO> myGoodsList = (List<GoodsVO>) cartMap.get("myGoodsList");
 		
-		List<GoodsVO> myGoodsList=(List<GoodsVO>)cartMap.get("myGoodsList");
-		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
-		
-		for(int i=0; i<cart_goods_qty.length;i++){
-			String[] cart_goods=cart_goods_qty[i].split(":");
-			for(int j = 0; j< myGoodsList.size();j++) {
+		//회원정보를 받아 저장
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+
+		//상품:수량으로 input에 저장해 넘겻던 정보를 이용할 것임.
+		//cart_goods_qty, 받은 input의 수만큼 for문.
+		for (int i = 0; i < cart_goods_qty.length; i++) {
+			//상품:수량을 나눠 확인.
+			String[] cart_goods = cart_goods_qty[i].split(":");
+			for (int j = 0; j < myGoodsList.size(); j++) {
+				//상품 객체 get
 				GoodsVO goodsVO = myGoodsList.get(j);
+				//상품 id get
 				int goods_id = goodsVO.getGoods_id();
-				if(goods_id==Integer.parseInt(cart_goods[0])) {
-					OrderVO _orderVO=new OrderVO();
-					String goods_title=goodsVO.getGoods_title();
-					int goods_sales_price=goodsVO.getGoods_sales_price();
-					String goods_fileName=goodsVO.getGoods_fileName();
+				//goodsid와 전달받은 상품 id값이 같을때
+				if (goods_id == Integer.parseInt(cart_goods[0])) {
+					//주문객체를 생성한다.
+					OrderVO _orderVO = new OrderVO();
+					//해당상품 title저장
+					String goods_title = goodsVO.getGoods_title();
+					//해당상품 수량 저장
+					int goods_sales_price = goodsVO.getGoods_sales_price();
+					//해당상품 fileName도 저장해
+					String goods_fileName = goodsVO.getGoods_fileName();
+					//주문객체에 set
 					_orderVO.setGoods_id(goods_id);
 					_orderVO.setGoods_title(goods_title);
 					_orderVO.setGoods_sales_price(goods_sales_price);
 					_orderVO.setGoods_fileName(goods_fileName);
 					_orderVO.setOrder_goods_qty(Integer.parseInt(cart_goods[1]));
+					//완성된 주문객체는 myOrderList에 쌓아간다.
 					myOrderList.add(_orderVO);
 					break;
 				}
@@ -150,6 +129,48 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		session.setAttribute("myOrderList", myOrderList);
 		session.setAttribute("orderer", memberVO);
 		return mav;
-	}	
+	}
+
+	
+	
+	//결제하기
+	@RequestMapping(value = "/payToOrderGoods.do", method = RequestMethod.POST)
+	public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = "listMyOrderHistory";
+		ModelAndView mav = new ModelAndView(viewName);
+
+		//주문자 정보를 가져온다.
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("orderer");
+		String member_id = memberVO.getMember_id();
+		String orderer_name = memberVO.getMember_name();
+		String orderer_hp = memberVO.getHp1();
+
+		//주문정보를 가져온다.
+		List<OrderVO> myOrderList = (List<OrderVO>) session.getAttribute("myOrderList");
+		
+		//주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
+		for (int i = 0; i < myOrderList.size(); i++) {
+			OrderVO orderVO = (OrderVO) myOrderList.get(i);
+			orderVO.setMember_id(member_id);
+			orderVO.setReceiver_name(receiverMap.get("receiver_name"));
+			orderVO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
+			orderVO.setDelivery_address(receiverMap.get("delivery_address"));
+			//추후 결제시 필요할 수 있으니 주석으로 남겨둔다.
+//			orderVO.setPay_method(receiverMap.get("pay_method"));
+//			orderVO.setCard_com_name(receiverMap.get("card_com_name"));
+//			orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
+//			orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));	
+			orderVO.setOrderer_hp(orderer_hp);
+			myOrderList.set(i, orderVO);
+		}
+		
+		//수령자정보, 주문정보를 주문테이블에 반영한다.
+		orderService.addNewOrder(myOrderList);
+		
+		//완료 후 listMyOrderHistory로 리턴.
+		return new ModelAndView("redirect:/mypage/listMyOrderHistory.do");
+	}
 
 }

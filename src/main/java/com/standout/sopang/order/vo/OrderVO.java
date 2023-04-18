@@ -11,7 +11,7 @@ public class OrderVO {
 	private String goods_title;
 	private int goods_sales_price;
 	private String goods_fileName;
-	private int order_goods_qty; //최종 주문  제품 수
+	private int order_goods_qty;
 	
 	private String member_id;
 	private String orderer_hp;
@@ -20,28 +20,11 @@ public class OrderVO {
 	private String delivery_address;
 	private String pay_method;
 	private String card_com_name;
-	private String pay_orderer_hp_num; //휴대폰 결제 전화번호
+	private String pay_orderer_hp_num;
 	private String card_pay_month;
 	
-	private String delivery_state; //현재 주문 상품 배송 상태
+	private String delivery_state; 
 	private String pay_order_time;
-	
-	
-	/*
-	 * private int total_goods_price;
-	 * 
-	 * private int cart_goods_qty; //장바구니에 담긴 제품 수
-	 * 
-	 * private String orderer_name;
-	 * 
-	 * private String delivery_message; private String delivery_method; private
-	 * String gift_wrapping;  private String
-	 * 
-	 * 
-	 * private String final_total_price; private int goods_qty;
-	 */
-	
-	
 	
 	
 	public String getPay_order_time() {
@@ -169,6 +152,6 @@ public class OrderVO {
 		this.orderer_hp = orderer_hp;
 	}
 	
-	
+
 
 }

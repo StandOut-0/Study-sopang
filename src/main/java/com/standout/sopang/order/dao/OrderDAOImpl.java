@@ -15,46 +15,31 @@ public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws DataAccessException{
-		List<OrderVO> orderGoodsList=new ArrayList<OrderVO>();
-		orderGoodsList=(ArrayList)sqlSession.selectList("mapper.order.selectMyOrderList",orderVO);
-		return orderGoodsList;
-	}
-	
-	
-	
-	public OrderVO findMyOrder(String order_id) throws DataAccessException{
-		OrderVO orderVO=(OrderVO)sqlSession.selectOne("mapper.order.selectMyOrder",order_id);		
-		return orderVO;
-	}
-	
+	//주문하기
 	public void insertNewOrder(List<OrderVO> myOrderList) throws DataAccessException{
+		//리턴된 주문번호와 함께 주문 table에 주문정보를 insert한다.
 		int order_id=selectOrderID();
 		for(int i=0; i<myOrderList.size();i++){
 			OrderVO orderVO =(OrderVO)myOrderList.get(i);
+			//주문번호 객체에 set
 			orderVO.setOrder_id(order_id);
 			sqlSession.insert("mapper.order.insertNewOrder",orderVO);
 		}
-		
 	}	
 	
-//	public void removeGoodsFromCart(OrderVO orderVO)throws DataAccessException{
-//		sqlSession.delete("mapper.order.deleteGoodsFromCart",orderVO);
-//	}
-	
-	public void removeGoodsFromCart(List<OrderVO> myOrderList)throws DataAccessException{
-		for(int i=0; i<myOrderList.size();i++){
-			OrderVO orderVO =(OrderVO)myOrderList.get(i);
-			sqlSession.delete("mapper.order.deleteGoodsFromCart",orderVO);	
-			System.out.println("삭제완료");
-		}
-	}	
 	private int selectOrderID() throws DataAccessException{
-		System.out.println("주문번호 시퀀스를 실행합니다." );
+		//주문번호 시퀀스를 생성하여 결과값을 반환한다.
 		int result = sqlSession.selectOne("mapper.order.selectOrderID");
-
-		System.out.println("주문번호 시퀀스를 실행합니다." + result);
 		return result;
 	}
+	
+	//주문완료시 장바구니에서 상품 제거
+	public void removeGoodsFromCart(List<OrderVO> myOrderList)throws DataAccessException{
+		for(int i=0; i<myOrderList.size();i++){
+			//주문상품리스트의 정보를 가지고 delete문을 myOrderList만큼, for문을 돌려 실행한다.
+			OrderVO orderVO =(OrderVO)myOrderList.get(i);
+			sqlSession.delete("mapper.order.deleteGoodsFromCart",orderVO);	
+		}
+	}	
 }
 

@@ -17,14 +17,10 @@ import com.standout.sopang.order.vo.OrderVO;
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDAO orderDAO;
-	
-	public List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws Exception{
-		List<OrderVO> orderGoodsList;
-		orderGoodsList=orderDAO.listMyOrderGoods(orderVO);
-		return orderGoodsList;
-	}
-	
+
+	//주문하기
 	public void addNewOrder(List<OrderVO> myOrderList) throws Exception{
+		//주문하기
 		orderDAO.insertNewOrder(myOrderList);
 		
 		//카트에서 주문 상품 제거한다.
@@ -32,8 +28,4 @@ public class OrderServiceImpl implements OrderService {
 		System.out.println("장바구니에서 해당 상품을 삭제했습니다.");
 	}	
 	
-	public OrderVO findMyOrder(String order_id) throws Exception{
-		return orderDAO.findMyOrder(order_id);
-	}
-
 }
