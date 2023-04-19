@@ -11,11 +11,19 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface AdminGoodsController {
-	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	
-	public ResponseEntity addNewGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
-	
-	public ModelAndView deleteGoods(@RequestParam("goods_id") String goods_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
-	
-	public ResponseEntity modifyGoods(@RequestParam("goods_id") String goods_id, MultipartHttpServletRequest multipartRequest, HttpServletResponse response)  throws Exception;
+	//상품관리
+	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+
+	//상품추가
+	public ResponseEntity addNewGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception;
+
+	//상품삭제
+	public ModelAndView deleteGoods(@RequestParam("goods_id") String goods_id, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+
+	//상품수정
+	public ResponseEntity modifyGoods(@RequestParam("goods_id") String goods_id,
+			MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 }
