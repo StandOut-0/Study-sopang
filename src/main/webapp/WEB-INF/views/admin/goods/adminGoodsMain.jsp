@@ -19,7 +19,6 @@
 
 						<!-- 검색 - 1개월 -->
 						<a href="javascript:search_order_history('one_month')"
-							name="one_month"
 							class="badge rounded-pill btn mb-2 rounded-0 border-main samll active">최근
 							1개월</a>
 
@@ -51,7 +50,7 @@
 					
 				</div>
 
-<!-- 주문정보 표시 영역 -->
+<!-- 상품정보 표시 영역 -->
 				<div class="border-top border-main border-2 mt-2"></div>
 				<div class="table-responsive mt-4">
 					<table class="table border-top mb-0 small fw-light border-bottom">
@@ -386,7 +385,7 @@
 						</tbody>
 					</table>
 				</div>
-<!-- 주문정보 표시 영역 -->
+<!-- 상품정보 표시 영역 -->
 
 			</div>
 		</div>
@@ -504,7 +503,9 @@ function search_order_history(fixedSearchPeriod) {
 //버튼식 상품조회 badge url에 따른 style변경
 if (window.location.href.includes("fixedSearchPeriod")) {
 	const badges = document.querySelectorAll(".badge");
-	for (b of badges){ b.classList.remove("active");}
+	for (b of badges){ 
+		b.classList.remove("active");
+		}
 	//각 값이 url에 들어있을 경우 active된다.
 	if (window.location.href.includes("today")) {badges[0].classList.add("active");
 	} else if (window.location.href.includes("one_month")) {badges[1].classList.add("active");

@@ -16,17 +16,10 @@ public class AdminMemberDAOImpl  implements AdminMemberDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	
+	//회원관리
 	public ArrayList<MemberVO> listMember(HashMap condMap) throws DataAccessException{
-		ArrayList<MemberVO>  memberList=(ArrayList)sqlSession.selectList("mapper.admin.member.listMember",condMap);
+		ArrayList<MemberVO> memberList=(ArrayList)sqlSession.selectList("mapper.admin.member.listMember",condMap);
 		return memberList;
 	}
 
-
-	public void updateMyInfo(HashMap memberMap) throws DataAccessException{
-		
-		System.out.println("SQL을 실행하곤 왜 멈출까요?");
-		sqlSession.update("mapper.admin.member.updateMyInfo", memberMap);
-		System.out.println("SQL 실행완료");
-	}
 }

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.standout.sopang.member.vo.MemberVO;
 
 public interface AdminMemberController {
-	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
-	
+	//회원관리
+	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
 }

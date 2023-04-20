@@ -34,11 +34,14 @@ public class AdminOrderServiceImpl implements AdminOrderService {
 	@Autowired
 	private AdminOrderDAO adminOrderDAO;
 	
+	
+	//주문목록
 	public List<OrderVO>listNewOrder(Map condMap) throws Exception{
 		return adminOrderDAO.selectNewOrderList(condMap);
 	}
 	
 
+	//주문수정 - 배송수정
 	@Override
 	public void  modifyDeliveryState(Map deliveryMap) throws Exception{
 		adminOrderDAO.updateDeliveryState(deliveryMap);

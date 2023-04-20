@@ -41,6 +41,7 @@ public class AdminOrderControllerImpl extends BaseController  implements AdminOr
 	@Autowired
 	private AdminOrderService adminOrderService;
 	
+	//주문목록
 	@Override
 	@RequestMapping(value="/adminOrderMain.do" ,method={RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView adminOrderMain(@RequestParam Map<String, String> dateMap,
@@ -48,32 +49,29 @@ public class AdminOrderControllerImpl extends BaseController  implements AdminOr
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
+		//fixedSearchPeriod값을 받아 저장
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
-//		String section = dateMap.get("section");
-//		String pageNum = dateMap.get("pageNum");
+		
+		//기간 초기화
 		String beginDate=null,endDate=null;
 		
+		//fixedSearchPeriod값 가공해 dateMap에 put
 		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
 		beginDate=tempDate[0];
 		endDate=tempDate[1];
 		dateMap.put("beginDate", beginDate);
 		dateMap.put("endDate", endDate);
 		
-		
+		//condMap에 put 후 listNewOrder수행.
 		HashMap<String,Object> condMap=new HashMap<String,Object>();
-//		if(section== null) {
-//			section = "1";
-//		}
-//		condMap.put("section",section);
-//		if(pageNum== null) {
-//			pageNum = "1";
-//		}
-//		condMap.put("pageNum",pageNum);
 		condMap.put("beginDate",beginDate);
 		condMap.put("endDate", endDate);
 		List<OrderVO> newOrderList=adminOrderService.listNewOrder(condMap);
+		
+		//리턴된 배송리스트 member_list를  mav의 member_list에 부여		
 		mav.addObject("newOrderList",newOrderList);
 		
+		//날짜형식지정
 		String beginDate1[]=beginDate.split("-");
 		String endDate2[]=endDate.split("-");
 		mav.addObject("beginYear",beginDate1[0]);
@@ -83,26 +81,27 @@ public class AdminOrderControllerImpl extends BaseController  implements AdminOr
 		mav.addObject("endMonth",endDate2[1]);
 		mav.addObject("endDay",endDate2[2]);
 		
-//		mav.addObject("section", section);
-//		mav.addObject("pageNum", pageNum);
 		return mav;
-		
 	}
 	
 	
+	
+	//주문수정 - 배송수정
 	@Override
 	@RequestMapping(value="/modifyDeliveryState.do" ,method={RequestMethod.POST})
 	public ResponseEntity modifyDeliveryState(@RequestParam Map<String, String> deliveryMap, 
 			                        HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		//modifyDeliveryState 수행
 		adminOrderService.modifyDeliveryState(deliveryMap);
 		
 		String message = null;
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
+		
+		//완료시 message mod_success return
 		message  = "mod_success";
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
-		
 	}
 	
 	

@@ -17,6 +17,10 @@
 		<result property="del_yn" column="del_yn" />
 	</resultMap>
 	
+	<!-- 회원관리 -->
+	<!-- rownum을 부여하여 리스트 수를 표시할 수 있도록 함. -->
+	<!-- to_char로 출력되는 날짜형식을 변경했다. -->
+	<!-- beginDate~endDate 기간에 맞는 회원리스트를  joindate 오른차순으로 출력-->
 	<select id="listMember" resultMap="memberResult"   parameterType="java.util.HashMap"  >
 	    <![CDATA[
 		 select a.*, rownum as rnum from
@@ -26,5 +30,6 @@
 		order by joindate asc) a
 		]]>	        
 	</select>
+	
 </mapper>
 

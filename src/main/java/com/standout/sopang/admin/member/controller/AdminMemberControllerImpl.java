@@ -29,18 +29,21 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 	@Autowired
 	private AdminMemberService adminMemberService;
 	
+	
+	//회원관리
 	@RequestMapping(value="/adminMemberMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	public ModelAndView adminGoodsMain(@RequestParam Map<String, String> dateMap,
 			                           HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		String viewName=(String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		String section = dateMap.get("section");
-		String pageNum = dateMap.get("pageNum");
 		
+		//fixedSearchPeriod값을 받아 저장
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 	
+		//기간 초기화
 		String beginDate=null,endDate=null;
 		
+		//fixedSearchPeriod값 가공해 dateMap에 put
 		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
 		beginDate=tempDate[0];
 		endDate=tempDate[1];
@@ -48,20 +51,16 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		dateMap.put("endDate", endDate);
 		
 		
+		//condMap에 put 후 listMember수행.
 		HashMap<String,Object> condMap=new HashMap<String,Object>();
-		if(section== null) {
-			section = "1";
-		}
-		condMap.put("section",section);
-		if(pageNum== null) {
-			pageNum = "1";
-		}
-		condMap.put("pageNum",pageNum);
 		condMap.put("beginDate",beginDate);
 		condMap.put("endDate", endDate);
 		ArrayList<MemberVO> member_list=adminMemberService.listMember(condMap);
+		
+		//리턴된 회원리스트 member_list를  mav의 member_list에 부여
 		mav.addObject("member_list", member_list);
 		
+		//날짜형식지정
 		String beginDate1[]=beginDate.split("-");
 		String endDate2[]=endDate.split("-");
 		mav.addObject("beginYear",beginDate1[0]);
@@ -71,10 +70,7 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		mav.addObject("endMonth",endDate2[1]);
 		mav.addObject("endDay",endDate2[2]);
 		
-		mav.addObject("section", section);
-		mav.addObject("pageNum", pageNum);
 		return mav;
-		
 	}
 	
 }

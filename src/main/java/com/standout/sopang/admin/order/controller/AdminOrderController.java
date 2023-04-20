@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 public interface AdminOrderController {
+
+	//주문목록
 	public ModelAndView adminOrderMain(@RequestParam Map<String, String> dateMap,
             HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	
+	//주문수정 - 배송수정
 	public ResponseEntity modifyDeliveryState(@RequestParam Map<String, String> deliveryMap, 
             HttpServletRequest request, HttpServletResponse response)  throws Exception;
 }
