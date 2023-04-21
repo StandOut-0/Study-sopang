@@ -1,5 +1,5 @@
 # sopang
-반년내내 공부한 기록이자 추억으로 의미있게 만들어 보기로 했다.<br><br>
+공부한 추억이 담긴 쇼핑몰로 의미있게 만들어 보기로 했다.<br><br>
 
 기획 excel<br>
 https://docs.google.com/spreadsheets/d/1ZLznMpMZuEis_r3u2yxiqg-ICeju9GGz/edit?usp=sharing&ouid=114041644283327531753&rtpof=true&sd=true
