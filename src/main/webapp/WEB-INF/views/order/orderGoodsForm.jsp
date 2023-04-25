@@ -197,10 +197,134 @@
 
 					<!-- 결제방법 선택 -->
 					<p class="mt-5 mb-3 fw-bold">결제정보</p>
-					<select name="" id=""
-						class="form-select rounded-0 flex-inherit text-start small border border-end">
-						<option value="">소팡머니</option>
-					</select> 
+					<table class="table border-top mb-0 small fw-light">
+						<tbody>
+							<tr>
+								<td class="table-light ps-4 align-middle" style="width: 200px;">
+									결제방법</td>
+								<td class="">
+								
+								<div class="row px-4">
+								
+								<div class="form-check col-3">
+								  <input class="form-check-input" type="radio" name="pay_method" id="pay1" value="신용카드" checked>
+								  <label class="form-check-label" for="pay1">
+								    신용카드
+								  </label>
+								</div>
+								
+								<div class="form-check col-3">
+								  <input class="form-check-input" type="radio" name="pay_method" id="pay2" value="제휴 신용카드">
+								  <label class="form-check-label" for="pay2">
+								    제휴 신용카드
+								  </label>
+								</div>
+								
+								<div class="form-check col-3">
+								  <input class="form-check-input" type="radio" name="pay_method" id="pay3" value="실시간 계좌이체">
+								  <label class="form-check-label" for="pay3">
+								    실시간 계좌이체
+								  </label>
+								</div>
+								
+								<div class="form-check col-3">
+								  <input class="form-check-input" type="radio" name="pay_method" id="pay4" value="무통장 입금">
+								  <label class="form-check-label" for="pay4">
+								    무통장 입금
+								  </label>
+								</div>
+								
+								<div class="form-check col-3">
+								  <input class="form-check-input" type="radio" name="pay_method" id="pay5" value="휴대폰결제">
+								  <label class="form-check-label" for="pay5">
+								    휴대폰결제
+								  </label>
+								</div>
+
+								<div class="form-check col-3">
+									<input class="form-check-input" type="radio" name="pay_method" id="pay6" value="카카오페이(간편결제)">
+									<label class="form-check-label" for="pay6">
+									  카카오페이(간편결제)
+									</label>
+								  </div>
+
+								  <div class="form-check col-3">
+									<input class="form-check-input" type="radio" name="pay_method" id="pay7" value="페이나우(간편결제)">
+									<label class="form-check-label" for="pay7">
+									  페이나우(간편결제)
+									</label>
+								  </div>
+
+								  <div class="form-check col-3">
+									<input class="form-check-input" type="radio" name="pay_method" id="pay8" value="페이코(간편결제)">
+									<label class="form-check-label" for="pay8">
+									  페이코(간편결제)
+									</label>
+								  </div>
+
+								  <div class="form-check col-3">
+									<input class="form-check-input" type="radio" name="pay_method" id="pay9" value="직접입금">
+									<label class="form-check-label" for="pay9">
+									  직접입금
+									</label>
+								  </div>
+								
+								</div>
+								</td>
+							</tr>
+							
+							
+							<tr class="whenSelected_Card">
+								<td class="table-light ps-4 align-middle" style="width: 200px;">카드결제정보</td>
+								<td class="px-4">
+									<div class="d-flex align-items-center mb-2">
+										<div style="width:100px"><p class="mb-0">카드사 선택</p></div>
+										<div>
+											<select id="" name="" class="form-select rounded-0" style="width: 300px;" onchange="selectValue(this, this.value)">
+												<option value="삼성" selected>삼성</option>
+												<option value="하나SK">하나SK</option>
+												<option value="현대">현대</option>
+												<option value="KB">KB</option>
+												<option value="신한">신한</option>
+												<option value="롯데">롯데</option>
+												<option value="BC">BC</option>
+												<option value="시티">시티</option>
+												<option value="NH농협">NH농협</option>
+										</select>
+										<input type="hidden" id="card_com_name" name="card_com_name" value="삼성">
+										</div>
+									</div>
+
+									<div class="d-flex align-items-center">
+										<div style="width:100px"><p class="mb-0">할부기간</p>
+										</div>
+										<div>
+											<select id="" name="" class="form-select rounded-0" style="width: 300px;" onchange="selectValue(this, this.value)">
+												<option value="일시불" selected>일시불</option>
+												<option value="2개월">2개월</option>
+												<option value="3개월">3개월</option>
+												<option value="4개월">4개월</option>
+												<option value="5개월">5개월</option>
+												<option value="6개월">6개월</option>
+										</select>
+										<input type="hidden" id="card_pay_month" name="card_pay_month" value="일시불">
+										</div>
+									</div>
+
+								</td>
+							</tr>
+							
+							
+							<tr class="whenSelected_Phone d-none">
+								<td class="table-light ps-4 align-middle" style="width: 200px;">휴대폰 번호</td>
+								<td class="px-4">
+								<input class="form-control rounded-0" type="text" id="pay_orderer_hp_num" name="pay_order_tel" value="" placeholder="-없이 작성해주세요: 01000000000" style="width: 300px;">
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+					
 					<!-- 결제방법 선택 -->
 					
 					
@@ -227,6 +351,35 @@
 	function init() {var form_order = document.form_order;}
 
 	
+	//select박스가 체크되었을때 input에 반영함.
+	function selectValue(selectBox, value){
+		var input = selectBox.nextElementSibling
+		input.setAttribute("value", value);
+	} 
+	
+	
+	
+	//휴대폰결제 radio가 checked 되었을때 혹은 else일때 카드결제정보 레이아웃의 변화.
+	var radioBtns = document.querySelectorAll('input[name="pay_method"]');
+	radioBtns.forEach(function(radioBtn) {
+	  radioBtn.addEventListener('change', function() {
+	    var whenSelected_Phone = document.getElementsByClassName("whenSelected_Phone");
+	    var whenSelected_Card = document.getElementsByClassName("whenSelected_Card");
+	    
+	    if (this.value === "휴대폰결제") {
+	      whenSelected_Phone[0].classList.remove("d-none");
+	      whenSelected_Card[0].classList.add("d-none");
+	    } else{
+	      whenSelected_Phone[0].classList.add("d-none");
+	      whenSelected_Card[0].classList.remove("d-none");
+	    }
+	  });
+	});
+
+	
+		
+	
+	
 	//다음 주소찾기
 	function execDaumPostcode() {
 		new daum.Postcode({
@@ -241,8 +394,6 @@
 
 	
 	
-	
-	
 	//분리되어잇는 배송지 정보들 get
 	var delivery_address;
 	var i_zipcode = document.getElementById("zipcode");
@@ -250,6 +401,22 @@
 	var i_subaddress = document.getElementById("subaddress");
 	const inputs = document.querySelectorAll("input[required]");
 	
+	
+	//pay_method
+	// 라디오 버튼 요소 선택
+	function pay_method(){
+		var radios = document.getElementsByName('pay_method');
+		// 선택된 라디오 버튼의 값을 가져오기
+		for (var i = 0; i < radios.length; i++) {
+		  if (radios[i].checked) {
+		    var selectedValue = radios[i].value;
+		    return selectedValue;
+		    break;
+		  }
+		}	
+	}
+	
+
 	
 	//결제하기
 	function fn_process_pay_order() {
@@ -267,29 +434,57 @@
 							+ i_member_address.value + "<br>" + "상세주소:"
 							+ i_subaddress.value;
 
+				//form 생성
 					var formObj = document.createElement("form");
 
+				//수령자이름
 					var i_receiver_name = document.createElement("input");
 					i_receiver_name.name = "receiver_name";
 					i_receiver_name.value = document.getElementById("receiver_name").value;
 					formObj.appendChild(i_receiver_name);
-
+				//수령자 핸드폰
 					var i_receiver_hp1 = document.createElement("input");
 					i_receiver_hp1.name = "receiver_hp1";
 					i_receiver_hp1.value = document.getElementById("h_hp1").value;
 					formObj.appendChild(i_receiver_hp1);
-
+				
+				//배송정보
 					var i_delivery_address = document.createElement("input");
 					i_delivery_address.name = "delivery_address";
 					i_delivery_address.value = delivery_address;
 					formObj.appendChild(i_delivery_address);
 
+					//결제방법
+					var i_pay_method = document.createElement("input");
+					i_pay_method.name = "pay_method";
+					i_pay_method.value= pay_method();
+					formObj.appendChild(i_pay_method);
+					
+					//카드사선택
+					var i_card_com_name = document.createElement("input");
+					i_card_com_name.name="card_com_name";
+					i_card_com_name.value=document.getElementById("card_com_name").value;
+					formObj.appendChild(i_card_com_name);
+					
+					//할부기간
+					var i_card_pay_month = document.createElement("input");
+					i_card_pay_month.name="card_pay_month";
+					i_card_pay_month.value=document.getElementById("card_pay_month").value;
+					formObj.appendChild(i_card_pay_month);
+					
+					//핸드폰결제
+				 	var i_pay_orderer_hp_num = document.createElement("input");
+					i_pay_orderer_hp_num.name="pay_orderer_hp_num"; 
+				    i_pay_orderer_hp_num.value=document.getElementById("pay_orderer_hp_num").value;
+				    formObj.appendChild(i_pay_orderer_hp_num); 
+					
+					//form body에 append
 					document.body.appendChild(formObj);
 					
 					//form에 생성한 정보들로 payToOrderGoods submit
-					formObj.method = "post";
+				 	formObj.method = "post";
 					formObj.action = "${contextPath}/order/payToOrderGoods.do";
-					formObj.submit();
+					formObj.submit(); 
 					}
 				} 
          else {alert("배송지 정보를 입력해주세요!");}

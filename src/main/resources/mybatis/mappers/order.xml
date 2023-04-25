@@ -50,7 +50,11 @@
 						                orderer_hp,
 									    receiver_name,
 									    receiver_hp1,
-					                    delivery_address)
+					                    delivery_address,
+					                    pay_method,
+						                card_com_name,
+						                card_pay_month,
+						                pay_orderer_hp_num)
 							     values(#{order_seq_num},
 							            #{order_id},
 									    #{goods_id},
@@ -62,7 +66,11 @@
 						                #{orderer_hp},
 						                #{receiver_name},
 						                #{receiver_hp1},
-					                    #{delivery_address})	
+					                    #{delivery_address},
+					                    #{pay_method},
+						                #{card_com_name},
+						                #{card_pay_month},
+						                #{pay_orderer_hp_num})
     	]]>
 	</insert>
 	

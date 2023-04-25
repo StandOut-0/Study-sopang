@@ -157,11 +157,12 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			orderVO.setReceiver_name(receiverMap.get("receiver_name"));
 			orderVO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
 			orderVO.setDelivery_address(receiverMap.get("delivery_address"));
+
 			//추후 결제시 필요할 수 있으니 주석으로 남겨둔다.
-//			orderVO.setPay_method(receiverMap.get("pay_method"));
-//			orderVO.setCard_com_name(receiverMap.get("card_com_name"));
-//			orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
-//			orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));	
+			orderVO.setPay_method(receiverMap.get("pay_method"));
+			orderVO.setCard_com_name(receiverMap.get("card_com_name"));
+			orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
+			orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));	
 			orderVO.setOrderer_hp(orderer_hp);
 			myOrderList.set(i, orderVO);
 		}
