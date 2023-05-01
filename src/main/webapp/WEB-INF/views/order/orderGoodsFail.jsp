@@ -415,213 +415,40 @@
 	</div>
 </div>
 
-<script>
-	/* alert("결제가 실패하였습니다, 카드정보를 다시 입력해주세요"); */
-	var responseMsg ="${responseMsg}"; 
-	alert(responseMsg); 
-	
-	window.onload = function() {init();}
-	function init() {var form_order = document.form_order;}
 
-	
-	//select박스가 체크되었을때 input에 반영함.
-	function selectValue(selectBox, value){
-		var input = selectBox.nextElementSibling
-		input.setAttribute("value", value);
-	} 
-	
-	
-	//숫자여부체크
-	var cardFormError = document.querySelector(".cardFormError");
-	function checkLength(input, num){
-		console.log(input.length+": "+num);
-		if (input.value.length != num || isNaN(input.value)) {
-			cardFormError.classList.remove("d-none");
-			input.classList.add("is-invalid");
-		} else{
-			input.classList.remove("is-invalid");
-			cardFormError.classList.add("d-none");
-		}
-		
-	}
-	
-	
-	//휴대폰결제 radio가 checked 되었을때 혹은 else일때 카드결제정보 레이아웃의 변화.
-	var radioBtns = document.querySelectorAll('input[name="pay_method"]');
-	radioBtns.forEach(function(radioBtn) {
-	  radioBtn.addEventListener('change', function() {
-	    var whenSelected_Phone = document.getElementsByClassName("whenSelected_Phone");
-	    var whenSelected_Card = document.getElementsByClassName("whenSelected_Card");
-	    
-	    if (this.value === "휴대폰결제") {
-	      whenSelected_Phone[0].classList.remove("d-none");
-	      whenSelected_Card[0].classList.add("d-none");
-	      
-	    } else if(this.value === "신용카드"){
-	      whenSelected_Phone[0].classList.add("d-none");
-	      whenSelected_Card[0].classList.remove("d-none");
-	    } else{
-	      whenSelected_Phone[0].classList.add("d-none");
-	      whenSelected_Card[0].classList.add("d-none");
-	    }
-	    
-	  });
-	});
 
-	
-		
-	
-	
-	//다음 주소찾기
-	function execDaumPostcode() {
-		new daum.Postcode({
-			oncomplete : function(data) {
-				// 우편번호와 주소 정보를 해당 필드에 넣는다.
-				document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
-				document.getElementById('member_address').value = data.address;
-			}
-		}).open();
-	}
-	//다음 주소찾기
 
-	
-	
-	//분리되어잇는 배송지 정보들 get
-	var delivery_address;
-	var i_zipcode = document.getElementById("zipcode");
-	var i_member_address = document.getElementById("member_address");
-	var i_subaddress = document.getElementById("subaddress");
-	const inputs = document.querySelectorAll("input[required]");
-	
-	var cardDate;
-	var cardDate_month  = document.getElementById("cardDate_month");
-	var cardDate_date  = document.getElementById("cardDate_date");
-	
-	
-	//pay_method
-	// 라디오 버튼 요소 선택
-	function pay_method(){
-		var radios = document.getElementsByName('pay_method');
-		// 선택된 라디오 버튼의 값을 가져오기
-		for (var i = 0; i < radios.length; i++) {
-		  if (radios[i].checked) {
-		    var selectedValue = radios[i].value;
-		    return selectedValue;
-		    break;
-		  }
-		}	
-	}
-	
+<form name="order_info" method="post" accept-charset="euc-kr">
+<input type="hidden" name="ordr_idxx" value="${ordr_idxx }">
+<input type="hidden" name="good_name" value="${ good_name }">
+<input type="hidden" name="good_mny" value="${ good_mny }">
+<input type="hidden" name="buyr_name" value="${ buyr_name }">
+<input type="hidden" name="site_cd" value="${ site_cd }">
+<!-- 고정값 --> 
+<input type="hidden" name="req_tx" value="pay">
+<input type="hidden" name="pay_method" value="100000000000"/>
+<input type="hidden" name="currency" value="410">
+<input type="hidden" name="kakaopay_direct" value="Y">
+<input type="hidden" name="module_type" value="01"/>
+<!-- 주문정보 검증 관련 정보 : 표준웹 에서 설정하는 정보입니다 -->
+<input type="hidden" name="ordr_chk" value=""/>
+<!-- 추가파라미터(가맹점에서 별도의 값 전달시 param_opt를 사용하여 값 전달 -->
+<input type="hidden" name="param_opt_1" value="">
+<input type="hidden" name="param_opt_2" value="">
+<input type="hidden" name="param_opt_3" value="">
 
-	
-	//결제하기
-	function fn_process_pay_order() {
-		
-		//required값인 input이 입력되지않았을 경우 submit을 하지 않도록 한다.
-		let isValid = true;
-		inputs.forEach(input => {
-			 if (!input.value || input.classList.contains("is-invalid")) {
-				    isValid = false;
-				  }
-			});
+<!-- ※ 필 수
+필수 항목 : 표준웹에서 값을 설정하는 부분으로 반드시 포함되어야 합니다
+값을 설정하지 마십시오 -->
 
-		
-		 if (isValid) {
-			 
-			 if (!confirm("결제하시겠습니까?")) { alert("결제가 취소되었습니다.");} 
-			 else {
-				//배송지 통합하여 저장
-					delivery_address = "우편번호:" + i_zipcode.value + "<br>" + "주소:"
-							+ i_member_address.value + "<br>" + "상세주소:"
-							+ i_subaddress.value;
-				
-					/* cardDate = cardDate_month.value + "" + cardDate_date.value; */
-
-				//form 생성
-					var formObj = document.createElement("form");
-
-				//수령자이름
-					var i_receiver_name = document.createElement("input");
-					i_receiver_name.name = "receiver_name";
-					i_receiver_name.value = document.getElementById("receiver_name").value;
-					formObj.appendChild(i_receiver_name);
-				//수령자 핸드폰
-					var i_receiver_hp1 = document.createElement("input");
-					i_receiver_hp1.name = "receiver_hp1";
-					i_receiver_hp1.value = document.getElementById("h_hp1").value;
-					formObj.appendChild(i_receiver_hp1);
-				
-				//배송정보
-					var i_delivery_address = document.createElement("input");
-					i_delivery_address.name = "delivery_address";
-					i_delivery_address.value = delivery_address;
-					formObj.appendChild(i_delivery_address);
-
-					//결제방법
-					var i_pay_method = document.createElement("input");
-					i_pay_method.name = "pay_method";
-					i_pay_method.value= pay_method();
-					formObj.appendChild(i_pay_method);
-					
-					//카드사선택
-					var i_card_com_name = document.createElement("input");
-					i_card_com_name.name="card_com_name";
-					i_card_com_name.value=document.getElementById("card_com_name").value;
-					formObj.appendChild(i_card_com_name);
-					
-					//할부기간
-					var i_card_pay_month = document.createElement("input");
-					i_card_pay_month.name="card_pay_month";
-					i_card_pay_month.value=document.getElementById("card_pay_month").value;
-					formObj.appendChild(i_card_pay_month);
-					
-					//핸드폰결제
-				 	var i_pay_orderer_hp_num = document.createElement("input");
-					i_pay_orderer_hp_num.name="pay_orderer_hp_num"; 
-				    i_pay_orderer_hp_num.value=document.getElementById("pay_orderer_hp_num").value;
-				    formObj.appendChild(i_pay_orderer_hp_num); 
-				    
-				    //카드번호 
-				 	var i_cardNum = document.createElement("input");
-				 	i_cardNum.name="cardNo"; 
-				 	i_cardNum.value=document.getElementById("cardNum").value;
-				    formObj.appendChild(i_cardNum); 
-				    
-				    //유효기간  - 년
-				 	var i_cardDate_year = document.createElement("input");
-				 	i_cardDate_year.name="expireYear"; 
-				 	i_cardDate_year.value=document.getElementById("cardDate_year").value;
-				    formObj.appendChild(i_cardDate_year); 
-				    
-				    //유효기간  - 월
-				 	var i_cardDate_month = document.createElement("input");
-				 	i_cardDate_month.name="expireMonth"; 
-				 	i_cardDate_month.value=document.getElementById("cardDate_month").value;
-				    formObj.appendChild(i_cardDate_month); 
-				    
-				    //생년월일  
-				 	var i_birth  = document.createElement("input");
-				 	i_birth.name="birthday"; 
-				 	i_birth.value=document.getElementById("birth").value;
-				    formObj.appendChild(i_birth); 
-				    
-				    //비밀번호  
-				 	var i_cardPassword  = document.createElement("input");
-				 	i_cardPassword.name="cardPw"; 
-				 	i_cardPassword.value=document.getElementById("cardPassword").value;
-				    formObj.appendChild(i_cardPassword ); 
-				    
-				    
-					//form body에 append
-					document.body.appendChild(formObj);
-					
-					//form에 생성한 정보들로 payToOrderGoods submit
-				 	formObj.method = "post";
-					formObj.action = "${contextPath}/order/payToOrderGoods.do";
-					formObj.submit(); 
-					}
-				} 
-		 else {alert("입력하신 정보가 없거나 올바르지않습니다!");}
-	}
-	
-</script>
+<input type="hidden" name="res_cd" value=""/>
+<input type="hidden" name="res_msg" value=""/>
+<input type="hidden" name="enc_info" value=""/>
+<input type="hidden" name="enc_data" value=""/>
+<input type="hidden" name="ret_pay_method" value=""/>
+<input type="hidden" name="tran_cd" value=""/>
+<input type="hidden" name="use_pay_method" value=""/>
+<input type="hidden" name="card_pay_method" value=""/>
+</form>
+<script type="text/javascript" src="https://pay.kcp.co.kr/plugin/payplus_web.jsp"></script>
+<script src="${contextPath}/resources/js/order.js"></script>

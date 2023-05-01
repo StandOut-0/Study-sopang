@@ -134,7 +134,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	}
 
 	
-	
 	//결제하기
 	@RequestMapping(value = "/payToOrderGoods.do", method = RequestMethod.POST)
 	public ModelAndView payToOrderGoods(@RequestParam Map<String, String> receiverMap, HttpServletRequest request,
@@ -152,10 +151,12 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		//주문정보를 가져온다.
 		List<OrderVO> myOrderList = (List<OrderVO>) session.getAttribute("myOrderList");
 		
-		//결제성고여부
+		//결제성공여부
 		String responseCode = "";
 		String responseMsg = "";
-		
+		String itemName = "";
+		String orderNumber = "";
+		int amount = 0;
 		//주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
 		for (int i = 0; i < myOrderList.size(); i++) {
 			OrderVO orderVO = (OrderVO) myOrderList.get(i);
@@ -171,57 +172,60 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));	
 			orderVO.setOrderer_hp(orderer_hp);
 			
+			
+			
 			//payup form 추가
-//			orderVO.setCardNo(receiverMap.get("cardNo"));
-//			orderVO.setExpireYear(receiverMap.get("expireYear"));
-//			orderVO.setExpireMonth(receiverMap.get("expireMonth"));
-//			orderVO.setBirthday(receiverMap.get("birthday"));
-//			orderVO.setCardPw(receiverMap.get("cardPw"));
+			if(myOrderList.size() == 1) {
+				itemName = orderVO.getGoods_title();
+			}else if(myOrderList.size() > 1){
+				itemName = orderVO.getGoods_title() +" 외 " + i + "건";
+			}
+			orderNumber += String.valueOf(orderVO.getOrder_seq_num());
+			amount += orderVO.getGoods_sales_price();
 
-			String merchantId = "himedia";
-			String orderNumber = String.valueOf(orderVO.getOrder_seq_num());
-			String expireMonth = receiverMap.get("expireMonth");
-			String expireYear = receiverMap.get("expireYear");
-			String birthday = receiverMap.get("birthday");
-			String cardPw = receiverMap.get("cardPw");
-			String amount = String.valueOf(orderVO.getGoods_sales_price());
-			String itemName = orderVO.getGoods_title() ;
-			String userName = memberVO.getMember_name();
-
-			String cardNo = receiverMap.get("cardNo");
-			String quota = receiverMap.get("card_pay_month");
-			String apiCertKey = "ac805b30517f4fd08e3e80490e559f8e";
-			String timestamp = "2023020400000000";
-			String signature = apiService01.encrypt(merchantId + "|" + orderNumber + "|" + amount + "|" + apiCertKey + "|" + timestamp) ;
-			
-			
-			String url = "https://api.testpayup.co.kr/v2/api/payment/"+merchantId+"/keyin2";
-			Map<String, String> map = new HashMap<String, String>();
-			Map<String, Object> returnMap = new HashMap<String, Object>();
-			map.put("merchantId", merchantId);
-			map.put("orderNumber", orderNumber);
-			map.put("expireMonth", expireMonth);
-			map.put("expireYear", expireYear);
-			map.put("birthday", birthday);
-			map.put("cardPw", cardPw);
-			map.put("amount", amount);
-			map.put("itemName", itemName);
-			map.put("userName", userName);
-			map.put("cardNo", cardNo);
-			map.put("quota", quota);
-			map.put("signature", signature);
-			map.put("timestamp", timestamp);
-			
-			System.out.println("보내는값 = " + map.toString());
-			returnMap = apiService01.restApi(map, url);
-			System.out.println("db확인"+ returnMap.toString());
-			
+//			amount = String.valueOf(orderVO.getGoods_sales_price());
 			myOrderList.set(i, orderVO);
-			
-			responseCode = (String) returnMap.get("responseCode");
-			responseMsg = (String) returnMap.get("responseMsg");
-			
 		}
+		
+		String merchantId = "himedia";
+		String expireMonth = receiverMap.get("expireMonth");
+		String expireYear = receiverMap.get("expireYear");
+		String birthday = receiverMap.get("birthday");
+		String cardPw = receiverMap.get("cardPw");
+		String userName = memberVO.getMember_name();
+
+		String cardNo = receiverMap.get("cardNo");
+		String quota = receiverMap.get("card_pay_month");
+		String apiCertKey = "ac805b30517f4fd08e3e80490e559f8e";
+		String timestamp = "2023020400000000";
+		String signature = apiService01.encrypt(merchantId + "|" + orderNumber + "|" + amount + "|" + apiCertKey + "|" + timestamp) ;
+		
+		
+		String url = "https://api.testpayup.co.kr/v2/api/payment/"+merchantId+"/keyin2";
+		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		map.put("merchantId", merchantId);
+		map.put("orderNumber", orderNumber);
+		map.put("expireMonth", expireMonth);
+		map.put("expireYear", expireYear);
+		map.put("birthday", birthday);
+		map.put("cardPw", cardPw);
+		map.put("amount", Integer.toString(amount));
+		map.put("itemName", itemName);
+		map.put("userName", userName);
+		map.put("cardNo", cardNo);
+		map.put("quota", quota);
+		map.put("signature", signature);
+		map.put("timestamp", timestamp);
+		
+		System.out.println("보내는값 = " + map.toString());
+		returnMap = apiService01.restApi(map, url);
+		System.out.println("db확인"+ returnMap.toString());
+		
+		
+		
+		responseCode = (String) returnMap.get("responseCode");
+		responseMsg = (String) returnMap.get("responseMsg");
 		
 		
 		if("0000".equals(responseCode)) {
