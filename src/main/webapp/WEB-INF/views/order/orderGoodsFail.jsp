@@ -286,6 +286,10 @@
 								<td class="bg-danger-subtle ps-4 align-middle" style="width: 200px;">
 								<p class="mb-2">카드결제정보</p>
 								<p class="text-danger small"><span class="fw-bold">*${responseMsg}</span><br>결제정보를 한번 더 확인해주세요.</p>
+								<p class="text-danger small cardFormError mb-0 d-none"><span class="fw-bold">*입력정보를 확인해주세요</span><br>
+								유효기간과(월/년), 비밀번호는 2자리 숫자로, <br>
+								생년월일은 6자리 숫자로 입력하셔야합니다.
+								</p>
 								</td>
 								<td class="px-4">
 									<div class="d-flex align-items-center mb-2">
@@ -369,7 +373,7 @@
 											<input type="text" id="cardPassword" name="cardPassword"
 												class="form-control rounded-0" style="width: 300px;"
 												value="" placeholder="비밀번호 앞 2자리"
-												 onBlur="checkLength(this, 2)" maxlength="2"/>
+												 onBlur="checkLength(this, 2)" maxlength="2" required/>
 										</div>
 									</div>
 									
@@ -428,14 +432,17 @@
 	
 	
 	//숫자여부체크
+	var cardFormError = document.querySelector(".cardFormError");
 	function checkLength(input, num){
 		console.log(input.length+": "+num);
-		if (isNaN(input.value)) {
-			alert("숫자로 입력해주세요.");
+		if (input.value.length != num || isNaN(input.value)) {
+			cardFormError.classList.remove("d-none");
 			input.classList.add("is-invalid");
 		} else{
 			input.classList.remove("is-invalid");
+			cardFormError.classList.add("d-none");
 		}
+		
 	}
 	
 	
@@ -508,7 +515,12 @@
 		
 		//required값인 input이 입력되지않았을 경우 submit을 하지 않도록 한다.
 		let isValid = true;
-		inputs.forEach(input => {if (!input.value) {isValid = false;}});
+		inputs.forEach(input => {
+			 if (!input.value || input.classList.contains("is-invalid")) {
+				    isValid = false;
+				  }
+			});
+
 		
 		 if (isValid) {
 			 
@@ -605,7 +617,7 @@
 					formObj.submit(); 
 					}
 				} 
-         else {alert("정보를 입력해주세요!");}
+		 else {alert("입력하신 정보가 없거나 올바르지않습니다!");}
 	}
 	
 </script>

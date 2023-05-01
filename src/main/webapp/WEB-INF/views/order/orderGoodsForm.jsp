@@ -284,7 +284,13 @@
 							
 							<!-- 카드결제 form -->
 							<tr class="whenSelected_Card">
-								<td class="table-light ps-4 align-middle" style="width: 200px;">카드결제정보</td>
+								<td class="table-light ps-4 align-middle" style="width: 200px;">
+								<p class="mb-2">카드결제정보</p>
+								<p class="text-danger small cardFormError mb-0 d-none"><span class="fw-bold">*입력정보를 확인해주세요</span><br>
+								유효기간과(월/년), 비밀번호는 2자리 숫자로, <br>
+								생년월일은 6자리 숫자로 입력하셔야합니다.
+								</p>
+								</td>
 								<td class="px-4">
 									<div class="d-flex align-items-center mb-2">
 										<div style="width:100px"><p class="mb-0">카드사 선택</p></div>
@@ -337,13 +343,16 @@
 											<p class="mb-0">유효기간</p>
 										</div>
 										<div class="input-group"  style="width: 300px;">
+										<div>
+										
+										</div>
 											<input type="text" id="cardDate_month" name="cardDate_month"
 												class="form-control rounded-0" style="width: 50px;"
-												value="" placeholder="00(월)" onBlur="checkLength(this, 2)" maxlength="2"/>
+												value="" placeholder="00(월)" onBlur="checkLength(this, 2);" maxlength="2"/>
 												<span class="py-1 px-3"> / </span>
 												<input type="text" id="cardDate_year" name="cardDate_year"
 												class="form-control rounded-0" style="width: 50px;"
-												value="" placeholder="00(년)" onBlur="checkLength(this, 2)" maxlength="2"/>
+												value="" placeholder="00(년)" onBlur="checkLength(this, 2);" maxlength="2"/>
 										</div>
 									</div>
 									
@@ -367,7 +376,7 @@
 											<input type="text" id="cardPassword" name="cardPassword"
 												class="form-control rounded-0" style="width: 300px;"
 												value="" placeholder="비밀번호 앞 2자리"
-												 onBlur="checkLength(this, 2)" maxlength="2"/>
+												 onBlur="checkLength(this, 2)" maxlength="2" required/>
 										</div>
 									</div>
 									
@@ -422,14 +431,17 @@
 	
 	
 	//숫자여부체크
+	var cardFormError = document.querySelector(".cardFormError");
 	function checkLength(input, num){
 		console.log(input.length+": "+num);
 		if (input.value.length != num || isNaN(input.value)) {
-			alert(num+"자리 숫자로 입력해주세요.");
+			cardFormError.classList.remove("d-none");
 			input.classList.add("is-invalid");
 		} else{
 			input.classList.remove("is-invalid");
+			cardFormError.classList.add("d-none");
 		}
+		
 	}
 	
 	
@@ -494,15 +506,22 @@
 		  }
 		}	
 	}
-	
 
 	
 	//결제하기
 	function fn_process_pay_order() {
 		
+		var payType = $('input[name="pay_method"]:checked').val();
+		alert(payType);
+		
+		
 		//required값인 input이 입력되지않았을 경우 submit을 하지 않도록 한다.
 		let isValid = true;
-		inputs.forEach(input => {if (!input.value) {isValid = false;}});
+		inputs.forEach(input => {
+			  if (!input.value || input.classList.contains("is-invalid")) {
+			    isValid = false;
+			  }
+			});
 		
 		 if (isValid) {
 			 
@@ -596,10 +615,10 @@
 					//form에 생성한 정보들로 payToOrderGoods submit
 				 	formObj.method = "post";
 					formObj.action = "${contextPath}/order/payToOrderGoods.do";
-					formObj.submit(); 
+					/* formObj.submit();  */
 					}
 				} 
-         else {alert("정보를 입력해주세요!");}
+		 else {alert("입력하신 정보가 없거나 올바르지않습니다!");}
 	}
 	
 </script>
