@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <div class="container">
@@ -116,7 +117,8 @@
 																		<span> · </span> <span> 
 																		
 																		<!-- 상품가격 * 갯수 : 총 구매가격 -->
-																			${item2.goods_sales_price*item2.order_goods_qty}</span> 원
+																		<fmt:formatNumber value="${item2.goods_sales_price*item2.order_goods_qty}" pattern="#,###" />
+																			</span> 원
 																	</p>
 																</div>
 															</div>

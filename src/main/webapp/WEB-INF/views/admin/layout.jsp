@@ -55,7 +55,9 @@
 				<p class="w-100 mb-0">
 				
 					<!-- 매출 sum -->
-					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">${totalSales }</span>원
+					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">
+					<fmt:formatNumber value="${totalSales }" pattern="#,###" />
+					</span>원
 					<!-- 매출 sum -->
 					
 				</p>

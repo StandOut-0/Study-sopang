@@ -209,7 +209,9 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 																	<p class="mb-1 mt-1 small">${item.goods_title}</p>
 																	<p class="mb-0 text-secondary">
 																		<span class="cart_goods_qty">${cart_goods_qty}</span>개
-																		<span> · </span><span class="goods_sales_price">${item.goods_sales_price*cart_goods_qty}</span>
+																		<span> · </span><span class="goods_sales_price">
+																		<fmt:formatNumber value="${item.goods_sales_price*cart_goods_qty}" pattern="#,###" />
+																		</span>
 																		원
 																		<%-- 카트번호: ${cart_id} --%>
 																	</p>

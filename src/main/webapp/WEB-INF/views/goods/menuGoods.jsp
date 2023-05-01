@@ -36,7 +36,9 @@
 								src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
 								style="width: 250px">
 								<p class="mt-4 mb-0 text-truncate fw-bold fs-6">${item.goods_title}</p>
-								<p><span class="text-danger fw-bold fs-4 me-1">${item.goods_sales_price}</span>원</p>
+								<p><span class="text-danger fw-bold fs-4 me-1">
+								<fmt:formatNumber value="${item.goods_sales_price}" pattern="#,###" />
+								</span>원</p>
 							</a>
 						</div>
 					</c:forEach>

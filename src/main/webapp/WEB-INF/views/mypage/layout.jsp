@@ -55,7 +55,8 @@
 				<p class="w-100 mb-0">
 				
 				<!-- 소팡머니 count -->
-					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">${sopang_money }</span>원
+					<span class="fw-light me-2 lh-1" style="font-size: 2.2rem;">
+					<fmt:formatNumber value="${sopang_money}" pattern="#,###" /></span>원
 				<!-- 소팡머니 count -->
 					
 				</p>

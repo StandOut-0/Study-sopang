@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!-- 주문자 휴대폰 번호 -->
 <c:set var="orderer_hp" value="" />
@@ -62,7 +63,9 @@
 														<!-- 상품가격 표시-->
 														<p class="mb-0 text-secondary">
 															<!-- 상품 낱개가격 -->
-															<span>${item.goods_sales_price}</span> 원 <span> ·
+															<span>
+															<fmt:formatNumber value="${item.goods_sales_price}" pattern="#,###" />
+															</span> 원 <span> ·
 															</span> <input type="hidden" id="h_each_goods_price"
 																name="h_each_goods_price"
 																value="${item.goods_sales_price * item.order_goods_qty}" />
@@ -107,7 +110,9 @@
 								<span> 
 								
 								<!-- 총 상품가격 --> 
-								<span>총 상품가격 <span id="p_totalPrice">${total_order_price}</span>원</span> 
+								<span>총 상품가격 <span id="p_totalPrice">
+								<fmt:formatNumber value="${total_order_price}" pattern="#,###" />
+								</span>원</span> 
 								<input id="h_totalPrice" type="hidden" value="${total_order_price}" /> 
 								<!-- 총 상품가격 --> 
 								
@@ -117,7 +122,10 @@
 								
 								<!-- 총 주문금액 -->
 									<span>=</span> 총 주문금액</span> <span class="text-black fw-bold fs-5 ms-3">
-									<span id="p_final_totalPrice">${final_total_order_price }</span>원</span> 
+									<span id="p_final_totalPrice">
+									<fmt:formatNumber value="${final_total_order_price }" pattern="#,###" />
+									
+									</span>원</span> 
 									<input id="h_final_total_Price" type="hidden" value="${final_total_order_price}" />
 								<!-- 총 주문금액 -->
 
@@ -346,7 +354,7 @@
 										<div>
 											<input type="text" id="birth" name="birth"
 												class="form-control rounded-0" style="width: 300px;"
-												value=""  placeholder="5자리로 작성해주세요 예) 980314"
+												value=""  placeholder="6자리로 작성해주세요 예) 980314"
 												 onBlur="checkLength(this, 6)" maxlength="6"/>
 										</div>
 									</div>
@@ -416,8 +424,8 @@
 	//숫자여부체크
 	function checkLength(input, num){
 		console.log(input.length+": "+num);
-		if (isNaN(input.value)) {
-			alert("숫자로 입력해주세요.");
+		if (input.value.length != num || isNaN(input.value)) {
+			alert(num+"자리 숫자로 입력해주세요.");
 			input.classList.add("is-invalid");
 		} else{
 			input.classList.remove("is-invalid");

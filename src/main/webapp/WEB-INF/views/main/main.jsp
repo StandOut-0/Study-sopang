@@ -185,7 +185,9 @@
 									</div>
 									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 									<p>
-										<span class="fw-bold">${item.goods_sales_price}</span>원
+										<span class="fw-bold">
+										<fmt:formatNumber value="${item.goods_sales_price}" pattern="#,###" />
+										</span>원
 									</p>
 								</a>
 							</div>
@@ -238,7 +240,9 @@
 									</div>
 									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 									<p>
-										<span class="fw-bold">${item.goods_sales_price}</span>원
+										<span class="fw-bold">
+										<fmt:formatNumber value="${item.goods_sales_price}" pattern="#,###" />
+										</span>원
 									</p>
 								</a>
 							</div>
@@ -291,7 +295,9 @@
 									</div>
 									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 									<p>
-										<span class="fw-bold">${item.goods_sales_price}</span>원
+										<span class="fw-bold">
+											<fmt:formatNumber value="${item.goods_sales_price}" pattern="#,###" />
+										</span>원
 									</p>
 								</a>
 							</div>
@@ -344,7 +350,9 @@
 									</div>
 									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 									<p>
-										<span class="fw-bold">${item.goods_sales_price}</span>원
+										<span class="fw-bold">
+										<fmt:formatNumber value="${item.goods_sales_price}" pattern="#,###" />
+										</span>원
 									</p>
 								</a>
 							</div>

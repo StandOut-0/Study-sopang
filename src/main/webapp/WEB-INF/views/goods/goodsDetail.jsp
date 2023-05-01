@@ -67,7 +67,9 @@
 				<hr>
 				<!-- 가격 및 수량, 수량은 고정 -->
 				<p class="fs-6 mb-1">
-					<span class="fs-4 text-danger fw-bold">${goods.goods_sales_price }</span>원
+					<span class="fs-4 text-danger fw-bold">
+					<fmt:formatNumber value="${goods.goods_sales_price }" pattern="#,###" />
+					</span>원
 					· 1개
 				</p>
 
