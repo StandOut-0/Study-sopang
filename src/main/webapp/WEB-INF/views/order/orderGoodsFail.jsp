@@ -16,6 +16,8 @@
 <!-- 총 배송비 -->
 <c:set var="total_delivery_price" value="0" />
 
+<c:set var = "responseMsg" value="${responseMsg}"/>
+
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 
@@ -24,8 +26,13 @@
 		<div class="mt-5 p-0 ps-5 align-items-center">
 			<form name="form_order">
 				<div class="ps-4">
-					<p class="fs-5 fw-bold mb-3">주문하기</p>
-					<div class="border-top border-main border-2 mt-2">
+					<p class="fs-5 fw-bold mb-2 text-danger">결제실패 
+					</p>
+					<p class="small mb-3 text-danger">
+					<strong>${responseMsg}</strong><br>
+					장바구니에서 주문된 상품들은 장바구니에서 다시 확인 가능합니다.
+					</p>
+					<div class="border-top border-danger border-2 mt-2">
 						<div class="shadow-sm p-4 pt-2 mt-3 rounded border border-light">
 
 							<!-- myOrderList를 돌려 각 주문상품 정보를 표시한다. -->
@@ -276,7 +283,10 @@
 							
 							<!-- 카드결제 form -->
 							<tr class="whenSelected_Card">
-								<td class="table-light ps-4 align-middle" style="width: 200px;">카드결제정보</td>
+								<td class="bg-danger-subtle ps-4 align-middle" style="width: 200px;">
+								<p class="mb-2">카드결제정보</p>
+								<p class="text-danger small"><span class="fw-bold">*${responseMsg}</span><br>결제정보를 한번 더 확인해주세요.</p>
+								</td>
 								<td class="px-4">
 									<div class="d-flex align-items-center mb-2">
 										<div style="width:100px"><p class="mb-0">카드사 선택</p></div>
@@ -402,6 +412,10 @@
 </div>
 
 <script>
+	/* alert("결제가 실패하였습니다, 카드정보를 다시 입력해주세요"); */
+	var responseMsg ="${responseMsg}"; 
+	alert(responseMsg); 
+	
 	window.onload = function() {init();}
 	function init() {var form_order = document.form_order;}
 

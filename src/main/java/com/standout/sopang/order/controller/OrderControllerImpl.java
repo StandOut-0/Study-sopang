@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.standout.sopang.common.base.BaseController;
 import com.standout.sopang.goods.vo.GoodsVO;
 import com.standout.sopang.member.vo.MemberVO;
+import com.standout.sopang.order.service.ApiService01;
 import com.standout.sopang.order.service.OrderService;
 import com.standout.sopang.order.vo.OrderVO;
 
@@ -31,6 +32,9 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	@Autowired
 	private OrderVO orderVO;
 
+	@Autowired
+	private ApiService01 apiService01;
+	
 	// 개별주문
 	@RequestMapping(value = "/orderEachGoods.do", method = RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO, HttpServletRequest request,
@@ -74,8 +78,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
 		return mav;
 	}
-
-	
 	
 	
 	// 다중주문
@@ -150,6 +152,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		//주문정보를 가져온다.
 		List<OrderVO> myOrderList = (List<OrderVO>) session.getAttribute("myOrderList");
 		
+		//결제성고여부
+		String responseCode = "";
+		String responseMsg = "";
+		
 		//주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
 		for (int i = 0; i < myOrderList.size(); i++) {
 			OrderVO orderVO = (OrderVO) myOrderList.get(i);
@@ -164,14 +170,90 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
 			orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));	
 			orderVO.setOrderer_hp(orderer_hp);
+			
+			//payup form 추가
+//			orderVO.setCardNo(receiverMap.get("cardNo"));
+//			orderVO.setExpireYear(receiverMap.get("expireYear"));
+//			orderVO.setExpireMonth(receiverMap.get("expireMonth"));
+//			orderVO.setBirthday(receiverMap.get("birthday"));
+//			orderVO.setCardPw(receiverMap.get("cardPw"));
+
+			String merchantId = "himedia";
+			String orderNumber = String.valueOf(orderVO.getOrder_seq_num());
+			String expireMonth = receiverMap.get("expireMonth");
+			String expireYear = receiverMap.get("expireYear");
+			String birthday = receiverMap.get("birthday");
+			String cardPw = receiverMap.get("cardPw");
+			String amount = String.valueOf(orderVO.getGoods_sales_price());
+			String itemName = orderVO.getGoods_title() ;
+			String userName = "박상희";
+
+			String cardNo = receiverMap.get("cardNo");
+			String quota = receiverMap.get("card_pay_month");
+			String apiCertKey = "ac805b30517f4fd08e3e80490e559f8e";
+			String timestamp = "2023020400000000";
+			String signature = apiService01.encrypt(merchantId + "|" + orderNumber + "|" + amount + "|" + apiCertKey + "|" + timestamp) ;
+			
+			
+			String url = "https://api.testpayup.co.kr/v2/api/payment/"+merchantId+"/keyin2";
+			Map<String, String> map = new HashMap<String, String>();
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			returnMap = apiService01.restApi(map, url);
+			map.put("merchantId", merchantId);
+			map.put("orderNumber", orderNumber);
+			map.put("expireMonth", expireMonth);
+			map.put("expireYear", expireYear);
+			map.put("birthday", birthday);
+			map.put("cardPw", cardPw);
+			map.put("amount", amount);
+			map.put("itemName", itemName);
+			map.put("userName", userName);
+			map.put("cardNo", cardNo);
+			map.put("quota", quota);
+			map.put("signature", signature);
+			map.put("timestamp", timestamp);
+			
+			System.out.println("보내는값 = " + map.toString());
+			returnMap = apiService01.restApi(map, url);
+			System.out.println("db확인"+ returnMap.toString());
+			
 			myOrderList.set(i, orderVO);
+			
+			responseCode = (String) returnMap.get("responseCode");
+			responseMsg = (String) returnMap.get("responseMsg");
+			
 		}
 		
-		//수령자정보, 주문정보를 주문테이블에 반영한다.
-		orderService.addNewOrder(myOrderList);
 		
-		//완료 후 listMyOrderHistory로 리턴.
-		return new ModelAndView("redirect:/mypage/listMyOrderHistory.do");
+		if("0000".equals(responseCode)) {
+			System.out.println("성공했습니다.");
+			
+			//수령자정보, 주문정보를 주문테이블에 반영한다.
+			orderService.addNewOrder(myOrderList);
+			
+			//완료 후 listMyOrderHistory로 리턴.
+			return new ModelAndView("redirect:/mypage/listMyOrderHistory.do");
+		}else {
+			System.out.println("실패했습니다.");
+			
+			ModelAndView mav_fail = new ModelAndView(); 
+			mav_fail.addObject("responseMsg", responseMsg);
+			mav_fail.setViewName("/order/payFail");
+			//실패시 다시 주문페이지로 이동
+			return mav_fail;
+		}
+		
 	}
+	
+	
+	//결제실패
+		@Override
+		@RequestMapping(value="/payFail.do",method = RequestMethod.POST)
+		public ModelAndView payFail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/order/payFail");
+			return mav;
+		}
+
 
 }

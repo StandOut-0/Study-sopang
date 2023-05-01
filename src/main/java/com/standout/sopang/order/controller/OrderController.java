@@ -24,4 +24,6 @@ public interface OrderController {
 	public ModelAndView payToOrderGoods(@RequestParam Map<String, String> orderMap, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 
+	//결제실패
+	public ModelAndView payFail(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

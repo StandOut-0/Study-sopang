@@ -26,7 +26,51 @@ public class OrderVO {
 	private String delivery_state; 
 	private String pay_order_time;
 	
+	private String cardNo;
 	
+	private String expireYear;
+	private String expireMonth;
+	
+	private String birthday;
+	private String cardPw;
+	
+	
+
+
+	public String getCardPw() {
+		return cardPw;
+	}
+	public void setCardPw(String cardPw) {
+		this.cardPw = cardPw;
+	}
+	public String getCardNo() {
+		return cardNo;
+	}
+	public void setCardNo(String cardNo) {
+		this.cardNo = cardNo;
+	}
+	public String getExpireYear() {
+		return expireYear;
+	}
+	public void setExpireYear(String expireYear) {
+		this.expireYear = expireYear;
+	}
+	public String getExpireMonth() {
+		return expireMonth;
+	}
+	public void setExpireMonth(String expireMonth) {
+		this.expireMonth = expireMonth;
+	}
+
+	
+	
+	public String getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
 	public String getPay_order_time() {
 		return pay_order_time;
 	}

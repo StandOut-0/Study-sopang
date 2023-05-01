@@ -15,10 +15,10 @@
        <put-attribute name="body" value="/WEB-INF/views/order/orderGoodsForm.jsp" />
     </definition> 
     
-     <definition name="/order/payToOrderGoods" extends="baseLayout">
-       <put-attribute name="title" value="상품 주문 결과 페이지" />
+      <definition name="/order/payFail" extends="baseLayout">
+       <put-attribute name="title" value="상품 결제 실패 페이지" />
        <put-attribute name="mypage" value="/WEB-INF/views/mypage/layout.jsp" />
-       <put-attribute name="body" value="/WEB-INF/views/order/orderResult.jsp" />
+       <put-attribute name="body" value="/WEB-INF/views/order/orderGoodsFail.jsp" />
     </definition>
     
 </tiles-definitions>
