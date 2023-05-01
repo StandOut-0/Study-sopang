@@ -14,12 +14,13 @@
 }
 
 /* quickmenu */
+.sticky-sm-top{z-index:850!important}
 .quickMenu{
   position: absolute;
   top: 250px;
   right:20px;
   transition:all .2s;
-  z-index:1500;
+  z-index:900;
 }
 
 .fixedQuick{

@@ -457,10 +457,14 @@
 	      whenSelected_Phone[0].classList.remove("d-none");
 	      whenSelected_Card[0].classList.add("d-none");
 	      
-	    } else{
+	    } else if(this.value === "신용카드"){
 	      whenSelected_Phone[0].classList.add("d-none");
 	      whenSelected_Card[0].classList.remove("d-none");
+	    } else{
+	      whenSelected_Phone[0].classList.add("d-none");
+	      whenSelected_Card[0].classList.add("d-none");
 	    }
+	    
 	  });
 	});
 

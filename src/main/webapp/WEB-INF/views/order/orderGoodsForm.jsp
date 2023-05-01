@@ -418,6 +418,40 @@
 	</div>
 </div>
 
+
+<form name="order_info" method="post" accept-charset="euc-kr">
+<input type="hidden" name="ordr_idxx" value="${ordr_idxx }">
+<input type="hidden" name="good_name" value="${ good_name }">
+<input type="hidden" name="good_mny" value="${ good_mny }">
+<input type="hidden" name="buyr_name" value="${ buyr_name }">
+<input type="hidden" name="site_cd" value="${ site_cd }">
+<!-- 고정값 --> 
+<input type="hidden" name="req_tx" value="pay">
+<input type="hidden" name="pay_method" value="100000000000"/>
+<input type="hidden" name="currency" value="410">
+<input type="hidden" name="kakaopay_direct" value="Y">
+<input type="hidden" name="module_type" value="01"/>
+<!-- 주문정보 검증 관련 정보 : 표준웹 에서 설정하는 정보입니다 -->
+<input type="hidden" name="ordr_chk" value=""/>
+<!-- 추가파라미터(가맹점에서 별도의 값 전달시 param_opt를 사용하여 값 전달 -->
+<input type="hidden" name="param_opt_1" value="">
+<input type="hidden" name="param_opt_2" value="">
+<input type="hidden" name="param_opt_3" value="">
+
+<!-- ※ 필 수
+필수 항목 : 표준웹에서 값을 설정하는 부분으로 반드시 포함되어야 합니다
+값을 설정하지 마십시오 -->
+
+<input type="hidden" name="res_cd" value=""/>
+<input type="hidden" name="res_msg" value=""/>
+<input type="hidden" name="enc_info" value=""/>
+<input type="hidden" name="enc_data" value=""/>
+<input type="hidden" name="ret_pay_method" value=""/>
+<input type="hidden" name="tran_cd" value=""/>
+<input type="hidden" name="use_pay_method" value=""/>
+<input type="hidden" name="card_pay_method" value=""/>
+</form>
+
 <script>
 	window.onload = function() {init();}
 	function init() {var form_order = document.form_order;}
@@ -456,10 +490,14 @@
 	      whenSelected_Phone[0].classList.remove("d-none");
 	      whenSelected_Card[0].classList.add("d-none");
 	      
-	    } else{
+	    } else if(this.value === "신용카드"){
 	      whenSelected_Phone[0].classList.add("d-none");
 	      whenSelected_Card[0].classList.remove("d-none");
+	    } else{
+	      whenSelected_Phone[0].classList.add("d-none");
+	      whenSelected_Card[0].classList.add("d-none");
 	    }
+	    
 	  });
 	});
 
@@ -510,9 +548,68 @@
 	
 	//결제하기
 	function fn_process_pay_order() {
-		
 		var payType = $('input[name="pay_method"]:checked').val();
-		alert(payType);
+	
+		//카카오 페이로 왔을 때
+		if(payType == '카카오페이(간편결제)'){
+	
+			//화면에서 가져갈 데이터
+			var amount = $("#h_final_total_Price").val(); //결제금액
+			var itemName = $("#h_goods_title").val(); //상품명
+			var userName = $("#h_orderer_name").val(); //구매자
+	
+			//카카오페이 선택
+			//여기안에서
+			//자바에서 주문api요청을 한 후 데이터 받아오기
+			//비동기 ajax 사용 예정
+			alert("카카오페이 선택");
+			$.ajax({
+				type : "post",
+				
+				// async : false, //false인 경우 동기식으로 처리한다.
+				
+				url : "${contextPath}/test/kakaoOrder.do",
+				// url : "https://api.testpayup.co.kr/ep/api/kakao/himedia/order", (안됨)
+				
+				data : {
+					"amount":amount
+					,"itemName":itemName
+					,"userName":userName
+				},
+				success : function(data, textStatus) {
+					console.log(data);
+					//컨트롤러에서 받은 데이터를 화면에 넣기
+			
+					if(data.responseCode == '0000'){ //주문을 성공했을 때
+					// 주문요청 후 응답 받은 데이터를 form에 넣음
+					$('input[name="ordr_idxx"]').val(data.ordr_idxx);
+					$('input[name="good_name"]').val(data.good_name);
+					$('input[name="good_mny"]').val(data.good_mny);
+					$('input[name="buyr_name"]').val(data.buyr_name);
+					$('input[name="site_cd"]').val(data.site_cd);
+			
+					// jsf__pay() 함수를 호출
+					jsf__pay();
+			
+				}else{
+					//주문데이터 받아오기 실패
+					alert("오류");
+				}
+				},
+				error : function(data, textStatus) {
+					alert("에러가 발생했습니다."+data);
+				},
+				complete : function(data, textStatus) {
+					//alert("작업을완료 했습니다");
+				}
+			}); //end ajax
+	
+			return false;
+
+		}
+
+		//return ; //아래 실행 안되게 하는중
+
 		
 		
 		//required값인 input이 입력되지않았을 경우 submit을 하지 않도록 한다.
@@ -615,10 +712,56 @@
 					//form에 생성한 정보들로 payToOrderGoods submit
 				 	formObj.method = "post";
 					formObj.action = "${contextPath}/order/payToOrderGoods.do";
-					/* formObj.submit();  */
+					formObj.submit(); 
 					}
 				} 
 		 else {alert("입력하신 정보가 없거나 올바르지않습니다!");}
 	}
 	
+	
+	
+	
+	/****************************************************************/
+	/* m_Completepayment 설명 */
+	/****************************************************************/
+	/* 인증완료시 재귀 함수 */
+	/* 해당 함수명은 절대 변경하면 안됩니다. */
+	/* 해당 함수의 위치는 payplus.js 보다먼저 선언되어야 합니다. */
+	/* Web 방식의 경우 리턴 값이 form 으로 넘어옴 */
+	/****************************************************************/
+	function m_Completepayment(FormOrJson, closeEvent) {
+	
+	var frm = document.order_info;
+	/********************************************************************/
+	/* FormOrJson은 가맹점 임의 활용 금지 */
+	/* frm 값에 FormOrJson 값이 설정 됨 frm 값으로 활용 하셔야 됩니다. */
+	/********************************************************************/
+	GetField(frm, FormOrJson);
+	if (frm.res_cd.value == "0000") {
+	/*
+	[가맹점 리턴값 처리 영역]
+	인증이 완료되면 frm에 인증값이 들어갑니다. 해당 데이터를 가지고
+	승인요청을 진행 해주시면 됩니다.
+	*/
+	} else {
+	alert("[" + frm.res_cd.value + "] " + frm.res_msg.value);
+	closeEvent();
+	}
+	}
+	/* 이 함수를 실행하여 카카오결제창을 호출 합니다*/
+	function jsf__pay() {
+		try {
+			var form = document.order_info;
+			KCP_Pay_Execute(form);
+		} catch {
+		/* IE 에서 결제 정상종료시 throw로 스크립트 종료 */
+		}
+	}
+	
 </script>
+
+	<script type="text/javascript" src="https://pay.kcp.co.kr/plugin/payplus_web.jsp"></script>
+	
+
+
+

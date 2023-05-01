@@ -186,7 +186,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			String cardPw = receiverMap.get("cardPw");
 			String amount = String.valueOf(orderVO.getGoods_sales_price());
 			String itemName = orderVO.getGoods_title() ;
-			String userName = "¹Ú»óÈñ";
+			String userName = memberVO.getMember_name();
 
 			String cardNo = receiverMap.get("cardNo");
 			String quota = receiverMap.get("card_pay_month");
@@ -198,7 +198,6 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			String url = "https://api.testpayup.co.kr/v2/api/payment/"+merchantId+"/keyin2";
 			Map<String, String> map = new HashMap<String, String>();
 			Map<String, Object> returnMap = new HashMap<String, Object>();
-			returnMap = apiService01.restApi(map, url);
 			map.put("merchantId", merchantId);
 			map.put("orderNumber", orderNumber);
 			map.put("expireMonth", expireMonth);

@@ -209,9 +209,10 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 																	<p class="mb-1 mt-1 small">${item.goods_title}</p>
 																	<p class="mb-0 text-secondary">
 																		<span class="cart_goods_qty">${cart_goods_qty}</span>개
-																		<span> · </span><span class="goods_sales_price">
+																		<span> · </span><span>
 																		<fmt:formatNumber value="${item.goods_sales_price*cart_goods_qty}" pattern="#,###" />
 																		</span>
+																		<span class="goods_sales_price">${item.goods_sales_price*cart_goods_qty}</span>
 																		원
 																		<%-- 카트번호: ${cart_id} --%>
 																	</p>
@@ -290,13 +291,9 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 					<!-- 상품가격 * 갯수 및 형변환 -->
 					<c:set var="totalGoodsPrice"
 						value="${totalGoodsPrice+item.goods_sales_price*cart_goods_qty }" />
-					<fmt:formatNumber value="${totalGoodsPrice}" type="number"
-						var="total_goods_price" />
-
-					<!-- 배송비 추가 및 할인정보 -->
-					<fmt:formatNumber
-						value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}"
-						type="number" var="total_price" />
+					
+					<c:set var="total_price"
+						value="${totalGoodsPrice+totalDeliveryPrice-totalDiscountedPrice}" />
 					<!-- 변수세팅 및 형 변환 -->
 
 					<!-- 가격정보 hidden input -->
