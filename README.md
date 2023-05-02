@@ -57,16 +57,23 @@ https://docs.google.com/presentation/d/1t0rVJwAavmXbfLfehrgogwtMkjFLXeZQ/edit?us
 
 <br><br>
 <h3>230501, 결제서비스 추가</h3>
-<br><br>주문하기 - 결제성공
+<br><br>주문하기 - 신용카드 - 결제성공
 
 [결제성공.webm](https://user-images.githubusercontent.com/120000929/235434657-acb35990-05ce-4fb9-bf42-91442ef79d03.webm)
 
-<br><br>주문하기 - 결제실패
+<br><br>주문하기 - 신용카드 - 결제실패
 
 [결제실패.webm](https://user-images.githubusercontent.com/120000929/235434694-eb8e1bb4-9306-401a-acef-7ee5c27ae11c.webm)
 
 [결제실패 - 장바구니.webm](https://user-images.githubusercontent.com/120000929/235434695-4f43c817-e869-4bbb-b0f9-2074402d4c32.webm)
 
+<br><br>주문하기 - 카카오 - 결제성공
+
+[카카오 - 결제성공.webm](https://user-images.githubusercontent.com/120000929/235572057-5f4a8753-5c68-4201-9c10-8c27f4fab608.webm)
+
+<br><br>주문하기 - 카카오 - 결제실패
+
+[카카오 - 결제실패.webm](https://user-images.githubusercontent.com/120000929/235572061-fe557de1-041a-4ab8-b7ac-45dd9c69b8b9.webm)
 
 
 
@@ -172,6 +179,10 @@ https://docs.google.com/presentation/d/1t0rVJwAavmXbfLfehrgogwtMkjFLXeZQ/edit?us
    <br><h3>sopang 결제</h3>
   <p>Sopang - 결제 - 신용카드
   <a href="https://standout.tistory.com/544" target="_blank">https://standout.tistory.com/544</a>
+  <br></p>
+ 
+  <p>Sopang - 결제 - 카카오
+  <a href="https://standout.tistory.com/544" target="_blank">https://standout.tistory.com/545</a>
   <br></p>
   
   
