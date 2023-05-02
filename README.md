@@ -76,6 +76,15 @@ https://docs.google.com/presentation/d/1t0rVJwAavmXbfLfehrgogwtMkjFLXeZQ/edit?us
 [카카오 - 결제실패.webm](https://user-images.githubusercontent.com/120000929/235572061-fe557de1-041a-4ab8-b7ac-45dd9c69b8b9.webm)
 
 
+<br><br>주문하기 - 네이버페이 - 카드
+
+[네이버페이 - 결제성공 - 카드.webm](https://user-images.githubusercontent.com/120000929/235618051-be0e0773-d731-43eb-a2b9-9fa1eb1a159a.webm)
+
+<br><br>주문하기 - 네이버페이 - 포인트
+
+[네이버페이 - 결제성공 - 포인트.webm](https://user-images.githubusercontent.com/120000929/235618038-0acf5a0c-3cad-4797-b1c8-7cbc4804d2b1.webm)
+
+
 
   <br><h3>sopang 기획</h3>
   <p>sopang 기획 - 카테고리/상품
@@ -181,8 +190,16 @@ https://docs.google.com/presentation/d/1t0rVJwAavmXbfLfehrgogwtMkjFLXeZQ/edit?us
   <a href="https://standout.tistory.com/544" target="_blank">https://standout.tistory.com/544</a>
   <br></p>
  
-  <p>Sopang - 결제 - 카카오
-  <a href="https://standout.tistory.com/544" target="_blank">https://standout.tistory.com/545</a>
+  <p>Sopang - 결제 - 카카오페이
+  <a href="https://standout.tistory.com/545" target="_blank">https://standout.tistory.com/545</a>
+  <br></p>
+  
+  <p>Sopang - 결제 - 네이버페이(카드)
+  <a href="https://standout.tistory.com/546" target="_blank">https://standout.tistory.com/546</a>
+  <br></p>
+  
+  <p>Sopang - 결제 - 네이버페이(포인트)
+  <a href="https://standout.tistory.com/547" target="_blank">https://standout.tistory.com/547</a>
   <br></p>
   
   
