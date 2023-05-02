@@ -231,6 +231,9 @@ window.onload = function() {init();}
 						
 								if(data.responseCode == '0000'){ //주문을 성공했을 때
 								// 주문요청 후 응답 받은 데이터를 form에 넣음
+								$('.easyPayment_method').val(""); 
+								$('input[name="kakaopay_direct"]').val("Y");
+								
 								$('input[name="ordr_idxx"]').val(data.ordr_idxx);
 								$('input[name="good_name"]').val(data.good_name);
 								$('input[name="good_mny"]').val(data.good_mny);
@@ -255,7 +258,92 @@ window.onload = function() {init();}
 				
 						return false;
 
+					}else if(payType =='네이버페이(카드)'){
+						
+						//화면에서 가져갈 데이터
+						var amount = $("#h_final_total_Price").val(); //결제금액
+						var itemName = $("#h_goods_title").val(); //상품명
+						var userName = $("#h_orderer_name").val(); //구매자
+				
+						$.ajax({
+							type : "post",
+							url : getContextPath() + "/test/naverOrder.do",
+							data : {
+								"amount":amount
+								,"itemName":itemName
+								,"userName":userName
+								,"payMethod":"네이버페이(카드)"
+							},
+							success : function(data, textStatus) {
+								console.log(data);
+								if(data.responseCode == '0000'){
+								$('.easyPayment_method').val("");
+								$('input[name="naverpay_direct"]').val("Y");
+								
+								$('input[name="ordr_idxx"]').val(data.ordr_idxx);
+								$('input[name="good_name"]').val(data.good_name);
+								$('input[name="good_mny"]').val(data.good_mny);
+								$('input[name="buyr_name"]').val(data.buyr_name);
+								$('input[name="site_cd"]').val(data.site_cd);
+								jsf__pay();
+						
+							}else{alert("오류");}
+							},
+							error : function(data, textStatus) {
+								alert("에러가 발생했습니다."+data);
+							},
+							complete : function(data, textStatus) {
+							}
+						});
+				
+						return false;
+						
+					}else if(payType =='네이버페이(포인트)'){
+						console.log(payType);
+						//화면에서 가져갈 데이터
+						var amount = $("#h_final_total_Price").val(); //결제금액
+						var itemName = $("#h_goods_title").val(); //상품명
+						var userName = $("#h_orderer_name").val(); //구매자
+				
+						$.ajax({
+							type : "post",
+							url : getContextPath() + "/test/naverOrder.do",
+							data : {
+								"amount":amount
+								,"itemName":itemName
+								,"userName":userName
+								,"payMethod":"네이버페이(포인트)"
+							},
+							success : function(data, textStatus) {
+								console.log(data);
+								if(data.responseCode == '0000'){
+								$('.easyPayment_method').val("");
+								$('input[name="naverpay_direct"]').val("Y");
+								$('input[name="naverpay_point_direct"]').val("Y");
+								
+								$('input[name="ordr_idxx"]').val(data.ordr_idxx);
+								$('input[name="good_name"]').val(data.good_name);
+								$('input[name="good_mny"]').val(data.good_mny);
+								$('input[name="buyr_name"]').val(data.buyr_name);
+								$('input[name="site_cd"]').val(data.site_cd);
+								jsf__pay();
+						
+							}else{alert("오류");}
+							},
+							error : function(data, textStatus) {
+								alert("에러가 발생했습니다."+data);
+							},
+							complete : function(data, textStatus) {
+							}
+						});
+				
+						return false;
+						
+					}else if(payType =='네이버페이(포인트)'){
+						console.log(payType);
+						return false;
 					}
+
 
 					//return ; //아래 실행 안되게 하는중
 					
@@ -362,13 +450,31 @@ window.onload = function() {init();}
 	i_card_pay_method.name="card_pay_method"; 
 	i_card_pay_method.value=document.getElementsByName("card_pay_method")[0].value;
    formObj.appendChild(i_card_pay_method); 
+   
+   
+   //order_idxx  
+	var ordr_idxx  = document.createElement("input");
+	ordr_idxx.name="ordr_idxx"; 
+	ordr_idxx.value=document.getElementsByName("ordr_idxx")[0].value;
+  formObj.appendChild(ordr_idxx); 
 
     
 	//form body에 append
 	document.body.appendChild(formObj);
 	
+	
 	formObj.method="post";
-	formObj.action = getContextPath() + "/test/kakaoPay.do";
+	
+	
+	if(document.querySelector("input[name='kakaopay_direct']").value == "Y"){
+		//카카오일때
+		formObj.action = getContextPath() + "/test/kakaoPay.do";
+	}else if(document.querySelector("input[name='naverpay_direct']").value == "Y"){
+		//네이버일때
+		formObj.action = getContextPath() + "/test/naverPay.do";
+	}
+	
+	
 	formObj.submit();
 	
 	
@@ -389,4 +495,6 @@ window.onload = function() {init();}
 		/* IE 에서 결제 정상종료시 throw로 스크립트 종료 */
 		}
 	}
+	
+
 	

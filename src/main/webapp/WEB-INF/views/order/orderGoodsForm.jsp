@@ -221,26 +221,26 @@
 								  </label>
 								</div>
 								
-								<div class="form-check col-3">
+								<!-- <div class="form-check col-3">
 								  <input class="form-check-input" type="radio" name="pay_method" id="pay2" value="제휴 신용카드">
 								  <label class="form-check-label" for="pay2">
 								    제휴 신용카드
 								  </label>
-								</div>
+								</div> -->
 								
-								<div class="form-check col-3">
+								<!-- <div class="form-check col-3">
 								  <input class="form-check-input" type="radio" name="pay_method" id="pay3" value="실시간 계좌이체">
 								  <label class="form-check-label" for="pay3">
 								    실시간 계좌이체
 								  </label>
-								</div>
+								</div> -->
 								
-								<div class="form-check col-3">
+								<!-- <div class="form-check col-3">
 								  <input class="form-check-input" type="radio" name="pay_method" id="pay4" value="무통장 입금">
 								  <label class="form-check-label" for="pay4">
 								    무통장 입금
 								  </label>
-								</div>
+								</div> -->
 								
 								<div class="form-check col-3">
 								  <input class="form-check-input" type="radio" name="pay_method" id="pay5" value="휴대폰결제">
@@ -255,27 +255,28 @@
 									  카카오페이(간편결제)
 									</label>
 								  </div>
-
+								  
 								  <div class="form-check col-3">
-									<input class="form-check-input" type="radio" name="pay_method" id="pay7" value="페이나우(간편결제)">
+									<input class="form-check-input" type="radio" name="pay_method" id="pay7" value="네이버페이(카드)">
 									<label class="form-check-label" for="pay7">
-									  페이나우(간편결제)
+									  네이버페이(카드)
 									</label>
 								  </div>
 
 								  <div class="form-check col-3">
-									<input class="form-check-input" type="radio" name="pay_method" id="pay8" value="페이코(간편결제)">
+									<input class="form-check-input" type="radio" name="pay_method" id="pay8" value="네이버페이(포인트)">
 									<label class="form-check-label" for="pay8">
-									  페이코(간편결제)
+									  네이버페이(포인트)
 									</label>
 								  </div>
 
-								  <div class="form-check col-3">
+
+								 <!--  <div class="form-check col-3">
 									<input class="form-check-input" type="radio" name="pay_method" id="pay9" value="직접입금">
 									<label class="form-check-label" for="pay9">
 									  직접입금
 									</label>
-								  </div>
+								  </div> -->
 								
 								</div>
 								</td>
@@ -431,7 +432,13 @@
 <input type="hidden" name="req_tx" value="pay">
 <input type="hidden" name="pay_method" value="100000000000"/>
 <input type="hidden" name="currency" value="410">
-<input type="hidden" name="kakaopay_direct" value="Y">
+
+<!-- 결제수단 값  -->
+<input type="hidden" name="kakaopay_direct" value="" class="easyPayment_method">
+<input type="hidden" name="naverpay_direct" value="" class="easyPayment_method">
+<input type="hidden" name="naverpay_point_direct" value="" class="easyPayment_method">
+<!-- 결제수단 값  -->
+
 <input type="hidden" name="module_type" value="01"/>
 <!-- 주문정보 검증 관련 정보 : 표준웹 에서 설정하는 정보입니다 -->
 <input type="hidden" name="ordr_chk" value=""/>

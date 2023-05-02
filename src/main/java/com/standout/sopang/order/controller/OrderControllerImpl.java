@@ -222,7 +222,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		returnMap = apiService01.restApi(map, url);
 		System.out.println("db확인"+ returnMap.toString());
 		
-		
+		//페이업 거래번호
+		String transactionId = (String) returnMap.get("transactionId");
 		
 		responseCode = (String) returnMap.get("responseCode");
 		responseMsg = (String) returnMap.get("responseMsg");
@@ -232,7 +233,8 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			System.out.println("성공했습니다.");
 			
 			//수령자정보, 주문정보를 주문테이블에 반영한다.
-//			orderService.addNewOrder(myOrderList);
+			orderService.addNewOrder(myOrderList);
+			session.setAttribute("returnMap", returnMap);
 			
 			//완료 후 listMyOrderHistory로 리턴.
 			return new ModelAndView("redirect:/mypage/listMyOrderHistory.do");
