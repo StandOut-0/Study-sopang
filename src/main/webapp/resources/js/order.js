@@ -97,81 +97,22 @@ window.onload = function() {init();}
 		 return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
 		};
 		
+
+	//form 생성
+	var formObj = document.createElement("form");
+	formObj.setAttribute("id", "form_basic");
 		
 	//결제하기
 	function fn_process_pay_order() {
 		var payType = $('input[name="pay_method"]:checked').val();
 	
-		//카카오 페이로 왔을 때
-		if(payType == '카카오페이(간편결제)'){
-	
-			//화면에서 가져갈 데이터
-			var amount = $("#h_final_total_Price").val(); //결제금액
-			var itemName = $("#h_goods_title").val(); //상품명
-			var userName = $("#h_orderer_name").val(); //구매자
-	
-			
-			//카카오페이 선택
-			//여기안에서
-			//자바에서 주문api요청을 한 후 데이터 받아오기
-			//비동기 ajax 사용 예정
-//			alert("카카오페이 선택");
-			$.ajax({
-				type : "post",
-				
-				// async : false, //false인 경우 동기식으로 처리한다.
-				
-				url : getContextPath() + "/test/kakaoOrder.do",
-				// url : "https://api.testpayup.co.kr/ep/api/kakao/himedia/order", (안됨)
-				
-				data : {
-					"amount":amount
-					,"itemName":itemName
-					,"userName":userName
-				},
-				success : function(data, textStatus) {
-					console.log(data);
-					//컨트롤러에서 받은 데이터를 화면에 넣기
-			
-					if(data.responseCode == '0000'){ //주문을 성공했을 때
-					// 주문요청 후 응답 받은 데이터를 form에 넣음
-					$('input[name="ordr_idxx"]').val(data.ordr_idxx);
-					$('input[name="good_name"]').val(data.good_name);
-					$('input[name="good_mny"]').val(data.good_mny);
-					$('input[name="buyr_name"]').val(data.buyr_name);
-					$('input[name="site_cd"]').val(data.site_cd);
-			
-					// jsf__pay() 함수를 호출
-					jsf__pay();
-			
-				}else{
-					//주문데이터 받아오기 실패
-					alert("오류");
-				}
-				},
-				error : function(data, textStatus) {
-					alert("에러가 발생했습니다."+data);
-				},
-				complete : function(data, textStatus) {
-					//alert("작업을완료 했습니다");
-				}
-			}); //end ajax
-	
-			return false;
-
-		}
-
-		//return ; //아래 실행 안되게 하는중
-
-		
-		
 		//required값인 input이 입력되지않았을 경우 submit을 하지 않도록 한다.
 		let isValid = true;
-		inputs.forEach(input => {
-			  if (!input.value || input.classList.contains("is-invalid")) {
-			    isValid = false;
-			  }
-			});
+//		inputs.forEach(input => {
+//			  if (!input.value || input.classList.contains("is-invalid")) {
+//			    isValid = false;
+//			  }
+//			});
 		
 		 if (isValid) {
 			 
@@ -184,8 +125,6 @@ window.onload = function() {init();}
 				
 					/* cardDate = cardDate_month.value + "" + cardDate_date.value; */
 
-				//form 생성
-					var formObj = document.createElement("form");
 
 				//수령자이름
 					var i_receiver_name = document.createElement("input");
@@ -258,10 +197,74 @@ window.onload = function() {init();}
 				 	i_cardPassword.value=document.getElementById("cardPassword").value;
 				    formObj.appendChild(i_cardPassword ); 
 				    
+					
+					//카카오 페이로 왔을 때
+					if(payType == '카카오페이(간편결제)'){
+				
+						//화면에서 가져갈 데이터
+						var amount = $("#h_final_total_Price").val(); //결제금액
+						var itemName = $("#h_goods_title").val(); //상품명
+						var userName = $("#h_orderer_name").val(); //구매자
+				
+						
+						//카카오페이 선택
+						//여기안에서
+						//자바에서 주문api요청을 한 후 데이터 받아오기
+						//비동기 ajax 사용 예정
+//						alert("카카오페이 선택");
+						$.ajax({
+							type : "post",
+							
+							// async : false, //false인 경우 동기식으로 처리한다.
+							
+							url : getContextPath() + "/test/kakaoOrder.do",
+							// url : "https://api.testpayup.co.kr/ep/api/kakao/himedia/order", (안됨)
+							
+							data : {
+								"amount":amount
+								,"itemName":itemName
+								,"userName":userName
+							},
+							success : function(data, textStatus) {
+								console.log(data);
+								//컨트롤러에서 받은 데이터를 화면에 넣기
+						
+								if(data.responseCode == '0000'){ //주문을 성공했을 때
+								// 주문요청 후 응답 받은 데이터를 form에 넣음
+								$('input[name="ordr_idxx"]').val(data.ordr_idxx);
+								$('input[name="good_name"]').val(data.good_name);
+								$('input[name="good_mny"]').val(data.good_mny);
+								$('input[name="buyr_name"]').val(data.buyr_name);
+								$('input[name="site_cd"]').val(data.site_cd);
+						
+								// jsf__pay() 함수를 호출
+								jsf__pay();
+						
+							}else{
+								//주문데이터 받아오기 실패
+								alert("오류");
+							}
+							},
+							error : function(data, textStatus) {
+								alert("에러가 발생했습니다."+data);
+							},
+							complete : function(data, textStatus) {
+								//alert("작업을완료 했습니다");
+							}
+						}); //end ajax
+				
+						return false;
+
+					}
+
+					//return ; //아래 실행 안되게 하는중
+					
+
 				    
 					//form body에 append
 					document.body.appendChild(formObj);
-						
+					
+					
 					//form에 생성한 정보들로 payToOrderGoods submit
 				 	formObj.method = "post";
 					formObj.action = getContextPath() + "/order/payToOrderGoods.do";
@@ -296,8 +299,84 @@ window.onload = function() {init();}
 	인증이 완료되면 frm에 인증값이 들어갑니다. 해당 데이터를 가지고
 	승인요청을 진행 해주시면 됩니다.
 	*/
+	console.log(frm);
+//	frm.method="post";
+//	frm.action = getContextPath() + "/test/kakaoPay.do";
+//	frm.submit();
+	
+	
+
+	
+	//res_cd  
+ 	var i_res_cd  = document.createElement("input");
+ 	i_res_cd.name="res_cd"; 
+ 	i_res_cd.value=document.getElementsByName("res_cd")[0].value;
+    formObj.appendChild(i_res_cd); 
+
+	//res_msg  
+	var i_res_msg  = document.createElement("input");
+	i_res_msg.name="res_msg"; 
+	i_res_msg.value=document.getElementsByName("res_msg")[0].value;
+   formObj.appendChild(i_res_msg); 
+
+   //res_msg  
+	var i_res_msg  = document.createElement("input");
+	i_res_msg.name="res_msg"; 
+	i_res_msg.value=document.getElementsByName("res_msg")[0].value;
+   formObj.appendChild(i_res_msg); 
+
+   //enc_info  
+	var i_enc_info  = document.createElement("input");
+	i_enc_info.name="enc_info"; 
+	i_enc_info.value=document.getElementsByName("enc_info")[0].value;
+   formObj.appendChild(i_enc_info); 
+
+   //enc_data  
+	var i_enc_data  = document.createElement("input");
+	i_enc_data.name="enc_data"; 
+	i_enc_data.value=document.getElementsByName("enc_data")[0].value;
+   formObj.appendChild(i_enc_data); 
+
+    //ret_pay_method  
+	var i_ret_pay_method  = document.createElement("input");
+	i_ret_pay_method.name="ret_pay_method"; 
+	i_ret_pay_method.value=document.getElementsByName("ret_pay_method")[0].value;
+   formObj.appendChild(i_ret_pay_method); 
+
+    //tran_cd  
+	var i_tran_cd  = document.createElement("input");
+	i_tran_cd.name="tran_cd"; 
+	i_tran_cd.value=document.getElementsByName("tran_cd")[0].value;
+   formObj.appendChild(i_tran_cd); 
+
+   
+    //use_pay_method  
+	var i_use_pay_method  = document.createElement("input");
+	i_use_pay_method.name="use_pay_method"; 
+	i_use_pay_method.value=document.getElementsByName("use_pay_method")[0].value;
+   formObj.appendChild(i_use_pay_method); 
+
+   
+    //card_pay_method  
+	var i_card_pay_method  = document.createElement("input");
+	i_card_pay_method.name="card_pay_method"; 
+	i_card_pay_method.value=document.getElementsByName("card_pay_method")[0].value;
+   formObj.appendChild(i_card_pay_method); 
+
+    
+	//form body에 append
+	document.body.appendChild(formObj);
+	
+	formObj.method="post";
+	formObj.action = getContextPath() + "/test/kakaoPay.do";
+	formObj.submit();
+	
+	
 	} else {
-	alert("[" + frm.res_cd.value + "] " + frm.res_msg.value);
+//	alert("[" + frm.res_cd.value + "] " + frm.res_msg.value);
+		console.log(frm);
+		console.log(frm.res_cd.value);
+		console.log(frm.res_msg.value);
 	closeEvent();
 	}
 	}

@@ -232,7 +232,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			System.out.println("성공했습니다.");
 			
 			//수령자정보, 주문정보를 주문테이블에 반영한다.
-			orderService.addNewOrder(myOrderList);
+//			orderService.addNewOrder(myOrderList);
 			
 			//완료 후 listMyOrderHistory로 리턴.
 			return new ModelAndView("redirect:/mypage/listMyOrderHistory.do");

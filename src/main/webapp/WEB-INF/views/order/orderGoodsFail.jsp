@@ -450,5 +450,5 @@
 <input type="hidden" name="use_pay_method" value=""/>
 <input type="hidden" name="card_pay_method" value=""/>
 </form>
-<script type="text/javascript" src="https://pay.kcp.co.kr/plugin/payplus_web.jsp"></script>
 <script src="${contextPath}/resources/js/order.js"></script>
+<script type="text/javascript" src="https://pay.kcp.co.kr/plugin/payplus_web.jsp"></script>
